@@ -270,15 +270,6 @@ UnableToSelectText:
 	text "Unable to select."
 	done
 
-ColorListText:
-	text "Grass"
-	line "Fire"
-	line "Water"
-	line "Lightning"
-	line "Fighting"
-	line "Psychic"
-	done
-
 GrassSymbolText:
 	textfw "<GRASS>"
 	done

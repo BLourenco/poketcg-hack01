@@ -439,9 +439,13 @@ CheckEnergyNeededForAttack:
 ; two different basic energy types, then this routine only accounts
 ; for the type with the highest index
 
-	; colorless
+	; darkness
 	ld a, [de]
 	swap a
+	call CheckIfEnoughParticularAttachedEnergy
+	; colorless
+	ld a, [de]
+	;swap a
 	and %00001111
 	ld b, a ; colorless energy still needed
 	ld a, [wTempLoadedAttackEnergyCost]
@@ -529,6 +533,7 @@ ConvertColorToEnergyCardID:
 	dw WATER_ENERGY
 	dw FIGHTING_ENERGY
 	dw PSYCHIC_ENERGY
+	dw DARKNESS_ENERGY
 	dw DOUBLE_COLORLESS_ENERGY
 
 ; return carry depending on card index in a:
@@ -883,8 +888,10 @@ CheckEnergyNeededForAttackAfterDiscard:
 	dec c
 	jr nz, .loop
 
-	ld a, [de]
+	ld a, [de] ; darkness
 	swap a
+	call CheckIfEnoughParticularAttachedEnergy
+	ld a, [de]
 	and $0f
 	ld b, a ; colorless energy still needed
 	ld a, [wTempLoadedAttackEnergyCost]
@@ -1516,8 +1523,13 @@ CheckEnergyFlagsNeededInList:
 	jr .check_energy
 .psychic
 	cp16 PSYCHIC_ENERGY
-	jr nz, .colorless
+	jr nz, .darkness
 	ld a, PSYCHIC_F
+	jr .check_energy
+.darkness
+	cp16 DARKNESS_ENERGY
+	jr nz, .colorless
+	ld a, DARKNESS_F
 	jr .check_energy
 .colorless
 	cp16 DOUBLE_COLORLESS_ENERGY
@@ -1605,14 +1617,21 @@ GetAttacksEnergyCostBits:
 .psychic
 	ld a, b
 	and $0f
-	jr z, .colorless
+	jr z, .darkness
 	ld a, PSYCHIC_F
 	or c
 	ld c, a
-.colorless
+.darkness
 	ld a, [hli]
 	ld b, a
 	and $f0
+	jr z, .colorless
+	ld a, DARKNESS_F
+	or c
+	ld c, a
+.colorless
+	ld a, b
+	and $0f
 	jr z, .done
 	ld a, %11111111
 	or c ; unnecessary
@@ -2094,9 +2113,12 @@ CheckIfNoSurplusEnergyForAttack:
 	dec c
 	jr nz, .loop
 
-	; colorless
+	; darkness
 	ld a, [de]
 	swap a
+	call CalculateParticularAttachedEnergyNeeded
+	; colorless
+	ld a, [de]
 	and %00001111
 	ld b, a
 	ld hl, wTempLoadedAttackEnergyCost

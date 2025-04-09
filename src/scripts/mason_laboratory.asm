@@ -54,7 +54,7 @@ Script_ChallengeMachine:
 	quit_script_fully
 
 Script_Tech1:
-	lb bc, 0, (EnergyCardList.end - EnergyCardList) / 2
+	lb bc, 0, ((EnergyCardList.end - EnergyCardList) / 2) ; TODO - don't think this properly accounts for new energy types
 	ld hl, EnergyCardList
 .count_loop
 	ld a, [hli]
@@ -109,6 +109,7 @@ EnergyCardList:
 	dw LIGHTNING_ENERGY
 	dw FIGHTING_ENERGY
 	dw PSYCHIC_ENERGY
+	dw DARKNESS_ENERGY
 .end
 
 Script_Tech2:

@@ -426,54 +426,67 @@ ENDM
 
 ; TX_SYMBOL
 	const_def
-	txsymbol "SPACE"      ; $00
-	txsymbol "FIRE"       ; $01
-	txsymbol "GRASS"      ; $02
-	txsymbol "LIGHTNING"  ; $03
-	txsymbol "WATER"      ; $04
-	txsymbol "FIGHTING"   ; $05
-	txsymbol "PSYCHIC"    ; $06
-	txsymbol "COLORLESS"  ; $07
-	txsymbol "POISONED"   ; $08
-	txsymbol "ASLEEP"     ; $09
-	txsymbol "CONFUSED"   ; $0a
-	txsymbol "PARALYZED"  ; $0b
-	txsymbol "CURSOR_U"   ; $0c
-	txsymbol "POKEMON"    ; $0d
-	txsymbol "ATK_DESCR"  ; $0e
-	txsymbol "CURSOR_R"   ; $0f
-	txsymbol "HP"         ; $10
-	txsymbol "Lv"         ; $11
-	txsymbol "E"          ; $12
-	txsymbol "No"         ; $13
-	txsymbol "PLUSPOWER"  ; $14
-	txsymbol "DEFENDER"   ; $15
-	txsymbol "HP_OK"      ; $16
-	txsymbol "HP_NOK"     ; $17
-	txsymbol "BOX_TOP_L"  ; $18
-	txsymbol "BOX_TOP_R"  ; $19
-	txsymbol "BOX_BTM_L"  ; $1a
-	txsymbol "BOX_BTM_R"  ; $1b
-	txsymbol "BOX_TOP"    ; $1c
-	txsymbol "BOX_BOTTOM" ; $1d
-	txsymbol "BOX_LEFT"   ; $1e
-	txsymbol "BOX_RIGHT"  ; $1f
-	txsymbol "0"          ; $20
-	txsymbol "1"          ; $21
-	txsymbol "2"          ; $22
-	txsymbol "3"          ; $23
-	txsymbol "4"          ; $24
-	txsymbol "5"          ; $25
-	txsymbol "6"          ; $26
-	txsymbol "7"          ; $27
-	txsymbol "8"          ; $28
-	txsymbol "9"          ; $29
-	txsymbol "DOT"        ; $2a
-	txsymbol "PLUS"       ; $2b
-	txsymbol "MINUS"      ; $2c
-	txsymbol "CROSS"      ; $2d
-	txsymbol "SLASH"      ; $2e
-	txsymbol "CURSOR_D"   ; $2f
-	txsymbol "PRIZE"      ; $30
+	txsymbol "SPACE"            ; $00
+	txsymbol "FIRE"             ; $01
+	txsymbol "GRASS"            ; $02
+	txsymbol "LIGHTNING"        ; $03
+	txsymbol "WATER"            ; $04
+	txsymbol "FIGHTING"         ; $05
+	txsymbol "PSYCHIC"          ; $06
+	txsymbol "DARKNESS"         ; $07
+	txsymbol "COLORLESS"        ; $08 ($07)
+	txsymbol "METAL"            ; $09
+	txsymbol "DRAGON"           ; $0a
+	txsymbol "FAIRY"            ; $0b
+	txsymbol "RAINBOW"          ; $0c
+	txsymbol "Lv"               ; $0d ($11)
+	txsymbol "No"               ; $0e ($13)
+	txsymbol "CURSOR_U"         ; $0f ($0c)
+	txsymbol "CURSOR_R"         ; $10 ($0f)
+	txsymbol "CURSOR_D"         ; $11 ($2f)
+	txsymbol "BOX_TOP_L"        ; $12 ($18)
+	txsymbol "BOX_TOP_R"        ; $13 ($19)
+	txsymbol "BOX_BTM_L"        ; $14 ($1a)
+	txsymbol "BOX_BTM_R"        ; $15 ($1b)
+	txsymbol "BOX_TOP"          ; $16 ($1c)
+	txsymbol "BOX_BOTTOM"       ; $17 ($1d)
+	txsymbol "BOX_LEFT"         ; $18 ($1e)
+	txsymbol "BOX_RIGHT"        ; $19 ($1f)
+	txsymbol "POKEMON"          ; $1a ($0d)
+	txsymbol "0"                ; $1b ($20)
+	txsymbol "1"                ; $1c ($21)
+	txsymbol "2"                ; $1d ($22)
+	txsymbol "3"                ; $1e ($23)
+	txsymbol "4"                ; $1f ($24)
+	txsymbol "5"                ; $20 ($25)
+	txsymbol "6"                ; $21 ($26)
+	txsymbol "7"                ; $22 ($27)
+	txsymbol "8"                ; $23 ($28)
+	txsymbol "9"                ; $24 ($29)
+	txsymbol "HP"               ; $25 ($10)
+	txsymbol "E"                ; $26 ($12)
+	txsymbol "DOT"              ; $27 ($2a)
+	txsymbol "PLUS"             ; $28 ($2b)
+	txsymbol "MINUS"            ; $29 ($2c)
+	txsymbol "CROSS"            ; $2a ($2d)
+	txsymbol "SLASH"            ; $2b ($2e)
+	txsymbol "ATK_DESCR"        ; $2c ($0e)
+	txsymbol "HP_OK"            ; $2d ($16)
+	txsymbol "HP_NOK"           ; $2e ($17)
+	txsymbol "CHERRY"           ; $2f
+	txsymbol "PLUSPOWER"        ; $30 ($14)
+	txsymbol "DEFENDER"         ; $31 ($15)
+	txsymbol "POISONED"         ; $32 ($08)
+	txsymbol "ASLEEP"           ; $33 ($09)
+	txsymbol "CONFUSED"         ; $34 ($0a)
+	txsymbol "PARALYZED"        ; $35 ($0b)
+	txsymbol "PRIZE"            ; $36 ($30)
+	txsymbol "SEP_TOP_CURVE1"   ; $37
+	txsymbol "SEP_TOP_CURVE2"   ; $38
+	txsymbol "SEP_VERT1"        ; $39
+	txsymbol "SEP_VERT2"        ; $3a
+	txsymbol "SEP_BOT_CURVE1"   ; $3b
+	txsymbol "SEP_BOT_CURVE2"   ; $3c
+	txsymbol "SEP_HOR"          ; $3d
 
 SETCHARMAP main

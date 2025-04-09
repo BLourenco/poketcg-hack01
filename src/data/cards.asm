@@ -499,7 +499,7 @@ BeedrillCard:
 	db 0 ; AI info
 
 EkansCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx EkansCardGfx ; gfx
 	tx EkansName ; name
 	db CIRCLE ; rarity
@@ -510,7 +510,7 @@ EkansCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1 ; energies
+	energy DARKNESS, 1 ; energies
 	tx SpitPoisonName ; name
 	tx MayInflictPoisonDescription ; description
 	dw NONE ; description (cont)
@@ -524,7 +524,7 @@ EkansCard:
 	db ATK_ANIM_SPIT_POISON ; animation
 
 	; attack 2
-	energy GRASS, 1, COLORLESS, 1 ; energies
+	energy DARKNESS, 1, COLORLESS, 1 ; energies
 	tx WrapName ; name
 	tx MayInflictParalysisDescription ; description
 	dw NONE ; description (cont)
@@ -538,7 +538,7 @@ EkansCard:
 	db ATK_ANIM_HIT ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx SnakeName ; category
 	db 23 ; Pokedex number
@@ -549,7 +549,7 @@ EkansCard:
 	db AI_INFO_UNK_03 | HAS_EVOLUTION ; AI info
 
 ArbokCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx ArbokCardGfx ; gfx
 	tx ArbokName ; name
 	db DIAMOND ; rarity
@@ -560,7 +560,7 @@ ArbokCard:
 	tx EkansName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1 ; energies
+	energy DARKNESS, 1 ; energies
 	tx TerrorStrikeName ; name
 	tx TerrorStrikeDescription ; description
 	dw NONE ; description (cont)
@@ -574,7 +574,7 @@ ArbokCard:
 	db ATK_ANIM_TERROR_STRIKE ; animation
 
 	; attack 2
-	energy GRASS, 2, COLORLESS, 1 ; energies
+	energy DARKNESS, 2, COLORLESS, 1 ; energies
 	tx PoisonFangName ; name
 	tx InflictPoisonDescription ; description
 	dw NONE ; description (cont)
@@ -588,7 +588,7 @@ ArbokCard:
 	db ATK_ANIM_POISON_FANG ; animation
 
 	db 2 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx CobraName ; category
 	db 24 ; Pokedex number
@@ -599,7 +599,7 @@ ArbokCard:
 	db 0 ; AI info
 
 NidoranFCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx NidoranFCardGfx ; gfx
 	tx NidoranFName ; name
 	db CIRCLE ; rarity
@@ -610,7 +610,7 @@ NidoranFCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1 ; energies
+	energy DARKNESS, 1 ; energies
 	tx FurySwipesName ; name
 	tx TripleAttackX10Description ; description
 	dw NONE ; description (cont)
@@ -624,7 +624,7 @@ NidoranFCard:
 	db ATK_ANIM_MULTIPLE_SLASH ; animation
 
 	; attack 2
-	energy GRASS, 2 ; energies
+	energy DARKNESS, 2 ; energies
 	tx CallForFamilyName ; name
 	tx NidoranFsCallForFamilyDescription ; description
 	dw NONE ; description (cont)
@@ -638,7 +638,7 @@ NidoranFCard:
 	db ATK_ANIM_GLOW_EFFECT ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx PoisonPinName ; category
 	db 29 ; Pokedex number
@@ -649,7 +649,7 @@ NidoranFCard:
 	db AI_INFO_UNK_03 | HAS_EVOLUTION ; AI info
 
 NidorinaCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx NidorinaCardGfx ; gfx
 	tx NidorinaName ; name
 	db DIAMOND ; rarity
@@ -660,7 +660,7 @@ NidorinaCard:
 	tx NidoranFName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1 ; energies
+	energy DARKNESS, 1 ; energies
 	tx SupersonicName ; name
 	tx MayInflictConfusionDescription ; description
 	dw NONE ; description (cont)
@@ -674,7 +674,7 @@ NidorinaCard:
 	db ATK_ANIM_SUPERSONIC ; animation
 
 	; attack 2
-	energy GRASS, 1, COLORLESS, 2 ; energies
+	energy DARKNESS, 1, COLORLESS, 2 ; energies
 	tx DoubleKickName ; name
 	tx DoubleAttackX30Description ; description
 	dw NONE ; description (cont)
@@ -688,7 +688,7 @@ NidorinaCard:
 	db ATK_ANIM_LEG_SWEEP ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx PoisonPinName ; category
 	db 30 ; Pokedex number
@@ -699,7 +699,7 @@ NidorinaCard:
 	db HAS_EVOLUTION ; AI info
 
 NidoqueenCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx NidoqueenCardGfx ; gfx
 	tx NidoqueenName ; name
 	db STAR ; rarity
@@ -710,7 +710,7 @@ NidoqueenCard:
 	tx NidorinaName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1, COLORLESS, 1 ; energies
+	energy DARKNESS, 1, COLORLESS, 1 ; energies
 	tx BoyfriendsName ; name
 	tx BoyfriendsDescription ; description
 	dw NONE ; description (cont)
@@ -724,7 +724,7 @@ NidoqueenCard:
 	db ATK_ANIM_BOYFRIENDS ; animation
 
 	; attack 2
-	energy GRASS, 2, COLORLESS, 2 ; energies
+	energy DARKNESS, 2, COLORLESS, 2 ; energies
 	tx MegaPunchName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
@@ -738,7 +738,7 @@ NidoqueenCard:
 	db ATK_ANIM_MEGA_PUNCH ; animation
 
 	db 3 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx DrillName ; category
 	db 31 ; Pokedex number
@@ -749,7 +749,7 @@ NidoqueenCard:
 	db 0 ; AI info
 
 NidoranMCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx NidoranMCardGfx ; gfx
 	tx NidoranMName ; name
 	db CIRCLE ; rarity
@@ -760,7 +760,7 @@ NidoranMCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1 ; energies
+	energy DARKNESS, 1 ; energies
 	tx HornHazardName ; name
 	tx MayDoNothingDescription ; description
 	dw NONE ; description (cont)
@@ -788,7 +788,7 @@ NidoranMCard:
 	db ATK_ANIM_NONE ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx PoisonPinName ; category
 	db 32 ; Pokedex number
@@ -799,7 +799,7 @@ NidoranMCard:
 	db AI_INFO_UNK_03 | HAS_EVOLUTION ; AI info
 
 NidorinoCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx NidorinoCardGfx ; gfx
 	tx NidorinoName ; name
 	db DIAMOND ; rarity
@@ -810,7 +810,7 @@ NidorinoCard:
 	tx NidoranMName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1, COLORLESS, 2 ; energies
+	energy DARKNESS, 1, COLORLESS, 2 ; energies
 	tx DoubleKickName ; name
 	tx DoubleAttackX30Description ; description
 	dw NONE ; description (cont)
@@ -824,7 +824,7 @@ NidorinoCard:
 	db ATK_ANIM_LEG_SWEEP ; animation
 
 	; attack 2
-	energy GRASS, 2, COLORLESS, 2 ; energies
+	energy DARKNESS, 2, COLORLESS, 2 ; energies
 	tx HornDrillName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
@@ -838,7 +838,7 @@ NidorinoCard:
 	db ATK_ANIM_DRILL ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx PoisonPinName ; category
 	db 33 ; Pokedex number
@@ -849,7 +849,7 @@ NidorinoCard:
 	db HAS_EVOLUTION ; AI info
 
 NidokingCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx NidokingCardGfx ; gfx
 	tx NidokingName ; name
 	db STAR ; rarity
@@ -860,7 +860,7 @@ NidokingCard:
 	tx NidorinoName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1, COLORLESS, 2 ; energies
+	energy DARKNESS, 1, COLORLESS, 2 ; energies
 	tx ThrashName ; name
 	tx ThrashDescription ; description
 	dw NONE ; description (cont)
@@ -874,7 +874,7 @@ NidokingCard:
 	db ATK_ANIM_MULTIPLE_SLASH ; animation
 
 	; attack 2
-	energy GRASS, 3 ; energies
+	energy DARKNESS, 3 ; energies
 	tx ToxicName ; name
 	tx ToxicDescription ; description
 	dw NONE ; description (cont)
@@ -888,7 +888,7 @@ NidokingCard:
 	db ATK_ANIM_TOXIC ; animation
 
 	db 3 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx DrillName ; category
 	db 34 ; Pokedex number
@@ -899,7 +899,7 @@ NidokingCard:
 	db 0 ; AI info
 
 ZubatCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx ZubatCardGfx ; gfx
 	tx ZubatName ; name
 	db CIRCLE ; rarity
@@ -924,7 +924,7 @@ ZubatCard:
 	db ATK_ANIM_SUPERSONIC ; animation
 
 	; attack 2
-	energy GRASS, 1, COLORLESS, 1 ; energies
+	energy DARKNESS, 1, COLORLESS, 1 ; energies
 	tx LeechLifeName ; name
 	tx ZubatsLeechLifeDescription ; description
 	dw NONE ; description (cont)
@@ -938,7 +938,7 @@ ZubatCard:
 	db ATK_ANIM_DRAIN ; animation
 
 	db 0 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_LIGHTNING ; weakness
 	db WR_FIGHTING ; resistance
 	tx BatName ; category
 	db 41 ; Pokedex number
@@ -949,7 +949,7 @@ ZubatCard:
 	db HAS_EVOLUTION ; AI info
 
 GolbatCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx GolbatCardGfx ; gfx
 	tx GolbatName ; name
 	db DIAMOND ; rarity
@@ -974,7 +974,7 @@ GolbatCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy GRASS, 2, COLORLESS, 1 ; energies
+	energy DARKNESS, 2, COLORLESS, 1 ; energies
 	tx LeechLifeName ; name
 	tx GolbatsLeechLifeDescription ; description
 	dw NONE ; description (cont)
@@ -988,7 +988,7 @@ GolbatCard:
 	db ATK_ANIM_DRAIN ; animation
 
 	db 0 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_LIGHTNING ; weakness
 	db WR_FIGHTING ; resistance
 	tx BatName ; category
 	db 42 ; Pokedex number
@@ -1499,7 +1499,7 @@ VictreebelCard:
 	db 0 ; AI info
 
 GrimerCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx GrimerCardGfx ; gfx
 	tx GrimerName ; name
 	db CIRCLE ; rarity
@@ -1524,7 +1524,7 @@ GrimerCard:
 	db ATK_ANIM_GOO ; animation
 
 	; attack 2
-	energy GRASS, 1 ; energies
+	energy DARKNESS, 1 ; energies
 	tx MinimizeName ; name
 	tx GrimersMinimizeDescription ; description
 	dw NONE ; description (cont)
@@ -1538,7 +1538,7 @@ GrimerCard:
 	db ATK_ANIM_PROTECT ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx SludgeName ; category
 	db 88 ; Pokedex number
@@ -1549,7 +1549,7 @@ GrimerCard:
 	db AI_INFO_UNK_03 | HAS_EVOLUTION ; AI info
 
 MukCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx MukCardGfx ; gfx
 	tx MukName ; name
 	db STAR ; rarity
@@ -1574,7 +1574,7 @@ MukCard:
 	db ATK_ANIM_PKMN_POWER_1 ; animation
 
 	; attack 2
-	energy GRASS, 3 ; energies
+	energy DARKNESS, 3 ; energies
 	tx SludgeName ; name
 	tx MayInflictPoisonDescription ; description
 	dw NONE ; description (cont)
@@ -1588,7 +1588,7 @@ MukCard:
 	db ATK_ANIM_GOO ; animation
 
 	db 2 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx SludgeName ; category
 	db 89 ; Pokedex number
@@ -1699,7 +1699,7 @@ ExeggutorCard:
 	db 0 ; AI info
 
 KoffingCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx KoffingCardGfx ; gfx
 	tx KoffingName ; name
 	db CIRCLE ; rarity
@@ -1710,7 +1710,7 @@ KoffingCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy GRASS, 2 ; energies
+	energy DARKNESS, 2 ; energies
 	tx FoulGasName ; name
 	tx FoulGasDescription ; description
 	dw NONE ; description (cont)
@@ -1738,7 +1738,7 @@ KoffingCard:
 	db ATK_ANIM_NONE ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx PoisonGasName ; category
 	db 109 ; Pokedex number
@@ -1749,7 +1749,7 @@ KoffingCard:
 	db HAS_EVOLUTION ; AI info
 
 WeezingCard:
-	db TYPE_PKMN_GRASS ; type
+	db TYPE_PKMN_DARKNESS ; type
 	gfx WeezingCardGfx ; gfx
 	tx WeezingName ; name
 	db DIAMOND ; rarity
@@ -1760,7 +1760,7 @@ WeezingCard:
 	tx KoffingName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 2 ; energies
+	energy DARKNESS, 2 ; energies
 	tx SmogName ; name
 	tx MayInflictPoisonDescription ; description
 	dw NONE ; description (cont)
@@ -1774,7 +1774,7 @@ WeezingCard:
 	db ATK_ANIM_SMOG ; animation
 
 	; attack 2
-	energy GRASS, 2, COLORLESS, 1 ; energies
+	energy DARKNESS, 2, COLORLESS, 1 ; energies
 	tx SelfdestructName ; name
 	tx WeezingsSelfdestructDescription ; description
 	dw NONE ; description (cont)
@@ -1788,7 +1788,7 @@ WeezingCard:
 	db ATK_ANIM_SELFDESTRUCT ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx PoisonGasName ; category
 	db 110 ; Pokedex number
@@ -6738,7 +6738,7 @@ AbraCard:
 	db ATK_ANIM_NONE ; animation
 
 	db 0 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx PsiName ; category
 	db 63 ; Pokedex number
@@ -6788,7 +6788,7 @@ KadabraCard:
 	db ATK_ANIM_PSYCHIC_HIT ; animation
 
 	db 3 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx PsiName ; category
 	db 64 ; Pokedex number
@@ -6838,7 +6838,7 @@ AlakazamCard:
 	db ATK_ANIM_CONFUSE_RAY ; animation
 
 	db 3 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx PsiName ; category
 	db 65 ; Pokedex number
@@ -6888,7 +6888,7 @@ SlowpokeLv9Card:
 	db ATK_ANIM_AMNESIA ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx DopeyName ; category
 	db 79 ; Pokedex number
@@ -6938,7 +6938,7 @@ SlowpokeLv18Card:
 	db ATK_ANIM_GLOW_EFFECT ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx DopeyName ; category
 	db 79 ; Pokedex number
@@ -6988,7 +6988,7 @@ SlowbroCard:
 	db ATK_ANIM_PSYCHIC_HIT ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx HermitcrabName ; category
 	db 80 ; Pokedex number
@@ -7038,7 +7038,7 @@ GastlyLv8Card:
 	db ATK_ANIM_GLOW_EFFECT ; animation
 
 	db 0 ; retreat cost
-	db NONE ; weakness
+	db WR_DARKNESS ; weakness
 	db WR_FIGHTING ; resistance
 	tx GasName ; category
 	db 92 ; Pokedex number
@@ -7088,7 +7088,7 @@ GastlyLv17Card:
 	db ATK_ANIM_ENERGY_CONVERSION ; animation
 
 	db 0 ; retreat cost
-	db NONE ; weakness
+	db WR_DARKNESS ; weakness
 	db WR_FIGHTING ; resistance
 	tx GasName ; category
 	db 92 ; Pokedex number
@@ -7138,7 +7138,7 @@ HaunterLv17Card:
 	db ATK_ANIM_NIGHTMARE ; animation
 
 	db 0 ; retreat cost
-	db NONE ; weakness
+	db WR_DARKNESS ; weakness
 	db WR_FIGHTING ; resistance
 	tx GasName ; category
 	db 93 ; Pokedex number
@@ -7188,7 +7188,7 @@ HaunterLv22Card:
 	db ATK_ANIM_PSYCHIC_HIT ; animation
 
 	db 1 ; retreat cost
-	db NONE ; weakness
+	db WR_DARKNESS ; weakness
 	db WR_FIGHTING ; resistance
 	tx GasName ; category
 	db 93 ; Pokedex number
@@ -7238,7 +7238,7 @@ GengarCard:
 	db ATK_ANIM_DARK_MIND ; animation
 
 	db 1 ; retreat cost
-	db NONE ; weakness
+	db WR_DARKNESS ; weakness
 	db WR_FIGHTING ; resistance
 	tx ShadowName ; category
 	db 94 ; Pokedex number
@@ -7288,7 +7288,7 @@ DrowzeeCard:
 	db ATK_ANIM_CONFUSE_RAY ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx HypnosisName ; category
 	db 96 ; Pokedex number
@@ -7338,7 +7338,7 @@ HypnoCard:
 	db ATK_ANIM_DARK_MIND ; animation
 
 	db 2 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx HypnosisName ; category
 	db 97 ; Pokedex number
@@ -7388,7 +7388,7 @@ MrMimeCard:
 	db ATK_ANIM_PSYCHIC_HIT ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx BarrierName ; category
 	db 122 ; Pokedex number
@@ -7438,7 +7438,7 @@ JynxCard:
 	db ATK_ANIM_PSYCHIC_HIT ; animation
 
 	db 2 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx HumanShapeName ; category
 	db 124 ; Pokedex number
@@ -7488,7 +7488,7 @@ MewtwoLv53Card:
 	db ATK_ANIM_BARRIER ; animation
 
 	db 3 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx GeneticName ; category
 	db 150 ; Pokedex number
@@ -7538,7 +7538,7 @@ MewtwoLv60Card:
 	db ATK_ANIM_PSYCHIC_HIT ; animation
 
 	db 2 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx GeneticName ; category
 	db 150 ; Pokedex number
@@ -7588,7 +7588,7 @@ MewtwoAltLv60Card:
 	db ATK_ANIM_PSYCHIC_HIT ; animation
 
 	db 2 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx GeneticName ; category
 	db 150 ; Pokedex number
@@ -7638,7 +7638,7 @@ MewLv8Card:
 	db ATK_ANIM_PSYCHIC_HIT ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx NewSpeciesName ; category
 	db 151 ; Pokedex number
@@ -7688,7 +7688,7 @@ MewLv15Card:
 	db ATK_ANIM_NONE ; animation
 
 	db 0 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx NewSpeciesName ; category
 	db 151 ; Pokedex number
@@ -7738,7 +7738,7 @@ MewLv23Card:
 	db ATK_ANIM_NONE ; animation
 
 	db 1 ; retreat cost
-	db WR_PSYCHIC ; weakness
+	db WR_DARKNESS ; weakness
 	db NONE ; resistance
 	tx NewSpeciesName ; category
 	db 151 ; Pokedex number
@@ -9412,6 +9412,17 @@ PsychicEnergyCard:
 	dw PSYCHIC_ENERGY
 	dw PsychicEnergyEffectCommands ; effect commands
 	tx PsychicEnergyDescription ; description
+	dw NONE ; description (cont)
+
+DarknessEnergyCard:
+	db TYPE_ENERGY_DARKNESS ; type
+	gfx DarknessEnergyCardGfx ; gfx
+	tx DarknessEnergyName ; name
+	db CIRCLE ; rarity
+	db ENERGY | NONE ; sets
+	dw DARKNESS_ENERGY
+	dw DarknessEnergyEffectCommands ; effect commands
+	tx DarknessEnergyDescription ; description
 	dw NONE ; description (cont)
 
 DoubleColorlessEnergyCard:

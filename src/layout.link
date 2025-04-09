@@ -187,6 +187,8 @@ ROMX $45
 	"Sfx 2"
 ROMX $46
 	"Sfx 3"
+ROMX $47
+	"Card Gfx 13"
 WRAM0
 	"WRAM"
 	"WRAM Duels 1"

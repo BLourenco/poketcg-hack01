@@ -94,9 +94,9 @@ InputPlayerName:
 	ld [wNamingScreenNumColumns], a
 	ld a, $06
 	ld [wNamingScreenKeyboardHeight], a
-	ld a, $0f
+	ld a, SYM_CURSOR_R
 	ld [wVisibleCursorTile], a
-	ld a, $00
+	ld a, SYM_SPACE
 	ld [wInvisibleCursorTile], a
 .loop
 	ld a, $01
@@ -457,7 +457,7 @@ PlayerNamingScreen_CheckButtonState:
 	ld hl, wCheckMenuCursorBlinkCounter
 	ld a, [hl]
 	inc [hl]
-	and $0f
+	and SYM_CURSOR_R
 	ret nz
 	ld a, [wVisibleCursorTile]
 	bit 4, [hl]
@@ -1009,9 +1009,9 @@ InputDeckName:
 	ld [wNamingScreenNumColumns], a
 	ld a, $07
 	ld [wNamingScreenKeyboardHeight], a
-	ld a, $0f
+	ld a, SYM_CURSOR_R
 	ld [wVisibleCursorTile], a
-	ld a, $00
+	ld a, SYM_SPACE
 	ld [wInvisibleCursorTile], a
 .loop
 	ld a, $01
@@ -1323,7 +1323,7 @@ DeckNamingScreen_CheckButtonState:
 	ld hl, wCheckMenuCursorBlinkCounter
 	ld a, [hl]
 	inc [hl]
-	and $0f
+	and SYM_CURSOR_R
 	ret nz
 	ld a, [wVisibleCursorTile]
 	bit 4, [hl]

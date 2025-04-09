@@ -212,4 +212,29 @@ DeclinedPracticeDuelText:
 
 WouldYouLikeToConcedeText:
 	text "     Would you like to concede?"
+
+ColorListText:
+	text "Grass"
+	line "Fire"
+	line "Water"
+	line "Lightning"
+	line "Fighting"
+	line "Psychic"
+	line "Darkness"
+	done
+
+DarknessPokemonText:
+	text "Darkness Pokémon"
+	done
+
+DarknessEnergyName:
+	text "Darkness Energy"
+	done
+
+DarknessEnergyDescription:
+	text "Provides 1 <DARKNESS> Energy."
+	done
+
+DarknessSymbolText:
+	textfw "<DARKNESS>"
 	done

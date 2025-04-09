@@ -2322,3 +2322,10 @@ RecycleCardGfx::
 	INCBIN "gfx/cards/recycle.pal"
 	INCBIN "gfx/cards/recycle.attrmap"
 	INCBIN "gfx/cards/recycle.2bpp"
+
+SECTION "Card Gfx 13", ROMX
+
+DarknessEnergyCardGfx::
+	INCBIN "gfx/cards/darkness_energy.pal"
+	INCBIN "gfx/cards/darkness_energy.attrmap"
+	INCBIN "gfx/cards/darkness_energy.2bpp"
