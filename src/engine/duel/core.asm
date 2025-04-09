@@ -4192,7 +4192,7 @@ DisplayCardPage_PokemonDescription:
 	call WriteDataBlocksToBGMap0
 	; draw the card symbol associated to its TYPE_* at 3,2
 	lb de, 3, 2
-	call DrawCardSymbol
+	call DrawCardSymbol ; TODO - slight difference between this version and vanilla here because vanilla prints the FACE DOWN tile for a Basic Pokemon, but my code prints the regular tile. Not sure why mine is different off the top of my head but tbh it looks better and more consistent?
 	; print the Level and HP numbers at 12,2 and 16,2 respectively
 	lb bc, 12, 2
 	ld a, [wLoadedCard1Level]

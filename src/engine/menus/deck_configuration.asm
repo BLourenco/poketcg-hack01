@@ -836,7 +836,7 @@ CheckIfThereAreAnyBasicCardsInDeck:
 	ret
 
 FiltersCardSelectionParams:
-	db 1 ; x pos
+	db 0 ; x pos
 	db 1 ; y pos
 	db 0 ; y spacing
 	db 2 ; x spacing
@@ -950,7 +950,7 @@ DrawCardTypeIcons:
 	lb bc, 2, 2
 	lb hl, 0, 0
 	call BankswitchVRAM1
-	call FillRectangle ; uses de for coordinates
+	call FillVRAM1Rectangle
 	call BankswitchVRAM0
 	pop hl
 	ret
@@ -986,16 +986,16 @@ FilterIconOrder:
 
 CardTypeIcons:
 ; icon tile, x coord, y coord
-	db ICON_TILE_GRASS,      1, 2
-	db ICON_TILE_FIRE,       3, 2
-	db ICON_TILE_WATER,      5, 2
-	db ICON_TILE_LIGHTNING,  7, 2
-	db ICON_TILE_FIGHTING,   9, 2
-	db ICON_TILE_PSYCHIC,   11, 2
-	db ICON_TILE_DARKNESS,  13, 2
-	db ICON_TILE_COLORLESS, 15, 2
-	db ICON_TILE_TRAINER,   17, 2
-	;db ICON_TILE_ENERGY,    19, 2
+	db ICON_TILE_GRASS,      0, 2
+	db ICON_TILE_FIRE,       2, 2
+	db ICON_TILE_WATER,      4, 2
+	db ICON_TILE_LIGHTNING,  6, 2
+	db ICON_TILE_FIGHTING,   8, 2
+	db ICON_TILE_PSYCHIC,   10, 2
+	db ICON_TILE_DARKNESS,  12, 2
+	db ICON_TILE_COLORLESS, 14, 2
+	db ICON_TILE_TRAINER,   16, 2
+	db ICON_TILE_ENERGY,    18, 2
 	db $00
 
 DeckBuildMenuData:
@@ -1451,7 +1451,7 @@ PrintCardTypeCounts:
 	cp c
 	jr nz, .loop
 	ld [hl], TX_END
-	lb de, 1, 4 ; x,y position to start printing from
+	lb de, 0, 4 ; x,y position to start printing from
 	call InitTextPrinting
 	ld hl, wDefaultText
 	jp ProcessText
@@ -2989,7 +2989,7 @@ PrintConfirmationCardList:
 	lb bc, 2, 2
 	lb hl, 0, 0
 	call BankswitchVRAM1
-	call FillRectangle
+	call FillVRAM1Rectangle
 	call BankswitchVRAM0
 	pop bc
 	pop de
