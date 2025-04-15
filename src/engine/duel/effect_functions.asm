@@ -1168,7 +1168,7 @@ HandleColorChangeScreen:
 	push af
 	call EmptyScreen
 	call ZeroObjectPositions
-	call LoadDuelCardSymbolTiles
+	call LoadVRAM1DuelCardSymbolTiles
 	bank1call SetDefaultConsolePalettes
 
 ; load card data

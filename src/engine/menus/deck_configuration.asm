@@ -922,9 +922,9 @@ FillDEWithA:
 	ret
 
 ; draws all the card type icons
-; in a line specified by .CardTypeIcons
+; in a line specified by CardTypeIcons
 DrawCardTypeIcons:
-	ld hl, .CardTypeIcons
+	ld hl, CardTypeIcons
 .loop
 	ld a, [hli]
 	or a
@@ -949,12 +949,41 @@ DrawCardTypeIcons:
 	lb bc, 2, 2
 	lb hl, 0, 0
 	call BankswitchVRAM1
-	call FillVRAM1Rectangle
+	call FillRectangle
 	call BankswitchVRAM0
 	pop hl
 	ret
 
-.CardTypeIcons
+; The positions of the filter icons at the top of the deck config and card catalogue screens
+; The filters at each position will shift as you scroll horizontally through them
+FilterIconPositions:
+	db  1, 2
+	db  3, 2
+	db  5, 2
+	db  7, 2
+	db  9, 2
+	db 11, 2
+	db 13, 2
+	db 15, 2
+	db 17, 2
+	db $00
+
+FilterIconOrder:
+	db ICON_TILE_GRASS,
+	db ICON_TILE_FIRE,
+	db ICON_TILE_WATER,
+	db ICON_TILE_LIGHTNING,
+	db ICON_TILE_FIGHTING,
+	db ICON_TILE_PSYCHIC,
+	db ICON_TILE_DARKNESS,
+	;db ICON_TILE_METAL,
+	;db ICON_TILE_DRAGON,
+	db ICON_TILE_COLORLESS,
+	db ICON_TILE_TRAINER,
+	db ICON_TILE_ENERGY,
+	db $00
+
+CardTypeIcons:
 ; icon tile, x coord, y coord
 	db ICON_TILE_GRASS,      0, 2
 	db ICON_TILE_FIRE,       2, 2
@@ -1693,7 +1722,7 @@ HandleCardSelectionInput:
 	or a
 	jr z, .handle_ab_btns
 
-; handle d-pad
+; handle d-pad      ; TODO: Allow horizontal scrolling of filters
 	ld b, a
 	ld a, [wCardListNumCursorPositions]
 	ld c, a
@@ -2620,6 +2649,7 @@ ShowDeckInfoHeader:
 	lb de, 16, 1
 	call PrintSlashSixty
 	call TallyCardsInCardFilterLists
+	call LoadVRAM0DuelCardSymbolTiles
 	jp EnableLCD
 
 ; prints the name of wCurDeck in the form
@@ -2958,7 +2988,7 @@ PrintConfirmationCardList:
 	lb bc, 2, 2
 	lb hl, 0, 0
 	call BankswitchVRAM1
-	call FillVRAM1Rectangle
+	call FillRectangle
 	call BankswitchVRAM0
 	pop bc
 	pop de
@@ -3077,7 +3107,7 @@ HandlePlayersCardsScreen:
 	jr z, .wait_input
 
 	xor a
-	ld hl, Data_a396
+	ld hl, CardListSelectionParams
 	call InitCardSelectionParams
 	ld a, [wNumEntriesInCurFilter]
 	ld [wNumCardListEntries], a
@@ -3131,7 +3161,7 @@ HandlePlayersCardsScreen:
 	call DrawHorizontalListCursor_Visible
 	call PrintCardSelectionList
 	call EnableLCD
-	ld hl, Data_a396
+	ld hl, CardListSelectionParams
 	call InitCardSelectionParams
 	ld a, [wTempCardListNumCursorPositions]
 	ld [wCardListNumCursorPositions], a
@@ -3157,7 +3187,7 @@ HandlePlayersCardsScreen:
 	ld [hl], $00
 	jp .wait_input
 
-Data_a396:
+CardListSelectionParams:
 	db 1 ; x pos
 	db 5 ; y pos
 	db 2 ; y spacing
@@ -3423,6 +3453,11 @@ PrintPlayersCardsText:
 	jp ProcessTextFromID
 
 PrintTotalNumberOfCardsInCollection:
+	; Print prize icon
+	lb bc, 18, 0
+	ld a, SYM_PRIZE
+	call WriteVRAM1ByteToBGMap0
+	
 	ld a, ALL_DECKS
 	call CreateCardCollectionListWithDeckCards
 

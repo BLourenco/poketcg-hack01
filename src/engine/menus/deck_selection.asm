@@ -49,7 +49,7 @@ EmptyScreenAndLoadFontDuelAndHandCardsIcons:
 	ld a, $1
 	ld [wVBlankOAMCopyToggle], a
 	call LoadSymbolsFont
-	call LoadDuelCardSymbolTiles
+	call LoadVRAM1DuelCardSymbolTiles
 	call LoadHandCardsIcon
 	bank1call SetDefaultConsolePalettes
 	lb de, $3c, $bf
@@ -67,7 +67,7 @@ PrepareMenuGraphics:
 	ld [wVBlankOAMCopyToggle], a
 	call LoadCursorTile
 	call LoadSymbolsFont
-	call LoadDuelCardSymbolTiles
+	call LoadVRAM0DuelCardSymbolTiles
 	call LoadHandCardsIcon
 	bank1call SetDefaultConsolePalettes
 	lb de, $3c, $bf

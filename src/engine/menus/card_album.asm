@@ -816,7 +816,7 @@ CardAlbum:
 	ld [wVBlankOAMCopyToggle], a
 	call LoadCursorTile
 	call LoadSymbolsFont
-	call LoadDuelCardSymbolTiles
+	call LoadVRAM1DuelCardSymbolTiles
 	bank1call SetDefaultConsolePalettes
 	lb de, $3c, $ff
 	call SetupText
@@ -921,7 +921,7 @@ CardAlbum:
 
 	call LoadCursorTile
 	call LoadSymbolsFont
-	call LoadDuelCardSymbolTiles
+	call LoadVRAM1DuelCardSymbolTiles
 	bank1call SetDefaultConsolePalettes
 	lb de, $3c, $ff
 	call SetupText
