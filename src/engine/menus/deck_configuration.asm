@@ -374,7 +374,7 @@ HandleDeckBuildScreen:
 	ld b, a
 	ld a, [wTempCardTypeFilter]
 	cp b
-	jr z, .check_down_btn
+	jr z, .skip_refresh
 	; need to refresh the filtered card list
 	ld [wCurCardTypeFilter], a
 	ld hl, wCardListVisibleOffset
@@ -383,14 +383,7 @@ HandleDeckBuildScreen:
 	ld a, NUM_FILTERS
 	ld [wCardListNumCursorPositions], a
 
-.check_down_btn
-	ldh a, [hDPadHeld]
-	and PAD_DOWN
-	jr z, .no_down_btn
-	call ConfirmSelectionAndReturnCarry
-	jr .jump_to_list
-
-.no_down_btn
+.skip_refresh
 	call HandleCardSelectionInput
 	jr nc, .wait_input
 	ldh a, [hffb3]
@@ -837,9 +830,9 @@ CheckIfThereAreAnyBasicCardsInDeck:
 
 FiltersCardSelectionParams:
 	db 0 ; x pos
-	db 1 ; y pos
-	db 0 ; y spacing
-	db 2 ; x spacing
+	db 0 ; y pos
+	db 3 ; y spacing
+	db 3 ; x spacing
 	db NUM_FILTERS ; num entries
 	db SYM_CURSOR_D ; visible cursor tile
 	db SYM_SPACE ; invisible cursor tile
@@ -870,15 +863,15 @@ DeckConfigurationMenu_TransitionTable:
 DrawCardTypeIconsAndPrintCardCounts:
 	call Set_OBJ_8x8
 	call PrepareMenuGraphics
-	lb bc, 0, 5
+	lb bc, 0, 6
 	ld a, SYM_BOX_TOP
 	call FillBGMapLineWithA
 	call DrawCardTypeIcons
 	call PrintCardTypeCounts
-	lb de, 15, 0
+	lb de, 18, 5
 	call PrintTotalCardCount
-	lb de, 17, 0
-	call PrintSlashSixty
+	lb de, 18, 3
+	call PrintDeckIcon
 	jp EnableLCD
 
 ; fills one line at coordinate bc in BG Map
@@ -922,9 +915,17 @@ FillDEWithA:
 	ret
 
 ; draws all the card type icons
+; in a line specified by CollectionCardTypeIcons
+; used for the CARDS menu to tidy the display
+DrawCollectionCardTypeIcons:
+	ld hl, CollectionCardTypeIcons
+	jr DrawCardTypeIconsCont
+; draws all the card type icons
 ; in a line specified by CardTypeIcons
 DrawCardTypeIcons:
-	ld hl, CardTypeIcons  ; Load icons and their positions into hl
+	ld hl, CardTypeIcons
+	; fallthrough
+DrawCardTypeIconsCont:
 .loop
 	ld a, [hli]           ; Load byte pointed to by hl into a, then increment hl
 	or a                  ; Check for list terminator ($00)
@@ -950,53 +951,80 @@ DrawCardTypeIcons:
 	lb bc, 2, 2
 	lb hl, 0, 0
 	call BankswitchVRAM1
-	call FillVRAM1Rectangle
+	call FillRectangle
 	call BankswitchVRAM0
 	pop hl
 	ret
 
-; The positions of the filter icons at the top of the deck config and card catalogue screens
-; The filters at each position will shift as you scroll horizontally through them
-FilterIconPositions:
-	db  1, 2
-	db  3, 2
-	db  5, 2
-	db  7, 2
-	db  9, 2
-	db 11, 2
-	db 13, 2
-	db 15, 2
-	db 17, 2
-	db $00
-
-FilterIconOrder:
-	db ICON_TILE_GRASS,
-	db ICON_TILE_FIRE,
-	db ICON_TILE_WATER,
-	db ICON_TILE_LIGHTNING,
-	db ICON_TILE_FIGHTING,
-	db ICON_TILE_PSYCHIC,
-	db ICON_TILE_DARKNESS,
-	;db ICON_TILE_METAL,
-	;db ICON_TILE_DRAGON,
-	db ICON_TILE_COLORLESS,
-	db ICON_TILE_TRAINER,
-	db ICON_TILE_ENERGY,
-	db $00
+;; The positions of the filter icons at the top of the deck config and card catalogue screens
+;; The filters at each position will shift as you scroll horizontally through them
+;FilterIconPositions:
+;	db  1, 2
+;	db  3, 2
+;	db  5, 2
+;	db  7, 2
+;	db  9, 2
+;	db 11, 2
+;	db 13, 2
+;	db 15, 2
+;	db 17, 2
+;	db $00
+;
+;FilterIconOrder:
+;	db ICON_TILE_GRASS,
+;	db ICON_TILE_FIRE,
+;	db ICON_TILE_WATER,
+;	db ICON_TILE_LIGHTNING,
+;	db ICON_TILE_FIGHTING,
+;	db ICON_TILE_PSYCHIC,
+;	db ICON_TILE_DARKNESS,
+;	;db ICON_TILE_METAL,
+;	;db ICON_TILE_DRAGON,
+;	db ICON_TILE_COLORLESS,
+;	db ICON_TILE_TRAINER,
+;	db ICON_TILE_ENERGY,
+;	db $00
+;
+;CardTypeIcons:
+;; icon tile, x coord, y coord
+;	db ICON_TILE_GRASS,      0, 2
+;	db ICON_TILE_FIRE,       2, 2
+;	db ICON_TILE_WATER,      4, 2
+;	db ICON_TILE_LIGHTNING,  6, 2
+;	db ICON_TILE_FIGHTING,   8, 2
+;	db ICON_TILE_PSYCHIC,   10, 2
+;	db ICON_TILE_DARKNESS,  12, 2
+;	db ICON_TILE_COLORLESS, 14, 2
+;	db ICON_TILE_TRAINER,   16, 2
+;	db ICON_TILE_ENERGY,    18, 2
 
 CardTypeIcons:
 ; icon tile, x coord, y coord
-	db ICON_TILE_GRASS,      0, 2
-	db ICON_TILE_FIRE,       2, 2
-	db ICON_TILE_WATER,      4, 2
-	db ICON_TILE_LIGHTNING,  6, 2
-	db ICON_TILE_FIGHTING,   8, 2
-	db ICON_TILE_PSYCHIC,   10, 2
-	db ICON_TILE_DARKNESS,  12, 2
-	db ICON_TILE_COLORLESS, 14, 2
-	db ICON_TILE_TRAINER,   16, 2
-	db ICON_TILE_ENERGY,    18, 2
+	db ICON_TILE_GRASS,      0, 0
+	db ICON_TILE_FIRE,       3, 0
+	db ICON_TILE_WATER,      6, 0
+	db ICON_TILE_LIGHTNING,  9, 0
+	db ICON_TILE_FIGHTING,   12, 0
+	db ICON_TILE_PSYCHIC,    0, 3
+	db ICON_TILE_DARKNESS,   3, 3
+	db ICON_TILE_COLORLESS,  6, 3
+	db ICON_TILE_TRAINER,    9, 3
+	db ICON_TILE_ENERGY,     12, 3
 	db $00
+
+CollectionCardTypeIcons:
+	; icon tile, x coord, y coord
+		db ICON_TILE_GRASS,      0, 1
+		db ICON_TILE_FIRE,       3, 1
+		db ICON_TILE_WATER,      6, 1
+		db ICON_TILE_LIGHTNING,  9, 1
+		db ICON_TILE_FIGHTING,   12, 1
+		db ICON_TILE_PSYCHIC,    0, 3
+		db ICON_TILE_DARKNESS,   3, 3
+		db ICON_TILE_COLORLESS,  6, 3
+		db ICON_TILE_TRAINER,    9, 3
+		db ICON_TILE_ENERGY,     12, 3
+		db $00
 
 DeckBuildMenuData:
 	; x, y, text id
@@ -1027,6 +1055,23 @@ PrintSlashSixty:
 	call InitTextPrinting
 	ld hl, wDefaultText
 	jp ProcessText
+
+PrintDeckIcon:
+	push bc
+	push hl
+	lb bc, 2, 2
+	lb hl, 1, 2
+	ld a, $f5 ; deck icon
+	call FillRectangle
+	lb bc, 2, 2
+	lb hl, 0, 0
+	ld a, $02
+	call BankswitchVRAM1
+	call FillRectangle
+	call BankswitchVRAM0
+	pop bc
+	pop hl
+	ret
 
 ; creates two separate lists given the card type in register a
 ; if a card matches the card type given, then it's added to wFilteredCardList
@@ -1436,25 +1481,42 @@ CountNumberOfCardsOfType:
 ; and concatenating all digits
 PrintCardTypeCounts:
 	ld bc, $0
-	ld hl, wDefaultText
 .loop
+	ld hl, wDefaultText
 	push hl
 	ld hl, wCardFilterCounts
 	add hl, bc
 	ld a, [hl]
 	pop hl
 	push bc
-	call ConvertToNumericalDigits
+	call ConvertToNumericalDigits ; converts value a to symbols and places in hl - ends with an increment of hl so you can put TX_END in
+	ld a, c
+	ld b, NUM_FILTERS
+	srl b
+	cp b
+	jr c, .top_row
+	ld e, 5
+	sub b
+	ld b, a
+	add a, a
+	add b
+	jr .continue 
+.top_row
+	ld e, 2
+	add a, a
+	add c
+.continue
+	ld [hl], TX_END
+	ld d, a
+	call InitTextPrinting
+	ld hl, wDefaultText
+	call ProcessText
 	pop bc
 	inc c
 	ld a, NUM_FILTERS
 	cp c
 	jr nz, .loop
-	ld [hl], TX_END
-	lb de, 0, 4 ; x,y position to start printing from
-	call InitTextPrinting
-	ld hl, wDefaultText
-	jp ProcessText
+	ret
 
 ; prints the list of cards, applying the filter from register a
 ; the counts of each card displayed is taken from wCurDeck
@@ -1553,7 +1615,6 @@ PrintDeckBuildingCardList:
 	ld d, [hl]
 	ld b, 19 ; x coord
 	ld c, e
-	dec c
 	ld a, [wCardListVisibleOffset]
 	or a
 	jr z, .no_cursor
@@ -1722,29 +1783,66 @@ HandleCardSelectionInput:
 	ldh a, [hDPadHeld]
 	or a
 	jr z, .handle_ab_btns
-
-; handle d-pad      ; TODO: Allow horizontal scrolling of filters
+	; code has been made more complex here to allow for wrapping:
+	; press left at left edge of row to go to the end of that row
+	; press right at right edgs of row to go to the end of that row
+	; if on the top row, up or down will take you to bottom row
+	; if on the bottom row, up or down will take you to top row
 	ld b, a
 	ld a, [wCardListNumCursorPositions]
+	sra a
 	ld c, a
 	ld a, [wCardListCursorPos]
 	bit B_PAD_LEFT, b
 	jr z, .check_d_right
+	cp c
+	jr z, .bottom_underflow
 	dec a
 	bit 7, a
 	jr z, .got_cursor_pos
-	; if underflow, set to max cursor pos
+.top_underflow
+	; top row underflow - set to end of top row
+	ld a, [wCardListNumCursorPositions]
+	sra a
+	dec a
+	jr .got_cursor_pos
+.bottom_underflow
+	; bottom row underflow - set to max cursor pos
 	ld a, [wCardListNumCursorPositions]
 	dec a
 	jr .got_cursor_pos
 .check_d_right
 	bit B_PAD_RIGHT, b
-	jr z, .handle_ab_btns
+	jr z, .check_d_down
 	inc a
+	cp NUM_FILTERS
+	jr z, .bottom_overflow
 	cp c
-	jr c, .got_cursor_pos
-	; if over max pos, set to pos 0
+	jr nz, .got_cursor_pos
+	; top row overflow - set to pos 0
 	xor a
+	jr .got_cursor_pos
+.bottom_overflow
+	; bottom row overflow - set to start of bottom row
+	ld a, c
+	jr .got_cursor_pos
+.check_d_down
+	bit B_PAD_DOWN, b
+	jr z, .check_d_up
+	add c
+	cp NUM_FILTERS
+	jr c, .got_cursor_pos
+	sub c
+	sub c
+	jr .got_cursor_pos
+.check_d_up
+	bit B_PAD_UP, b
+	jr z, .got_cursor_pos
+	sub c
+	bit 7, a
+	jr z, .got_cursor_pos
+	add c
+	add c
 .got_cursor_pos
 	push af
 	ld a, SFX_CURSOR
@@ -1795,34 +1893,81 @@ HandleCardSelectionCursorBlink:
 	bit 4, [hl]
 	jr z, DrawHorizontalListCursor
 
+; the invisible cursor cannot simply be set to SYM_SPACE anymore as the
+; cursor is on top of the filter icons. Instead more complex calculations
+; must be done to ensure the correct top-left icon tile is loaded underneath
 DrawHorizontalListCursor_Invisible:
-	ld a, [wInvisibleCursorTile]
+	ld a, [wCurCardTypeFilter]
+	ld hl, CardTypeFilters
+	ld b, $00
+	ld c, a
+	; the filters are laid out differently than the order they are declared
+	; so we must find where in the filter list the selected filter is
+	add hl, bc
+	ld a, [hl]
+	cp FILTER_TRAINER ; special handling for Trainer and Energy filters because their icons are ordered differently - we set these directly
+	jr c, .find_tile
+	cp FILTER_ENERGY
+	jr z, .energy_tile
+	ld a, ICON_TILE_TRAINER ; Trainer icon is BEFORE the Fire icon
+	jr .set_tile
+.energy_tile
+	ld a, ICON_TILE_ENERGY ; Energy filter has a higher value than the others so we can't nicely iterate to it through the list
+	jr .set_tile
+.find_tile
+	; for the other filters we multiply a by 4 to find how far offest from
+	; the first icon (fire) we should be, and then add that to ICON_TILE_FIRE
+	add a, a
+	add a, a
+	ld c, ICON_TILE_FIRE
+	add c
+.set_tile
+	; once we know which tile to use we can finally set it as the cursor tile
+	ld [wInvisibleCursorTile], a
 ;	fallthrough
 
-; like DrawListCursor but only
-; for lists with one line, and each entry
-; being laid horizontally
+; like DrawListCursor but for
+; lists with entries laid horizontally
+; splits the list into a second row
+; at the half-way point (wCardListNumCursorPositions / 2)
 ; a = tile to write
 DrawHorizontalListCursor:
 	ld e, a
+	ld hl, wCardListCursorYPos
+	ld a, [hl]
+	ld b, a
+	ld a, [wCardListNumCursorPositions]
+	sra a
+	ld c, a
+	ld a, [wCardListCursorPos]
+	cp c
+	jr c, .horizontal_pos
+	ld a, [wCardListYSpacing]
+	ld b, a
+.horizontal_pos
 	ld a, [wCardListXSpacing]
 	ld l, a
+	ld a, [wCardListNumCursorPositions]
+	sra a
+	ld c, a
 	ld a, [wCardListCursorPos]
+	cp c
+	jr c, .top_row
+	sub c
+.top_row
 	ld h, a
 	call HtimesL
 	ld a, l
 	ld hl, wCardListCursorXPos
 	add [hl]
+	ld c, b ; y coord
 	ld b, a ; x coord
-	ld hl, wCardListCursorYPos
-	ld a, [hl]
-	ld c, a ; y coord
 	ld a, e
 	call WriteByteToBGMap0
 	or a
 	ret
 
-DrawHorizontalListCursor_Visible:
+DrawHorizontalListCursor_Visible: ; TODO - set cursor to BG PAL 0
 	ld a, [wVisibleCursorTile]
 	jr DrawHorizontalListCursor
 
@@ -2140,7 +2285,7 @@ AddCardToDeckAndUpdateCount:
 	ret c ; failed to add card
 	push de
 	call PrintCardTypeCounts
-	lb de, 15, 0
+	lb de, 18, 5
 	call PrintTotalCardCount
 	pop de
 	call GetCountOfCardInCurDeck
@@ -2331,7 +2476,7 @@ RemoveCardFromDeckAndUpdateCount:
 	ret nc
 	push de
 	call PrintCardTypeCounts
-	lb de, 15, 0
+	lb de, 18, 5
 	call PrintTotalCardCount
 	pop de
 	call GetCountOfCardInCurDeck
@@ -2989,7 +3134,7 @@ PrintConfirmationCardList:
 	lb bc, 2, 2
 	lb hl, 0, 0
 	call BankswitchVRAM1
-	call FillVRAM1Rectangle
+	call FillRectangle
 	call BankswitchVRAM0
 	pop bc
 	pop de
@@ -3065,7 +3210,7 @@ HandlePlayersCardsScreen:
 	call PrintFilteredCardSelectionList
 	call EnableLCD
 	xor a
-	ld hl, FiltersCardSelectionParams
+	ld hl, CollectionFiltersCardSelectionParams
 	call InitCardSelectionParams
 .wait_input
 	call DoFrame
@@ -3073,7 +3218,8 @@ HandlePlayersCardsScreen:
 	ld b, a
 	ld a, [wTempCardTypeFilter]
 	cp b
-	jr z, .check_d_down
+	jr z, .skip_refresh
+	; need to refresh the filtered card list
 	ld [wCurCardTypeFilter], a
 	ld hl, wCardListVisibleOffset
 	ld [hl], $00
@@ -3087,14 +3233,8 @@ HandlePlayersCardsScreen:
 
 	ld a, NUM_FILTERS
 	ld [wCardListNumCursorPositions], a
-.check_d_down
-	ldh a, [hDPadHeld]
-	and PAD_DOWN
-	jr z, .no_d_down
-	call ConfirmSelectionAndReturnCarry
-	jr .jump_to_list
 
-.no_d_down
+.skip_refresh
 	call HandleCardSelectionInput
 	jr nc, .wait_input
 	ldh a, [hffb3]
@@ -3108,7 +3248,7 @@ HandlePlayersCardsScreen:
 	jr z, .wait_input
 
 	xor a
-	ld hl, CardListSelectionParams
+	ld hl, CollectionCardListSelectionParams
 	call InitCardSelectionParams
 	ld a, [wNumEntriesInCurFilter]
 	ld [wNumCardListEntries], a
@@ -3155,14 +3295,14 @@ HandlePlayersCardsScreen:
 	call OpenCardPageFromCardList
 	call PrintPlayersCardsHeaderInfo
 
-	ld hl, FiltersCardSelectionParams
+	ld hl, CollectionFiltersCardSelectionParams
 	call InitCardSelectionParams
 	ld a, [wCurCardTypeFilter]
 	ld [wTempCardTypeFilter], a
 	call DrawHorizontalListCursor_Visible
 	call PrintCardSelectionList
 	call EnableLCD
-	ld hl, CardListSelectionParams
+	ld hl, CollectionCardListSelectionParams
 	call InitCardSelectionParams
 	ld a, [wTempCardListNumCursorPositions]
 	ld [wCardListNumCursorPositions], a
@@ -3177,7 +3317,7 @@ HandlePlayersCardsScreen:
 	ldh a, [hffb3]
 	cp $ff
 	jr nz, .open_card_page
-	ld hl, FiltersCardSelectionParams
+	ld hl, CollectionFiltersCardSelectionParams
 	call InitCardSelectionParams
 	ld a, [wCurCardTypeFilter]
 	ld [wTempCardTypeFilter], a
@@ -3188,12 +3328,22 @@ HandlePlayersCardsScreen:
 	ld [hl], $00
 	jp .wait_input
 
-CardListSelectionParams:
+CollectionFiltersCardSelectionParams:
+	db 0 ; x pos
+	db 1 ; y pos
+	db 3 ; y spacing
+	db 3 ; x spacing
+	db NUM_FILTERS ; num entries
+	db SYM_CURSOR_D ; visible cursor tile
+	db SYM_SPACE ; invisible cursor tile
+	dw NULL ; wCardListHandlerFunction
+
+CollectionCardListSelectionParams:
 	db 1 ; x pos
-	db 5 ; y pos
+	db 6 ; y pos
 	db 2 ; y spacing
 	db 0 ; x spacing
-	db 7 ; num entries
+	db 6 ; num entries
 	db SYM_CURSOR_R ; visible cursor tile
 	db SYM_SPACE ; invisible cursor tile
 	dw NULL ; wCardListHandlerFunction
@@ -3213,8 +3363,9 @@ PrintFilteredCardSelectionList:
 	call CreateFilteredCardList
 
 	ld a, NUM_DECK_CONFIRMATION_VISIBLE_CARDS
+	dec a ; should be one less card than the confirmation screen but doesn't justify a new constant - TODO - if the confirmation screen is reworked into something else, rename the variable to NUM_DECK_COLLECTION_VISIBLE_CARDS and use it here
 	ld [wNumVisibleCardListEntries], a
-	lb de, 2, 5
+	lb de, 2, 6
 	ld hl, wCardListCoords
 	ld [hl], e
 	inc hl
@@ -3394,7 +3545,6 @@ PrintCardSelectionList:
 	ld b, 19 ; x coord
 	ld c, e
 	dec c
-	dec c
 	call WriteByteToBGMap0
 	pop bc
 	ret
@@ -3429,12 +3579,12 @@ PrintPlayersCardsHeaderInfo:
 	call Set_OBJ_8x8
 	call PrepareMenuGraphics
 .skip_empty_screen
-	lb bc, 0, 4
+	lb bc, 0, 5
 	ld a, SYM_BOX_TOP
 	call FillBGMapLineWithA
 	call PrintTotalNumberOfCardsInCollection
 	call PrintPlayersCardsText
-	jp DrawCardTypeIcons
+	jp DrawCollectionCardTypeIcons
 
 ; prints "<PLAYER>'s cards"
 PrintPlayersCardsText:

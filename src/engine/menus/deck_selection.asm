@@ -68,6 +68,7 @@ PrepareMenuGraphics:
 	call LoadCursorTile
 	call LoadSymbolsFont
 	call LoadVRAM0DuelCardSymbolTiles
+	call LoadDeckIcon
 	call LoadHandCardsIcon
 	bank1call SetDefaultConsolePalettes
 	lb de, $3c, $bf

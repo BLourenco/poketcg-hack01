@@ -361,6 +361,13 @@ LoadDeckAndDiscardPileIcons::
 	ld b, $30
 	jr CopyFontsOrDuelGraphicsTiles
 
+; load the Deck icon ONLY (for deck configuration)
+LoadDeckIcon::
+	ld hl, DuelCgbSymbolGraphics + $67 tiles - $4000
+	ld de, v0Tiles1 + $74 tiles
+	ld b, $5
+	jr CopyFontsOrDuelGraphicsTiles
+
 ; load the tiles for the [O] and [X] symbols used to display the results of a coin toss
 LoadDuelCoinTossResultTiles::
 	ld hl, DuelOtherGraphics + $d tiles
