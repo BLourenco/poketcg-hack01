@@ -110,6 +110,7 @@ EnergyCardList:
 	dw FIGHTING_ENERGY
 	dw PSYCHIC_ENERGY
 	dw DARKNESS_ENERGY
+	dw METAL_ENERGY
 .end
 
 Script_Tech2:

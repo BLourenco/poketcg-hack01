@@ -1403,6 +1403,9 @@ JigglypuffExpandEffectCommands:
 DoubleColorlessEnergyEffectCommands:
 	db  $00
 
+MetalEnergyEffectCommands:
+	db  $00
+
 DarknessEnergyEffectCommands:
 	db  $00
 

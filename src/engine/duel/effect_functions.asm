@@ -1125,7 +1125,7 @@ AIFindTargetForBenchAttack:
 ;	hl = text to be printed in the bottom box
 ; output:
 ;	a = color that was selected
-HandleColorChangeScreen:
+HandleColorChangeScreen: ; TODO - This does not work properly with new types and VRAM changes
 	or a
 	call z, SwapTurn
 	push af
@@ -1301,13 +1301,14 @@ ShiftMenuData:
 
 ColorTileAndBGP:
 	; tile, BG
-	db $c4, $02
-	db $c0, $01
-	db $cc, $02
-	db $c8, $01
-	db $d0, $03
-	db $d4, $03
-	db $d8, $00
+	db $d4, $02
+	db $d0, $01
+	db $dc, $02
+	db $d8, $01
+	db $e0, $03
+	db $e4, $03
+	db $e8, $00
+	db $ec, $00
 
 ShiftListItemToColor:
 	db GRASS
@@ -1317,6 +1318,7 @@ ShiftListItemToColor:
 	db FIGHTING
 	db PSYCHIC
 	db DARKNESS
+	db METAL
 
 ColorToTextSymbol:
 	tx FireSymbolText
@@ -1326,6 +1328,7 @@ ColorToTextSymbol:
 	tx FightingSymbolText
 	tx PsychicSymbolText
 	tx DarknessSymbolText
+	tx MetalSymbolText
 
 DrawSymbolOnPlayAreaCursor:
 	ld c, a

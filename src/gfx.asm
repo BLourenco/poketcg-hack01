@@ -2329,3 +2329,8 @@ DarknessEnergyCardGfx::
 	INCBIN "gfx/cards/darkness_energy.pal"
 	INCBIN "gfx/cards/darkness_energy.attrmap"
 	INCBIN "gfx/cards/darkness_energy.2bpp"
+
+MetalEnergyCardGfx::
+	INCBIN "gfx/cards/metal_energy.pal"
+	INCBIN "gfx/cards/metal_energy.attrmap"
+	INCBIN "gfx/cards/metal_energy.2bpp"

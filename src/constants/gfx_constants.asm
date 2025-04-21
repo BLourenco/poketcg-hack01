@@ -25,8 +25,9 @@ DEF ICON_TILE_WATER           EQU $dc
 DEF ICON_TILE_FIGHTING        EQU $e0
 DEF ICON_TILE_PSYCHIC         EQU $e4
 DEF ICON_TILE_DARKNESS        EQU $e8
-DEF ICON_TILE_COLORLESS       EQU $ec
-DEF ICON_TILE_ENERGY          EQU $f0
+DEF ICON_TILE_METAL           EQU $ec
+DEF ICON_TILE_COLORLESS       EQU $f0
+DEF ICON_TILE_ENERGY          EQU $f4
 
 ; graphics table constants
 ; (see src/engine/gfx/gfx_table_pointers.asm)

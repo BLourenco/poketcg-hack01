@@ -4899,7 +4899,7 @@ MagnemiteLv13Card:
 	db AI_INFO_UNK_03 | HAS_EVOLUTION ; AI info
 
 MagnemiteLv15Card:
-	db TYPE_PKMN_LIGHTNING ; type
+	db TYPE_PKMN_METAL ; type
 	gfx MagnemiteLv15CardGfx ; gfx
 	tx MagnemiteName ; name
 	db CIRCLE ; rarity
@@ -4924,7 +4924,7 @@ MagnemiteLv15Card:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy LIGHTNING, 1, COLORLESS, 1 ; energies
+	energy METAL, 1, COLORLESS, 1 ; energies
 	tx MagneticStormName ; name
 	tx MagneticStormDescription ; description
 	dw NONE ; description (cont)
@@ -4938,8 +4938,8 @@ MagnemiteLv15Card:
 	db ATK_ANIM_MAGNETIC_STORM ; animation
 
 	db 1 ; retreat cost
-	db WR_FIGHTING ; weakness
-	db NONE ; resistance
+	db WR_FIRE ; weakness
+	db WR_GRASS ; resistance
 	tx MagnetName ; category
 	db 81 ; Pokedex number
 	db 15 ; level
@@ -4999,7 +4999,7 @@ MagnetonLv28Card:
 	db 0 ; AI info
 
 MagnetonLv35Card:
-	db TYPE_PKMN_LIGHTNING ; type
+	db TYPE_PKMN_METAL ; type
 	gfx MagnetonLv35CardGfx ; gfx
 	tx MagnetonName ; name
 	db STAR ; rarity
@@ -5010,7 +5010,7 @@ MagnetonLv35Card:
 	tx MagnemiteName ; pre-evo name
 
 	; attack 1
-	energy LIGHTNING, 1, COLORLESS, 1 ; energies
+	energy METAL, 1, COLORLESS, 1 ; energies
 	tx SonicboomName ; name
 	tx SonicboomDescription ; description
 	dw NONE ; description (cont)
@@ -5024,7 +5024,7 @@ MagnetonLv35Card:
 	db ATK_ANIM_SONICBOOM ; animation
 
 	; attack 2
-	energy LIGHTNING, 4 ; energies
+	energy METAL, 4 ; energies
 	tx SelfdestructName ; name
 	tx MagnetonLv35sSelfdestructDescription ; description
 	dw NONE ; description (cont)
@@ -5038,8 +5038,8 @@ MagnetonLv35Card:
 	db ATK_ANIM_BIG_SELFDESTRUCTION ; animation
 
 	db 2 ; retreat cost
-	db WR_FIGHTING ; weakness
-	db NONE ; resistance
+	db WR_FIRE ; weakness
+	db WR_GRASS ; resistance
 	tx MagnetName ; category
 	db 82 ; Pokedex number
 	db 35 ; level
@@ -9423,6 +9423,17 @@ DarknessEnergyCard:
 	dw DARKNESS_ENERGY
 	dw DarknessEnergyEffectCommands ; effect commands
 	tx DarknessEnergyDescription ; description
+	dw NONE ; description (cont)
+
+MetalEnergyCard:
+	db TYPE_ENERGY_METAL ; type
+	gfx MetalEnergyCardGfx ; gfx
+	tx MetalEnergyName ; name
+	db CIRCLE ; rarity
+	db ENERGY | NONE ; sets
+	dw METAL_ENERGY
+	dw MetalEnergyEffectCommands ; effect commands
+	tx MetalEnergyDescription ; description
 	dw NONE ; description (cont)
 
 DoubleColorlessEnergyCard:

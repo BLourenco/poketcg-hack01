@@ -605,14 +605,14 @@ CardTypeToSymbolID::
 	cp TYPE_ENERGY
 	jr c, .pokemon_card
 	; energy card
-	and 7 ; convert energy constant to type constant
+	and $0f ; convert energy constant to type constant
 	ret
 .trainer_card
-	ld a, 11
+	ld a, 12
 	ret
 .pokemon_card
 	ld a, [wLoadedCard1Stage] ; different symbol for each evolution stage
-	add 8
+	add 9
 	ret
 
 ; return the entry in CardSymbolTable of the TYPE_* constant in wLoadedCard1Type
@@ -663,24 +663,12 @@ CardSymbolTable::
 	db $e0, $04 ; TYPE_ENERGY_PSYCHIC
 	db $e4, $04 ; TYPE_ENERGY_FIGHTING
 	db $e8, $00 ; TYPE_ENERGY_DARKNESS
-	db $ec, $00 ; TYPE_ENERGY_DOUBLE_COLORLESS
+	db $ec, $00 ; TYPE_ENERGY_METAL
+	db $f0, $00 ; TYPE_ENERGY_DOUBLE_COLORLESS
 	db $c0, $03 ; TYPE_PKMN_*, Basic
 	db $c4, $03 ; TYPE_PKMN_*, Stage 1
 	db $c8, $02 ; TYPE_PKMN_*, Stage 2
 	db $cc, $03 ; TYPE_TRAINER
-
-	;db $d0, $01 ; TYPE_ENERGY_FIRE
-	;db $d4, $02 ; TYPE_ENERGY_GRASS
-	;db $d8, $01 ; TYPE_ENERGY_LIGHTNING
-	;db $dc, $02 ; TYPE_ENERGY_WATER
-	;db $e0, $03 ; TYPE_ENERGY_PSYCHIC
-	;db $e4, $03 ; TYPE_ENERGY_FIGHTING
-	;db $e8, $00 ; TYPE_ENERGY_DARKNESS
-	;db $ec, $00 ; TYPE_ENERGY_DOUBLE_COLORLESS
-	;db $c0, $02 ; TYPE_PKMN_*, Basic
-	;db $c4, $02 ; TYPE_PKMN_*, Stage 1
-	;db $c8, $01 ; TYPE_PKMN_*, Stage 2
-	;db $cc, $02 ; TYPE_TRAINER
 
 ; copy the name and level of the card at wLoadedCard1 to wDefaultText
 ; a = length in number of tiles (the resulting string will be padded with spaces to match it)

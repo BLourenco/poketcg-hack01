@@ -1005,8 +1005,9 @@ CardTypeIcons:
 	db ICON_TILE_WATER,      6, 0
 	db ICON_TILE_LIGHTNING,  9, 0
 	db ICON_TILE_FIGHTING,   12, 0
-	db ICON_TILE_PSYCHIC,    0, 3
-	db ICON_TILE_DARKNESS,   3, 3
+	db ICON_TILE_PSYCHIC,    15, 0
+	db ICON_TILE_DARKNESS,   0, 3
+	db ICON_TILE_METAL,		 3, 3
 	db ICON_TILE_COLORLESS,  6, 3
 	db ICON_TILE_TRAINER,    9, 3
 	db ICON_TILE_ENERGY,     12, 3
@@ -1019,8 +1020,9 @@ CollectionCardTypeIcons:
 		db ICON_TILE_WATER,      6, 1
 		db ICON_TILE_LIGHTNING,  9, 1
 		db ICON_TILE_FIGHTING,   12, 1
-		db ICON_TILE_PSYCHIC,    0, 3
-		db ICON_TILE_DARKNESS,   3, 3
+		db ICON_TILE_PSYCHIC,    15, 1
+		db ICON_TILE_DARKNESS,   0, 3
+		db ICON_TILE_METAL,		 3, 3
 		db ICON_TILE_COLORLESS,  6, 3
 		db ICON_TILE_TRAINER,    9, 3
 		db ICON_TILE_ENERGY,     12, 3
@@ -1061,7 +1063,7 @@ PrintDeckIcon:
 	push hl
 	lb bc, 2, 2
 	lb hl, 1, 2
-	ld a, $f5 ; deck icon
+	ld a, $f8 ; deck icon
 	call FillRectangle
 	lb bc, 2, 2
 	lb hl, 0, 0
@@ -1495,7 +1497,9 @@ PrintCardTypeCounts:
 	srl b
 	cp b
 	jr c, .top_row
+	;jr z, .top_row
 	ld e, 5
+	;inc b ; only for odd numbers of filters, otherwise comment out
 	sub b
 	ld b, a
 	add a, a
@@ -1513,7 +1517,7 @@ PrintCardTypeCounts:
 	call ProcessText
 	pop bc
 	inc c
-	ld a, NUM_FILTERS
+	ld a, NUM_FILTERS - 1
 	cp c
 	jr nz, .loop
 	ret
@@ -1569,6 +1573,7 @@ CardTypeFilters:
 	db FILTER_FIGHTING
 	db FILTER_PSYCHIC
 	db FILTER_DARKNESS
+	db FILTER_METAL
 	db FILTER_COLORLESS
 	db FILTER_TRAINER
 	db FILTER_ENERGY
@@ -1810,12 +1815,13 @@ HandleCardSelectionInput:
 	; bottom row underflow - set to max cursor pos
 	ld a, [wCardListNumCursorPositions]
 	dec a
+	dec a ; only keep for odd number of filters
 	jr .got_cursor_pos
 .check_d_right
 	bit B_PAD_RIGHT, b
 	jr z, .check_d_down
 	inc a
-	cp NUM_FILTERS
+	cp NUM_FILTERS - 1
 	jr z, .bottom_overflow
 	cp c
 	jr nz, .got_cursor_pos
@@ -3173,6 +3179,7 @@ GetCardTypeIconPalette:
 	db ICON_TILE_PSYCHIC,         $4
 	db ICON_TILE_DARKNESS,        $0
 	db ICON_TILE_COLORLESS,       $0
+	db ICON_TILE_METAL,		  	  $0
 	db ICON_TILE_ENERGY,          $3
 	db ICON_TILE_BASIC_POKEMON,   $3
 	db ICON_TILE_STAGE_1_POKEMON, $3

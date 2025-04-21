@@ -434,8 +434,8 @@ ENDM
 	txsymbol "FIGHTING"         ; $05
 	txsymbol "PSYCHIC"          ; $06
 	txsymbol "DARKNESS"         ; $07
-	txsymbol "COLORLESS"        ; $08 ($07)
-	txsymbol "METAL"            ; $09
+	txsymbol "METAL"            ; $08
+	txsymbol "COLORLESS"        ; $09 ($07)
 	txsymbol "DRAGON"           ; $0a
 	txsymbol "FAIRY"            ; $0b
 	txsymbol "RAINBOW"          ; $0c
