@@ -439,13 +439,13 @@ CheckEnergyNeededForAttack:
 ; two different basic energy types, then this routine only accounts
 ; for the type with the highest index
 
-	; darkness
+	; one more iteration for an odd-numbered coloured energy
 	;ld a, [de]
 	;swap a
 	;call CheckIfEnoughParticularAttachedEnergy
 	; colorless
 	ld a, [de]
-	;swap a
+	swap a ;- comment this line out if number of coloured energies is odd
 	and %00001111
 	ld b, a ; colorless energy still needed
 	ld a, [wTempLoadedAttackEnergyCost]
@@ -889,11 +889,11 @@ CheckEnergyNeededForAttackAfterDiscard:
 	dec c
 	jr nz, .loop
 
-	;ld a, [de] ; darkness
+	;ld a, [de] ; extra iteration for an odd-numbered energy type
 	;swap a
 	;call CheckIfEnoughParticularAttachedEnergy
 	ld a, [de]
-	swap a
+	swap a ; comment this out if number of colored energies is odd
 	and $0f
 	ld b, a ; colorless energy still needed
 	ld a, [wTempLoadedAttackEnergyCost]
