@@ -47,4 +47,5 @@ Portraits:
 	portrait JessicaPortrait,   ; PORTRAIT_JESSICA
 	portrait StephaniePortrait, ; PORTRAIT_STEPHANIE
 	portrait AaronPortrait,     ; PORTRAIT_AARON
+	portrait PlayerFemalePortrait,      ; PORTRAIT_PLAYER_FEMALE
 	assert_table_length NUM_PORTRAITS

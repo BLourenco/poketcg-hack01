@@ -193,7 +193,7 @@ Text05f0:
 	done
 
 Text05f1:
-	text "<RAMNAME> handed his cards to "
+	text "You give all of your cards to"
 	line "Dr. Mason."
 	done
 

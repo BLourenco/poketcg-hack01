@@ -857,6 +857,12 @@ DuelWhirlpoolGfx::
 DuelWhirlwindGfx::
 	INCBIN "gfx/duel/anims/whirlwind.2bpp"
 
+SECTION "Gfx 11", ROMX
+
+OWPlayerFemaleGfx::
+	INCBIN "gfx/overworld_sprites/player_female.2bpp"
+	
+
 SECTION "Anims 1", ROMX
 	INCLUDE "data/duel/animations/anims1.asm"
 
@@ -1144,6 +1150,12 @@ AaronPortrait::
 	INCBIN "gfx/duelists/aaron.attrmap.lz"
 PaletteAaronPortrait::
 	INCBIN "gfx/duelists/aaron.pal"
+
+PlayerFemalePortrait::
+	INCBIN "gfx/duelists/player_female.2bpp"
+	INCBIN "gfx/duelists/player_female.attrmap.lz"
+PalettePlayerFemalePortrait::
+	INCBIN "gfx/duelists/player_female.pal"
 
 SECTION "Card Gfx 1", ROMX
 
@@ -2310,4 +2322,3 @@ RecycleCardGfx::
 	INCBIN "gfx/cards/recycle.pal"
 	INCBIN "gfx/cards/recycle.attrmap"
 	INCBIN "gfx/cards/recycle.2bpp"
-

@@ -769,8 +769,8 @@ Text05a5:
 	done
 
 Text05a6:
-	text "No, Ronald! That cannot be "
-	line "allowed! He, too, has earned "
+	text "No, Ronald! That cannot be allowed!"
+	line "<RAMNAME>, too, has earned "
 	line "the right to inherit the "
 	line "Legendary Pokémon Cards!"
 	line "Ronald! <RAMNAME>!"

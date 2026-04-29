@@ -241,7 +241,14 @@ LoadScene::
 
 ; draws player's portrait at b,c
 DrawPlayerPortrait::
+	; Load Male/Female portrait depending on starting choice
+	ld a, EVENT_PLAYER_GENDER_CHOICE
+	farcall GetEventValue
+	or a
 	ld a, PORTRAIT_PLAYER
+	jr z, .got_pic
+	ld a, PORTRAIT_PLAYER_FEMALE
+.got_pic
 	ld [wCurPortrait], a
 	ld a, PORTRAIT_SLOT_1
 	ld [wPortraitSlot], a

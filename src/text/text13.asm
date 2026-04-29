@@ -183,6 +183,25 @@ RecycleDescription:
 	line "in your discard pile on top of your"
 	line "deck."
 	done
+	
+AreYouABoyOrGirlText:
+	text "Are you a boy"
+	line "or a girl?"
+	done
+
+BoyText:
+	text "Boy"
+	done
+
+GirlText:
+	text "Girl"
+	done
+
+Text0657_Female:
+	text "A single match with 4 prizes!"
+	line "Come on, my precious ghosts!"
+	line "Let's make her Pokémon disappear!"
+	done
 
 DeclinedPracticeDuelText:
 	text "Well, if you change your mind,"

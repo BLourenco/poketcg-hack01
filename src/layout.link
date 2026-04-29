@@ -126,64 +126,66 @@ ROMX $27
 ROMX $28
 	"Gfx 10"
 ROMX $29
-	"Anims 1"
+	"Gfx 11"
 ROMX $2a
-	"Anims 2"
+	"Anims 1"
 ROMX $2b
-	"Anims 3"
+	"Anims 2"
 ROMX $2c
-	"Anims 4"
+	"Anims 3"
 ROMX $2d
-	"Anims 5"
+	"Anims 4"
 ROMX $2e
-	"Anims 6"
+	"Anims 5"
 ROMX $2f
-	"Palettes 1"
+	"Anims 6"
 ROMX $30
-	"Palettes 2"
+	"Palettes 1"
 ROMX $31
-	"Portraits 1"
+	"Palettes 2"
 ROMX $32
-	"Portraits 2"
+	"Portraits 1"
 ROMX $33
-	"Portraits 3"
+	"Portraits 2"
 ROMX $34
-	"Portraits 4"
+	"Portraits 3"
 ROMX $35
-	"Portraits 5"
+	"Portraits 4"
 ROMX $36
-	"Card Gfx 1"
+	"Portraits 5"
 ROMX $37
-	"Card Gfx 2"
+	"Card Gfx 1"
 ROMX $38
-	"Card Gfx 3"
+	"Card Gfx 2"
 ROMX $39
-	"Card Gfx 4"
+	"Card Gfx 3"
 ROMX $3a
-	"Card Gfx 5"
+	"Card Gfx 4"
 ROMX $3b
-	"Card Gfx 6"
+	"Card Gfx 5"
 ROMX $3c
-	"Card Gfx 7"
+	"Card Gfx 6"
 ROMX $3d
-	"Card Gfx 8"
+	"Card Gfx 7"
 ROMX $3e
-	"Card Gfx 9"
+	"Card Gfx 8"
 ROMX $3f
-	"Card Gfx 10"
+	"Card Gfx 9"
 ROMX $40
-	"Card Gfx 11"
+	"Card Gfx 10"
 ROMX $41
-	"Card Gfx 12"
+	"Card Gfx 11"
 ROMX $42
+	"Card Gfx 12"
+ROMX $43
 	"Audio Engine"
 	"Sfx 1"
-ROMX $43
-	"Music 1"
 ROMX $44
+	"Music 1"
+ROMX $45
 	"Music 2"
 	"Sfx 2"
-ROMX $45
+ROMX $46
 	"Sfx 3"
 WRAM0
 	"WRAM"

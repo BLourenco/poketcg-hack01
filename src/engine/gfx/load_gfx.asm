@@ -790,6 +790,8 @@ _DrawPortrait::
 	or a ; cp PORTRAIT_PLAYER
 	ld de, 36 tiles
 	jr z, .got_attr_offset
+	cp PORTRAIT_PLAYER_FEMALE
+	jr z, .got_attr_offset
 	ld de, (36 * 3) tiles
 .got_attr_offset
 	ld a, [wTempPointer]
@@ -916,4 +918,5 @@ _DrawPortrait::
 	db PALETTE_JESSICA_PORTRAIT   ; PORTRAIT_JESSICA
 	db PALETTE_STEPHANIE_PORTRAIT ; PORTRAIT_STEPHANIE
 	db PALETTE_AARON_PORTRAIT     ; PORTRAIT_AARON
+	db PALETTE_PLAYER_FEMALE_PORTRAIT      ; PORTRAIT_PLAYER_FEMALE
 	assert_table_length NUM_PORTRAITS

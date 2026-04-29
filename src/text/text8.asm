@@ -188,8 +188,8 @@ Text069f:
 	done
 
 Text06a0:
-	text "<RAMNAME> lost all "
-	line "his Energy cards!"
+	text "You donate all of your extra"
+	line "Energy cards!"
 	done
 
 Text06a1:
@@ -243,8 +243,8 @@ Text06a6:
 	done
 
 Text06a7:
-	text "If you're a real man, you gotta"
-	line "compete in a heated duel!"
+	text "If you're a real duelist, you"
+	line "gotta compete in a heated duel!"
 	done
 
 Text06a8:
@@ -539,8 +539,8 @@ Text06d8:
 	line "are this tough!"
 	line "Huh? You must be <RAMNAME>."
 	line "Mitch told me all about you."
-	line "Beating you will be much better"
-	line "than losing to the girls!"
+	line "You'll make for a great"
+	line "warm-up!"
 	done
 
 Text06d9:
@@ -834,7 +834,7 @@ Text0708:
 	text "We'll play a single Match"
 	line "with 4 Prizes."
 	line "Don't take me lightly"
-	line "just because I'm a girl!"
+	line "just because I'm cute!"
 	done
 
 Text0709:

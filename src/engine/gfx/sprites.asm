@@ -150,4 +150,5 @@ Sprites:
 	gfx_pointer DuelWhipGfx,              $22 ; SPRITE_DUEL_WHIP
 	gfx_pointer DuelWhirlpoolGfx,         $07 ; SPRITE_DUEL_WHIRLPOOL
 	gfx_pointer DuelWhirlwindGfx,         $0f ; SPRITE_DUEL_WHIRLWIND
+	gfx_pointer OWPlayerFemaleGfx,        $14 ; SPRITE_OW_PLAYER_FEMALE
 	assert_table_length NUM_SPRITES
