@@ -131,11 +131,7 @@ PrintScrollableText::
 	ld c, a
 	inc c
 	jr .go
-.nonzero_text_speed
-	ld a, [wTextSpeed]
-	cp TEXT_SPEED_3
-	jr nc, .apply_delay
-	; if TEXT_SPEED_4, pressing B ignores the delay
+.check_for_skip_delay
 	ldh a, [hKeysHeld]
 	and PAD_B
 	jr nz, .skip_delay
@@ -145,7 +141,7 @@ PrintScrollableText::
 	pop bc
 .go
 	dec c
-	jr nz, .nonzero_text_speed
+	jr nz, .check_for_skip_delay
 .skip_delay
 	call ProcessTextHeader
 	jr c, .asm_2cc3
@@ -451,9 +447,9 @@ PrintText::
 	ld b, a
 	ld a, [wTextSpeed]
 	inc a
-	cp TEXT_SPEED_3 + 1
+	cp TEXT_SPEED_1 + 1
 	jr nc, .apply_delay
-	; if TEXT_SPEED_4, pressing B ignores the delay
+	; if TEXT_SPEED_2 or higher, pressing B ignores the delay
 	bit B_PAD_B, b
 	jr nz, .skip_delay
 	jr .apply_delay

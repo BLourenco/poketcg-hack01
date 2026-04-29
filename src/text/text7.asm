@@ -104,15 +104,12 @@ Text05e3:
 	line "just collecting cards!"
 	line "First, you should try playing "
 	line "with a Practice Deck. "
-	line "Here, I'll give you this Deck. "
-	line "And now you need an opponent..."
 	line "Hey, Sam!"
-	line "Play with him for a while!"
+	line "Come over here for a minute!"
 	done
 
 Text05e4:
-	text "Yes, Dr. Mason."
-	line "Hello, <RAMNAME>."
+	text "Do you want to try a practice game?"
 	done
 
 Text05e5:

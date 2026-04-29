@@ -1,8 +1,8 @@
 Script_BeginGame:
 	start_script
-	do_frames 60
+	do_frames 40
 	walk_player_to_mason_lab
-	do_frames 120
+	do_frames 20
 	enter_map $02, MASON_LABORATORY, 14, 26, NORTH
 	quit_script_fully
 
@@ -329,15 +329,22 @@ Script_EnterLabFirstTime:
 	move_player NORTH, 2
 	print_npc_text Text05e3
 	close_advanced_text_box
+	move_npc NPC_SAM, NPCMovement_d880
+	ask_question_jump Text05e4, .accepted_practice_duel
+
+	; declined practice duel
+	print_npc_text DeclinedPracticeDuelText
+	close_advanced_text_box
+	move_npc NPC_SAM, NPCMovement_d882
+	script_jump Script_AfterPracticeDuel.building_the_starter_deck
+
+.accepted_practice_duel
 	set_next_npc_and_script NPC_SAM, .ows_d779
 	end_script
 	ret
 
 .ows_d779
 	start_script
-	move_active_npc NPCMovement_d880
-	print_npc_text Text05e4
-	set_dialog_npc NPC_DRMASON
 	print_npc_text Text05e5
 	close_text_box
 	move_active_npc NPCMovement_d882
@@ -444,6 +451,7 @@ Script_AfterPracticeDuel:
 	move_player EAST, 1
 	move_player EAST, 1
 	set_player_direction NORTH
+.building_the_starter_deck
 	print_npc_text Text05f0
 	close_text_box
 	print_text Text05f1

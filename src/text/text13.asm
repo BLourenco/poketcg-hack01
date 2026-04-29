@@ -183,3 +183,10 @@ RecycleDescription:
 	line "in your discard pile on top of your"
 	line "deck."
 	done
+
+DeclinedPracticeDuelText:
+	text "Well, if you change your mind,"
+	line "Sam would be happy to help you."
+	line "He can usually be found near"
+	line "the card table to your left."
+	done

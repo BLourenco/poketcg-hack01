@@ -120,7 +120,7 @@ InitSaveData:
 	ld [hl], a
 
 ; saved configuration options
-	ld a, TEXT_SPEED_3
+	xor a ; more efficient than `ld a, TEXT_SPEED_5`
 	ld [sTextSpeed], a
 	ld [wTextSpeed], a
 
