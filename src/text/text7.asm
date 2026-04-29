@@ -107,7 +107,7 @@ Text05e3:
 	line "Here, I'll give you this Deck. "
 	line "And now you need an opponent..."
 	line "Hey, Sam!"
-	line "Play with him for a while!"
+	line "Play with <RAMNAME> for a while!"
 	done
 
 Text05e4:
@@ -196,7 +196,7 @@ Text05f0:
 	done
 
 Text05f1:
-	text "<RAMNAME> handed his cards to "
+	text "You give all of your cards to"
 	line "Dr. Mason."
 	done
 

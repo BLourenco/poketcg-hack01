@@ -680,11 +680,24 @@ Func_c4b9:
 	ld [wWhichOBPalIndex], a ; palette index 0
 	ld a, PALETTE_29
 	farcall LoadOBPalette
+
+	ld a, EVENT_PLAYER_GENDER_CHOICE
+	farcall GetEventValue
+	or a
 	ld a, SPRITE_ANIM_RED_NPC_UP
+	jr z, .got_anim
+	ld a, SPRITE_ANIM_BLUE_NPC_UP
+.got_anim
 	ld [wPlayerSpriteBaseAnimation], a
 
 	; load Player's sprite for overworld
+	ld a, EVENT_PLAYER_GENDER_CHOICE
+	farcall GetEventValue
+	or a
 	ld a, SPRITE_OW_PLAYER
+	jr z, .got_player_ow_sprite
+	ld a, SPRITE_OW_PLAYER_FEMALE
+.got_player_ow_sprite
 	farcall CreateSpriteAndAnimBufferEntry
 	ld a, [wWhichSprite]
 	ld [wPlayerSpriteIndex], a

@@ -2899,3 +2899,7 @@ TextOffsets::
 	textpointer GamblerDescription
 	textpointer RecycleName
 	textpointer RecycleDescription
+	textpointer AreYouABoyOrGirlText
+	textpointer BoyText
+	textpointer GirlText
+	textpointer Text0657_Female
