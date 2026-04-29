@@ -16,6 +16,10 @@
 *.sav
 *.sys
 *.sn*
+*.ss*
+
+# screenshots
+/*.png
 
 # converted image/palette data
 *.1bpp
