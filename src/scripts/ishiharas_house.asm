@@ -208,7 +208,7 @@ Script_Ronald:
 
 .ows_dc55
 	print_npc_text Text0740
-	ask_question_jump Text0741, .ows_dc60
+	ask_question_jump_default_yes Text0741, .ows_dc60
 	print_text_quit_fully Text0742
 
 .ows_dc60

@@ -101,7 +101,7 @@ Script_Imakuni:
 	test_if_event_false EVENT_TEMP_TALKED_TO_IMAKUNI
 	print_variable_npc_text ImakuniWouldLikeToDuelInitialText, ImakuniWouldLikeToDuelRepeatText
 	max_out_event_value EVENT_TEMP_TALKED_TO_IMAKUNI
-	ask_question_jump ImakuniWouldYouLikeToDuelText, .start_duel
+	ask_question_jump_default_yes ImakuniWouldYouLikeToDuelText, .start_duel
 	print_npc_text ImakuniDeclinedDuelText
 	quit_script_fully
 

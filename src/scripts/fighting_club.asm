@@ -48,7 +48,7 @@ Script_Mitch:
 
 .all_pupils_defeated
 	print_npc_text MitchWouldLikeToDuelInitialText
-	ask_question_jump MitchWouldYouLikeToDuelText, .start_duel
+	ask_question_jump_default_yes MitchWouldYouLikeToDuelText, .start_duel
 	print_npc_text MitchDeclinedInitialText
 	quit_script_fully
 
@@ -77,7 +77,7 @@ Script_LostToMitch:
 
 Script_Mitch_AlreadyHaveMedal:
 	print_npc_text MitchWouldLikeToDuelRepeatText
-	ask_question_jump MitchWouldYouLikeToDuelText, .start_duel
+	ask_question_jump_default_yes MitchWouldYouLikeToDuelText, .start_duel
 	print_npc_text MitchDeclinedDuelRepeatText
 	quit_script_fully
 
@@ -105,7 +105,7 @@ Script_de4b:
 	test_if_event_equal EVENT_PUPIL_CHRIS_STATE, PUPIL_DEFEATED
 	print_variable_npc_text ChrisFightingClubWantsToDuelInitialText, ChrisFightingClubWantsToDuelRepeatText
 	set_event EVENT_PUPIL_CHRIS_STATE, PUPIL_REVISITED
-	ask_question_jump ChrisFightingClubWouldYouLikeToDuelText, .ows_de61
+	ask_question_jump_default_yes ChrisFightingClubWouldYouLikeToDuelText, .ows_de61
 	print_npc_text ChrisFightingClubDeclinedDuelText
 	quit_script_fully
 
@@ -133,7 +133,7 @@ Preload_MichaelInFightingClub:
 
 Script_MichaelRematch:
 	print_npc_text MichaelFightingClubWantsToDuelText
-	ask_question_jump MichaelFightingClubWouldYouLikeToDuelText, .ows_de8d
+	ask_question_jump_default_yes MichaelFightingClubWouldYouLikeToDuelText, .ows_de8d
 	print_npc_text MichaelFightingClubDeclinedDuelText
 	quit_script_fully
 
@@ -161,7 +161,7 @@ Preload_JessicaInFightingClub:
 
 Script_dead:
 	print_npc_text JessicaFightingClubWantsToDuelText
-	ask_question_jump JessicaFightingClubWouldYouLikeToDuelText, .ows_deb9
+	ask_question_jump_default_yes JessicaFightingClubWouldYouLikeToDuelText, .ows_deb9
 	print_npc_text JessicaFightingClubDeclinedDuelText
 	quit_script_fully
 

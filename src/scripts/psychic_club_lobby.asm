@@ -20,7 +20,7 @@ PsychicClubLobbyLoadMap:
 Script_Robert:
 	start_script
 	print_npc_text Text0654
-	ask_question_jump Text0655, .ows_e98d
+	ask_question_jump_default_yes Text0655, .ows_e98d
 	print_npc_text Text0656
 	quit_script_fully
 

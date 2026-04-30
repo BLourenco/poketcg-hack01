@@ -23,7 +23,7 @@ Script_Ryan:
 	start_script
 	try_give_pc_pack $03
 	print_npc_text Text0795
-	ask_question_jump Text0796, .ows_dfff
+	ask_question_jump_default_yes Text0796, .ows_dfff
 	print_npc_text Text0797
 	quit_script_fully
 
@@ -47,7 +47,7 @@ Script_Andrew:
 	start_script
 	try_give_pc_pack $03
 	print_npc_text Text079c
-	ask_question_jump Text079d, .ows_e026
+	ask_question_jump_default_yes Text079d, .ows_e026
 	print_npc_text Text079e
 	quit_script_fully
 
@@ -72,7 +72,7 @@ Script_Gene:
 	try_give_pc_pack $03
 	jump_if_event_true EVENT_BEAT_GENE, Script_LostToGene.ows_e07b
 	print_npc_text Text07a3
-	ask_question_jump Text07a4, .ows_e051
+	ask_question_jump_default_yes Text07a4, .ows_e051
 	print_npc_text Text07a5
 	quit_script_fully
 
@@ -101,7 +101,7 @@ Script_LostToGene:
 
 .ows_e07b
 	print_npc_text Text07ab
-	ask_question_jump Text07a4, .ows_e087
+	ask_question_jump_default_yes Text07a4, .ows_e087
 	print_npc_text Text07ac
 	quit_script_fully
 

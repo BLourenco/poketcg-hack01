@@ -27,7 +27,7 @@ FireClubAfterDuel:
 Script_John:
 	start_script
 	print_npc_text Text06a5
-	ask_question_jump Text06a6, .ows_eec0
+	ask_question_jump_default_yes Text06a6, .ows_eec0
 	print_npc_text Text06a7
 	quit_script_fully
 
@@ -50,7 +50,7 @@ Script_LostToJohn:
 Script_Adam:
 	start_script
 	print_npc_text Text06ac
-	ask_question_jump Text06ad, .ows_eee5
+	ask_question_jump_default_yes Text06ad, .ows_eee5
 	print_npc_text Text06ae
 	quit_script_fully
 
@@ -73,7 +73,7 @@ Script_LostToAdam:
 Script_Jonathan:
 	start_script
 	print_npc_text Text06b3
-	ask_question_jump Text06b4, .ows_ef0a
+	ask_question_jump_default_yes Text06b4, .ows_ef0a
 	print_npc_text Text06b5
 	quit_script_fully
 
@@ -109,7 +109,7 @@ Script_Ken:
 	test_if_event_zero EVENT_KEN_TALKED
 	print_variable_npc_text Text06bc, Text06bd
 	set_event EVENT_KEN_TALKED, TRUE
-	ask_question_jump Text06be, .start_duel
+	ask_question_jump_default_yes Text06be, .start_duel
 	print_npc_text Text06bf
 	quit_script_fully
 
@@ -140,7 +140,7 @@ Script_LostToKen:
 
 Script_Ken_AlreadyHaveMedal:
 	print_npc_text Text06c6
-	ask_question_jump Text06be, .start_duel
+	ask_question_jump_default_yes Text06be, .start_duel
 	print_text_quit_fully Text06bf
 
 .start_duel

@@ -37,7 +37,7 @@ Script_Daniel:
 .ows_ea7e
 	print_npc_text Text066c
 .ows_ea81
-	ask_question_jump Text066d, .ows_ea8a
+	ask_question_jump_default_yes Text066d, .ows_ea8a
 	print_npc_text Text066e
 	quit_script_fully
 
@@ -65,7 +65,7 @@ Script_Stephanie:
 
 .ows_eaac
 	print_npc_text Text0674
-	ask_question_jump Text0675, .ows_eab8
+	ask_question_jump_default_yes Text0675, .ows_eab8
 	print_npc_text Text0676
 	quit_script_fully
 
@@ -110,7 +110,7 @@ Script_Murray:
 	test_if_event_false EVENT_MURRAY_TALKED
 	print_variable_npc_text Text067d, Text067e
 	max_out_event_value EVENT_MURRAY_TALKED
-	ask_question_jump Text067f, .ows_eb07
+	ask_question_jump_default_yes Text067f, .ows_eb07
 	print_npc_text Text0680
 	quit_script_fully
 
@@ -139,7 +139,7 @@ Script_LostToMurray:
 
 .ows_eb31
 	print_npc_text Text0686
-	ask_question_jump Text067f, .ows_eb3d
+	ask_question_jump_default_yes Text067f, .ows_eb3d
 	print_npc_text Text0687
 	quit_script_fully
 

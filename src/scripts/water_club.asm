@@ -39,7 +39,7 @@ WaterClubAfterDuel:
 Script_Sara:
 	start_script
 	print_npc_text SaraWantsToDuelText
-	ask_question_jump SaraWouldYouLikeToDuelText, .start_duel
+	ask_question_jump_default_yes SaraWouldYouLikeToDuelText, .start_duel
 	print_npc_text SaraDeclinedDuelText
 	quit_script_fully
 
@@ -63,7 +63,7 @@ Script_LostToSara:
 Script_Amanda:
 	start_script
 	print_npc_text AmandaWantsToDuelText
-	ask_question_jump AmandaWouldYouLikeToDuelText, .start_duel
+	ask_question_jump_default_yes AmandaWouldYouLikeToDuelText, .start_duel
 	print_npc_text AmandaDeclinedDuelText
 	quit_script_fully
 
@@ -172,7 +172,7 @@ Script_Joshua:
 .already_talked
 	test_if_event_equal EVENT_JOSHUA_STATE, JOSHUA_TALKED
 	print_variable_npc_text JoshuaWantsToDuelInitialText, JoshuaWantsToDuelRepeatText
-	ask_question_jump JoshuaWouldYouLikeToDuelText, .start_duel
+	ask_question_jump_default_yes JoshuaWouldYouLikeToDuelText, .start_duel
 	test_if_event_equal EVENT_JOSHUA_STATE, JOSHUA_TALKED
 	print_variable_npc_text JoshuaDeclinedDuelInitialText, JoshuaDeclinedDuelRepeatText
 	quit_script_fully
@@ -271,7 +271,7 @@ Script_Amy:
 	jump_if_event_true EVENT_BEAT_AMY, Script_Amy_AlreadyHaveMedal
 	print_npc_text AmyWantsToDuelInitialText
 .ask_for_duel
-	ask_question_jump AmyWouldYouLikeToDuelText, .start_duel
+	ask_question_jump_default_yes AmyWouldYouLikeToDuelText, .start_duel
 .deny_duel
 	print_npc_text AmyDeclinedDuelInitialText
 	jump_if_active_npc_coords_match 20, 4, Script_LostToAmy.ows_e34e
@@ -311,7 +311,7 @@ Script_LostToAmy:
 
 Script_Amy_AlreadyHaveMedal:
 	print_npc_text AmyWantsToDuelRepeatText
-	ask_question_jump AmyWouldYouLikeToDuelText, .start_duel
+	ask_question_jump_default_yes AmyWouldYouLikeToDuelText, .start_duel
 	script_jump Script_Amy.deny_duel
 
 .start_duel

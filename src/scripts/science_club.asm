@@ -29,7 +29,7 @@ Script_David:
 	test_if_event_zero EVENT_DAVID_STATE
 	print_variable_npc_text Text074f, Text0750
 	set_event EVENT_DAVID_STATE, DAVID_TALKED
-	ask_question_jump Text0751, .ows_ec27
+	ask_question_jump_default_yes Text0751, .ows_ec27
 	print_npc_text Text0752
 	quit_script_fully
 
@@ -53,7 +53,7 @@ Script_LostToDavid:
 Script_Erik:
 	start_script
 	print_npc_text Text0757
-	ask_question_jump Text0758, .ows_ec4f
+	ask_question_jump_default_yes Text0758, .ows_ec4f
 	print_npc_text Text0759
 	quit_script_fully
 
@@ -77,7 +77,7 @@ Script_Rick:
 	start_script
 	jump_if_event_true EVENT_BEAT_RICK, Script_LostToRick.ows_eca2
 	print_npc_text Text075e
-	ask_question_jump Text075f, .ows_ec78
+	ask_question_jump_default_yes Text075f, .ows_ec78
 	print_npc_text Text0760
 	quit_script_fully
 
@@ -106,7 +106,7 @@ Script_LostToRick:
 
 .ows_eca2
 	print_npc_text Text0766
-	ask_question_jump Text075f, .ows_ecae
+	ask_question_jump_default_yes Text075f, .ows_ecae
 	print_npc_text Text0767
 	quit_script_fully
 
@@ -144,7 +144,7 @@ Script_Joseph:
 	try_give_pc_pack $08
 	jump_if_event_true EVENT_BEAT_JOSEPH, Script_LostToJoseph.ows_ed24
 	print_npc_text Text076c
-	ask_question_jump Text076d, .ows_ecee
+	ask_question_jump_default_yes Text076d, .ows_ecee
 	print_npc_text Text076e
 	quit_script_fully
 
@@ -184,7 +184,7 @@ Script_LostToJoseph:
 
 .ows_ed24
 	print_npc_text Text0774
-	ask_question_jump Text076d, .ows_ed2f
+	ask_question_jump_default_yes Text076d, .ows_ed2f
 	print_text_quit_fully Text076e
 
 .ows_ed2f

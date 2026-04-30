@@ -25,7 +25,7 @@ Script_Chris:
 	start_script
 	jump_if_event_greater_or_equal EVENT_PUPIL_CHRIS_STATE, PUPIL_DEFEATED, Script_de4b
 	print_npc_text Text077a
-	ask_question_jump Text077b, .ows_df04
+	ask_question_jump_default_yes Text077b, .ows_df04
 	print_npc_text Text077c
 	quit_script_fully
 
@@ -83,7 +83,7 @@ Script_Matthew:
 	print_npc_text Text0783
 .ows_df4f
 	set_event EVENT_MATTHEW_STATE, MATTHEW_TALKED
-	ask_question_jump Text0784, .ows_df5b
+	ask_question_jump_default_yes Text0784, .ows_df5b
 	print_npc_text Text0785
 	quit_script_fully
 

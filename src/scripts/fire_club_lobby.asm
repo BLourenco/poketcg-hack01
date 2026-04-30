@@ -66,7 +66,7 @@ Script_Jessica:
 	test_if_event_equal EVENT_PUPIL_JESSICA_STATE, PUPIL_ACTIVE
 	print_variable_npc_text Text068d, Text068e
 	set_event EVENT_PUPIL_JESSICA_STATE, PUPIL_TALKED
-	ask_question_jump Text068f, .ows_edb2
+	ask_question_jump_default_yes Text068f, .ows_edb2
 	print_npc_text Text0690
 	quit_script_fully
 

@@ -13,7 +13,7 @@ Script_Brittany:
 	start_script
 	test_if_event_less_than EVENT_NIKKI_STATE, NIKKI_IN_ISHIHARAS_HOUSE
 	print_variable_npc_text Text06e0, Text06e1
-	ask_question_jump Text06e2, .start_duel
+	ask_question_jump_default_yes Text06e2, .start_duel
 	print_npc_text Text06e3
 	quit_script_fully
 

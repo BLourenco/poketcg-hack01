@@ -27,7 +27,7 @@ LightningClubAfterDuel:
 Script_Jennifer:
 	start_script
 	print_npc_text Text061b
-	ask_question_jump Text061c, .ows_e415
+	ask_question_jump_default_yes Text061c, .ows_e415
 	print_npc_text Text061d
 	quit_script_fully
 
@@ -51,7 +51,7 @@ Script_LostToJennifer:
 Script_Nicholas:
 	start_script
 	print_npc_text Text0622
-	ask_question_jump Text0623, .ows_e43c
+	ask_question_jump_default_yes Text0623, .ows_e43c
 	print_npc_text Text0624
 	quit_script_fully
 
@@ -84,7 +84,7 @@ Script_Brandon:
 	print_npc_text Text062a
 .ows_e46c
 	print_npc_text Text062b
-	ask_question_jump Text062c, .ows_e478
+	ask_question_jump_default_yes Text062c, .ows_e478
 	print_npc_text Text062d
 	quit_script_fully
 
@@ -135,7 +135,7 @@ Script_Isaac:
 	test_if_event_false EVENT_ISAAC_TALKED
 	print_variable_npc_text Text0633, Text0634
 	max_out_event_value EVENT_ISAAC_TALKED
-	ask_question_jump Text0635, .ows_e4d9
+	ask_question_jump_default_yes Text0635, .ows_e4d9
 	print_npc_text Text0636
 	quit_script_fully
 
@@ -164,7 +164,7 @@ Script_LostToIsaac:
 
 .ows_e503
 	print_npc_text Text063c
-	ask_question_jump Text0635, .ows_e50f
+	ask_question_jump_default_yes Text0635, .ows_e50f
 	print_npc_text Text063d
 	quit_script_fully
 

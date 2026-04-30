@@ -23,7 +23,7 @@ Script_Kristin:
 	start_script
 	test_if_event_less_than EVENT_NIKKI_STATE, NIKKI_IN_ISHIHARAS_HOUSE
 	print_variable_npc_text Text0704, Text0705
-	ask_question_jump Text0706, .ows_e714
+	ask_question_jump_default_yes Text0706, .ows_e714
 	print_text_quit_fully Text0707
 
 .ows_e714
@@ -55,7 +55,7 @@ Script_Heather:
 	start_script
 	test_if_event_less_than EVENT_NIKKI_STATE, NIKKI_IN_ISHIHARAS_HOUSE
 	print_variable_npc_text Text070d, Text070e
-	ask_question_jump Text070f, .ows_e758
+	ask_question_jump_default_yes Text070f, .ows_e758
 	print_text_quit_fully Text0710
 
 .ows_e758
@@ -99,7 +99,7 @@ Script_Nikki:
 	start_script
 	test_if_event_false EVENT_BEAT_NIKKI
 	print_variable_npc_text Text0718, Text0719
-	ask_question_jump Text071a, .ows_e7bf
+	ask_question_jump_default_yes Text071a, .ows_e7bf
 	test_if_event_false EVENT_BEAT_NIKKI
 	print_variable_npc_text Text071b, Text071c
 	quit_script_fully

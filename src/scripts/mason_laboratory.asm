@@ -169,14 +169,14 @@ Script_Sam:
 	jump_if_event_equal EVENT_SAM_MENU_CHOICE, SAM_MENU_NOTHING, .ows_d637
 ; SAM_MENU_PRACTICE_DUEL
 	print_npc_text Text05cb
-	ask_question_jump Text05cc, .ows_d647
+	ask_question_jump_default_yes Text05cc, .ows_d647
 .ows_d637
 	print_npc_text Text05cd
 	quit_script_fully
 
 .ows_d63b
 	print_npc_text Text05ce
-	ask_question_jump Text05cf, .ows_d647
+	ask_question_jump_default_yes Text05cf, .ows_d647
 	print_npc_text Text05d0
 	quit_script_fully
 

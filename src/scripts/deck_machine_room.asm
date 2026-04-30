@@ -41,7 +41,7 @@ Script_Tech8:
 Script_Aaron:
 	start_script
 	print_npc_text Text05fd
-	ask_question_jump Text05fe, .ows_d8e9
+	ask_question_jump_default_yes Text05fe, .ows_d8e9
 .ows_d8e6
 	print_text_quit_fully Text05ff
 
@@ -50,7 +50,7 @@ Script_Aaron:
 	choose_deck_to_duel_against
 	close_text_box
 	jump_if_event_equal EVENT_AARON_DECK_MENU_CHOICE, AARON_DECK_MENU_CANCEL, .ows_d8e6
-	ask_question_jump Text0601, .ows_d8fb
+	ask_question_jump_default_yes Text0601, .ows_d8fb
 	script_jump .ows_d8e6
 
 .ows_d8fb
