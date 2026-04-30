@@ -5781,7 +5781,7 @@ AIMakeDecision:
 .delay_loop
 	call DoFrame
 	ld a, [wVBlankCounter]
-	cp 60
+	cp 40
 	jr c, .delay_loop
 
 .skip_delay
