@@ -2164,73 +2164,73 @@ AnimFrameTablePlayerShuffle::
 
 AnimDataPlayerShuffle::
 	frame_table AnimFrameTablePlayerShuffle
-	frame_data  6,  3,   0,   0
-	frame_data  7,  3,   0,   0
-	frame_data  8,  3,   0,   0
-	frame_data  9,  4,   0,   0
-	frame_data 10,  3,   0,   0
-	frame_data 11,  3,   0,   0
-	frame_data  6,  3,   0,   0
+	frame_data  6,  2,   0,   0
+	frame_data  7,  2,   0,   0
+	frame_data  8,  2,   0,   0
+	frame_data  9,  2,   0,   0
+	frame_data 10,  2,   0,   0
+	frame_data 11,  2,   0,   0
+	frame_data  6,  2,   0,   0
 	frame_data  0,  1,   0,   0
 	frame_data  0, -1,   0,   0
 	frame_data  0,  0,   0,   0
 
 AnimDataOppShuffle::
 	frame_table AnimFrameTablePlayerShuffle
-	frame_data 12,  3,   0,   0
-	frame_data 13,  3,   0,   0
-	frame_data 14,  3,   0,   0
-	frame_data 15,  3,   0,   0
-	frame_data 16,  3,   0,   0
-	frame_data 17,  3,   0,   0
-	frame_data 12,  3,   0,   0
+	frame_data 12,  2,   0,   0
+	frame_data 13,  2,   0,   0
+	frame_data 14,  2,   0,   0
+	frame_data 15,  2,   0,   0
+	frame_data 16,  2,   0,   0
+	frame_data 17,  2,   0,   0
+	frame_data 12,  2,   0,   0
 	frame_data  0,  1,   0,   0
 	frame_data  0, -1,   0,   0
 	frame_data  0,  0,   0,   0
 
 AnimDataBothShuffle::
 	frame_table AnimFrameTablePlayerShuffle
-	frame_data  1,  3,   0,   0
-	frame_data 18,  3,   0,   0
-	frame_data 19,  3,   0,   0
-	frame_data 20,  3,   0,   0
-	frame_data 21,  3,   0,   0
-	frame_data 22,  3,   0,   0
-	frame_data  1,  3,   0,   0
+	frame_data  1,  2,   0,   0
+	frame_data 18,  2,   0,   0
+	frame_data 19,  2,   0,   0
+	frame_data 20,  2,   0,   0
+	frame_data 21,  2,   0,   0
+	frame_data 22,  2,   0,   0
+	frame_data  1,  2,   0,   0
 	frame_data  0,  1,   0,   0
 	frame_data  0, -1,   0,   0
 	frame_data  0,  0,   0,   0
 
 AnimDataBothDraw::
 	frame_table AnimFrameTablePlayerShuffle
-	frame_data 25,  6,   0,   0
-	frame_data 26,  6,   0,   0
-	frame_data 27,  6,   0,   0
-	frame_data 28,  6,   0,   0
-	frame_data 29,  6,   0,   0
-	frame_data 30,  6,   0,   0
+	frame_data 25,  3,   0,   0
+	frame_data 26,  3,   0,   0
+	frame_data 27,  3,   0,   0
+	frame_data 28,  3,   0,   0
+	frame_data 29,  3,   0,   0
+	frame_data 30,  3,   0,   0
 	frame_data 30, -1,   0,   0
 	frame_data  0,  0,   0,   0
 
 AnimDataPlayerDraw::
 	frame_table AnimFrameTablePlayerShuffle
-	frame_data 31,  6,   0,   0
-	frame_data 32,  6,   0,   0
-	frame_data 33,  6,   0,   0
-	frame_data 34,  6,   0,   0
-	frame_data 35,  6,   0,   0
-	frame_data 36,  6,   0,   0
+	frame_data 31,  3,   0,   0
+	frame_data 32,  3,   0,   0
+	frame_data 33,  3,   0,   0
+	frame_data 34,  3,   0,   0
+	frame_data 35,  3,   0,   0
+	frame_data 36,  3,   0,   0
 	frame_data 36, -1,   0,   0
 	frame_data  0,  0,   0,   0
 
 AnimDataOppDraw::
 	frame_table AnimFrameTablePlayerShuffle
-	frame_data 37,  6,   0,   0
-	frame_data 38,  6,   0,   0
-	frame_data 39,  6,   0,   0
-	frame_data 40,  6,   0,   0
-	frame_data 41,  6,   0,   0
-	frame_data 42,  6,   0,   0
+	frame_data 37,  3,   0,   0
+	frame_data 38,  3,   0,   0
+	frame_data 39,  3,   0,   0
+	frame_data 40,  3,   0,   0
+	frame_data 41,  3,   0,   0
+	frame_data 42,  3,   0,   0
 	frame_data 42, -1,   0,   0
 	frame_data  0,  0,   0,   0
 
@@ -2311,89 +2311,89 @@ AnimFrameTableCoinSpin::
 
 AnimDataCoinSpin::
 	frame_table AnimFrameTableCoinSpin
-	frame_data  0,  4,   0,   0
-	frame_data  1,  4,   0,   0
-	frame_data  2,  4,   0,   0
-	frame_data  3,  4,   0,   0
-	frame_data  4,  4,   0,   0
-	frame_data  5,  4,   0,   0
-	frame_data  2,  4,   0,   0
-	frame_data  6,  4,   0,   0
+	frame_data  0,  3,   0,   0
+	frame_data  1,  3,   0,   0
+	frame_data  2,  3,   0,   0
+	frame_data  3,  3,   0,   0
+	frame_data  4,  3,   0,   0
+	frame_data  5,  3,   0,   0
+	frame_data  2,  3,   0,   0
+	frame_data  6,  3,   0,   0
 	frame_data  0,  0,   0,   0
 
 AnimDataCoinTossGoingHeads::
 	frame_table AnimFrameTableCoinSpin
-	frame_data  0,  2,   0,  -7
-	frame_data  1,  2,   0,  -7
-	frame_data  2,  2,   0,  -6
-	frame_data  3,  2,   0,  -6
-	frame_data  4,  2,   0,  -5
-	frame_data  5,  2,   0,  -5
-	frame_data  2,  2,   0,  -4
-	frame_data  6,  2,   0,  -4
-	frame_data  0,  2,   0,  -3
-	frame_data  1,  2,   0,  -2
-	frame_data  2,  2,   0,  -1
-	frame_data  3,  2,   0,   0
-	frame_data  4,  2,   0,   1
-	frame_data  5,  2,   0,   2
-	frame_data  2,  2,   0,   3
-	frame_data  6,  2,   0,   4
-	frame_data  0,  2,   0,   4
-	frame_data  1,  2,   0,   5
-	frame_data  2,  2,   0,   5
-	frame_data  3,  2,   0,   6
-	frame_data  4,  2,   0,   6
-	frame_data  5,  2,   0,   7
-	frame_data  2,  2,   0,   7
-	frame_data  6,  2,   0,  -5
-	frame_data  0,  2,   0,  -3
-	frame_data  1,  2,   0,  -2
-	frame_data  2,  2,   0,  -1
-	frame_data  3,  2,   0,   0
-	frame_data  4,  2,   0,   0
-	frame_data  5,  2,   0,   1
-	frame_data  2,  2,   0,   2
-	frame_data  6,  2,   0,   3
-	frame_data  0,  2,   0,   5
+	frame_data  0,  1,   0,  -7
+	frame_data  1,  1,   0,  -7
+	frame_data  2,  1,   0,  -6
+	frame_data  3,  1,   0,  -6
+	frame_data  4,  1,   0,  -5
+	frame_data  5,  1,   0,  -5
+	frame_data  2,  1,   0,  -4
+	frame_data  6,  1,   0,  -4
+	frame_data  0,  1,   0,  -3
+	frame_data  1,  1,   0,  -2
+	frame_data  2,  1,   0,  -1
+	frame_data  3,  1,   0,   0
+	frame_data  4,  1,   0,   1
+	frame_data  5,  1,   0,   2
+	frame_data  2,  1,   0,   3
+	frame_data  6,  1,   0,   4
+	frame_data  0,  1,   0,   4
+	frame_data  1,  1,   0,   5
+	frame_data  2,  1,   0,   5
+	frame_data  3,  1,   0,   6
+	frame_data  4,  1,   0,   6
+	frame_data  5,  1,   0,   7
+	frame_data  2,  1,   0,   7
+	frame_data  6,  1,   0,  -5
+	frame_data  0,  1,   0,  -3
+	frame_data  1,  1,   0,  -2
+	frame_data  2,  1,   0,  -1
+	frame_data  3,  1,   0,   0
+	frame_data  4,  1,   0,   0
+	frame_data  5,  1,   0,   1
+	frame_data  2,  1,   0,   2
+	frame_data  6,  1,   0,   3
+	frame_data  0,  1,   0,   5
 	frame_data  0, -1,   0,   0
 	frame_data  0,  0,   0,   0
 
 AnimDataCoinTossGoingTails::
 	frame_table AnimFrameTableCoinSpin
-	frame_data  0,  2,   0,  -7
-	frame_data  1,  2,   0,  -7
-	frame_data  2,  2,   0,  -6
-	frame_data  3,  2,   0,  -6
-	frame_data  4,  2,   0,  -5
-	frame_data  5,  2,   0,  -5
-	frame_data  2,  2,   0,  -4
-	frame_data  6,  2,   0,  -4
-	frame_data  0,  2,   0,  -3
-	frame_data  1,  2,   0,  -2
-	frame_data  2,  2,   0,  -1
-	frame_data  3,  2,   0,   0
-	frame_data  4,  2,   0,   1
-	frame_data  5,  2,   0,   2
-	frame_data  2,  2,   0,   3
-	frame_data  6,  2,   0,   4
-	frame_data  0,  2,   0,   4
-	frame_data  1,  2,   0,   5
-	frame_data  2,  2,   0,   5
-	frame_data  3,  2,   0,   6
-	frame_data  4,  2,   0,   6
-	frame_data  5,  2,   0,   7
-	frame_data  2,  2,   0,   7
-	frame_data  5,  2,   0,  -5
-	frame_data  4,  2,   0,  -3
-	frame_data  3,  2,   0,  -2
-	frame_data  2,  2,   0,  -1
-	frame_data  1,  2,   0,   0
-	frame_data  0,  2,   0,   0
-	frame_data  6,  2,   0,   1
-	frame_data  2,  2,   0,   2
-	frame_data  5,  2,   0,   3
-	frame_data  4,  2,   0,   5
+	frame_data  0,  1,   0,  -7
+	frame_data  1,  1,   0,  -7
+	frame_data  2,  1,   0,  -6
+	frame_data  3,  1,   0,  -6
+	frame_data  4,  1,   0,  -5
+	frame_data  5,  1,   0,  -5
+	frame_data  2,  1,   0,  -4
+	frame_data  6,  1,   0,  -4
+	frame_data  0,  1,   0,  -3
+	frame_data  1,  1,   0,  -2
+	frame_data  2,  1,   0,  -1
+	frame_data  3,  1,   0,   0
+	frame_data  4,  1,   0,   1
+	frame_data  5,  1,   0,   2
+	frame_data  2,  1,   0,   3
+	frame_data  6,  1,   0,   4
+	frame_data  0,  1,   0,   4
+	frame_data  1,  1,   0,   5
+	frame_data  2,  1,   0,   5
+	frame_data  3,  1,   0,   6
+	frame_data  4,  1,   0,   6
+	frame_data  5,  1,   0,   7
+	frame_data  2,  1,   0,   7
+	frame_data  5,  1,   0,  -5
+	frame_data  4,  1,   0,  -3
+	frame_data  3,  1,   0,  -2
+	frame_data  2,  1,   0,  -1
+	frame_data  1,  1,   0,   0
+	frame_data  0,  1,   0,   0
+	frame_data  6,  1,   0,   1
+	frame_data  2,  1,   0,   2
+	frame_data  5,  1,   0,   3
+	frame_data  4,  1,   0,   5
 	frame_data  4, -1,   0,   0
 	frame_data  0,  0,   0,   0
 
