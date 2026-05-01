@@ -209,3 +209,7 @@ DeclinedPracticeDuelText:
 	line "He can usually be found near"
 	line "the card table to your left."
 	done
+
+WouldYouLikeToConcedeText:
+	text "     Would you like to concede?"
+	done

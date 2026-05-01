@@ -285,6 +285,8 @@ PrintDuelMenuAndHandleInput:
 	jr nz, DuelMenuShortcut_OpponentDiscardPile
 	bit B_PAD_START, a
 	jp nz, DuelMenuShortcut_OpponentActivePokemon
+	bit B_PAD_SELECT, a
+	jp nz, DuelMenuShortcut_ConcedeDuel
 
 .b_not_held
 	ldh a, [hKeysPressed]
@@ -333,6 +335,16 @@ DuelMenuShortcut_PlayerDiscardPile:
 	call OpenTurnHolderDiscardPileScreen
 	jp c, PrintDuelMenuAndHandleInput
 	jp DuelMainInterface
+
+; triggered by pressing B + SELECT in the duel menu
+DuelMenuShortcut_ConcedeDuel:
+	ldtx hl, WouldYouLikeToConcedeText
+	call YesOrNoMenuWithText
+	jp c, PrintDuelMenuAndHandleInput ; return to main duem menu if "No" was selected
+	; Player chooses to concede
+	ld a, TURN_PLAYER_LOST
+	ld [wDuelFinished], a
+	ret
 
 ; draw the non-turn holder's play area screen
 OpenNonTurnHolderPlayAreaScreen:

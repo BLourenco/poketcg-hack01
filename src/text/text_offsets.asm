@@ -2904,3 +2904,4 @@ TextOffsets::
 	textpointer GirlText
 	textpointer Text0657_Female
 	textpointer DeclinedPracticeDuelText
+	textpointer WouldYouLikeToConcedeText
