@@ -1164,10 +1164,10 @@ ContinueDiaryNewGameText:
 	line "NEW GAME"
 	done
 
-ContinueDiaryNewGameContinueDuelText:
-	text "CONTINUE FROM DIARY"
+ContinueDuelContinueDiaryNewGameText:
+	text "CONTINUE DUEL"
+	line "CONTINUE FROM DIARY"
 	line "New Game"
-	line "CONTINUE DUEL"
 	done
 
 ContinueFromDiarySummaryText:
@@ -1214,16 +1214,10 @@ AllDataWasDeletedText:
 DataExistsWhenPowerWasTurnedOFFDuringDuelText:
 	text "Data exists from when the power "
 	line "was turned OFF during a duel."
-	line "Choose CONTINUE DUEL on the"
-	line "Main Menu to continue the duel."
-	line "If you continue now, the heading,"
-	line "CONTINUE DUEL, will be"
-	line "deleted, and the game will start"
-	line "from the point when you last "
-	line "wrote in the Diary."
-	line ""
+	line "If you continue now, the duel"
+	line "save data will be deleted."
 	line "Would you like to continue the Game"
-	line "from the point saved in"
+	line "from the point saved in the Diary?"
 	done
 
 ContinueFromDiaryText:

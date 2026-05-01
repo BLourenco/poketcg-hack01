@@ -64,9 +64,9 @@ DEF NUM_CARDS_PROMOTIONAL EQU 20
 
 ; wStartMenuChoice enums
 	const_def
-	const START_MENU_CONTINUE_FROM_DIARY ; 0
-	const START_MENU_NEW_GAME            ; 1
-	const START_MENU_CONTINUE_DUEL       ; 2
+	const START_MENU_CONTINUE_DUEL       ; 0
+	const START_MENU_CONTINUE_FROM_DIARY ; 1
+	const START_MENU_NEW_GAME            ; 2
 
 DEF NUM_MAILS EQU 15
 

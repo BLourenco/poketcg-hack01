@@ -23,9 +23,9 @@ _GameLoop::
 	ret
 
 MainMenuFunctionTable:
+	dw MainMenu_ContinueDuel
 	dw MainMenu_ContinueFromDiary
 	dw MainMenu_NewGame
-	dw MainMenu_ContinueDuel
 
 MainMenu_NewGame:
 	farcall Func_c1b1

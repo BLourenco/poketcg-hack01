@@ -58,7 +58,7 @@ HandleTitleScreen:
 	jr .continue_duel
 .continue_from_diary
 	ld a, [wStartMenuChoice]
-	or a ; cp START_MENU_CONTINUE_FROM_DIARY
+	cp START_MENU_CONTINUE_FROM_DIARY
 	jr nz, .continue_duel
 	call AskToContinueFromDiaryWithDuelData
 	jp c, HandleTitleScreen
@@ -113,7 +113,7 @@ HandleStartMenu:
 
 	ld a, $ff
 	ld [wTitleScreenIgnoreInputCounter], a
-	ld a, [wLastSelectedStartMenuItem]
+	ld a, 0 ; Always initialize cursor at position 0. Used to be [wLastSelectedStartMenuItem]
 	cp $4
 	jr c, .init_menu
 	xor a ; start at first menu option
@@ -134,13 +134,19 @@ HandleStartMenu:
 	cp e
 	jr nz, .wait_input
 
+	; New Game is 3rd option
+	; but when there's no duel data,
+	; it's the second, so adjust it by 1
+	; but when there's no save data,
+	; it's the 1st in menu list, so adjust it by 1
 	ld [wLastSelectedStartMenuItem], a
+	ld a, [wHasDuelSaveData]
+	or a
+	jr nz, .no_adjustment
+	inc e
 	ld a, [wHasSaveData]
 	or a
 	jr nz, .no_adjustment
-	; New Game is 3rd option
-	; but when there's no save data,
-	; it's the 1st in menu list, so adjust it
 	inc e
 .no_adjustment
 	ld a, e
@@ -217,7 +223,7 @@ HandleStartMenu:
 .StartMenuTextIDs
 	tx NewGameText
 	tx ContinueDiaryNewGameText
-	tx ContinueDiaryNewGameContinueDuelText
+	tx ContinueDuelContinueDiaryNewGameText
 
 .DrawPlayerPortrait
 	lb bc, 14, 1
@@ -236,14 +242,20 @@ PrintStartMenuDescriptionText:
 	ld a, [wCurHighlightedStartMenuItem]
 	cp e
 	jr z, .skip
-	ld a, [wHasSaveData]
+	ld a, [wHasDuelSaveData]
 	or a
-	jr nz, .has_data
+	jr nz, .has_duel_data
 	; New Game option is 3rd element
 	; in function table, so add 2
 	inc e
-.has_data
-
+.has_duel_data
+	ld a, [wHasSaveData]
+	or a
+	jr nz, .has_diary_data
+	; Continue from Diary is 2nd element
+	; in function table, so add 1
+	inc e
+.has_diary_data
 	ld a, e
 	push af
 	lb de, 0, 10
@@ -261,9 +273,9 @@ PrintStartMenuDescriptionText:
 	ret
 
 .StartMenuDescriptionFunctionTable
+	dw .ContinueDuel
 	dw .ContinueFromDiary
 	dw .NewGame
-	dw .ContinueDuel
 
 .ContinueDuel
 	lb de, 1, 12
