@@ -212,6 +212,7 @@ DeclinedPracticeDuelText:
 
 WouldYouLikeToConcedeText:
 	text "     Would you like to concede?"
+	done
 
 ColorListText:
 	text "Grass"
