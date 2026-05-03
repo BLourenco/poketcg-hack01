@@ -27,3 +27,18 @@ PCMenuParams:
 	db SYM_CURSOR_R ; cursor tile number
 	db SYM_SPACE ; tile behind cursor
 	dw NULL ; function pointer if non-0
+
+DebugMenuParams:
+	db  0,  0 ; start menu coords
+	db  8, 14 ; start menu text box dimensions
+
+	db 2, 2 ; text alignment for InitTextPrinting
+	tx DebugMenuOptionsText
+	db $ff
+
+	db 1, 2 ; cursor x, cursor y
+	db 2 ; y displacement between items
+	db 6 ; number of items
+	db SYM_CURSOR_R ; cursor tile number
+	db SYM_SPACE ; tile behind cursor
+	dw NULL ; function pointer if non-0

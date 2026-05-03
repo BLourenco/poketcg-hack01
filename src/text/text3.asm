@@ -966,13 +966,12 @@ PauseMenuOptionsText:
 	line "Exit"
 	done
 
-DebugPauseMenuOptionsText:
-	text "Status"
-	line "Diary"
-	line "Deck"
-	line "Card"
-	line "Config"
-	line "Debug"
+DebugMenuOptionsText:
+	text "Toggle..."
+	line "Give..."
+	line "Flags..."
+	line "Space"
+	line "Credits"
 	line "Close"
 	done
 

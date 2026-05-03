@@ -758,7 +758,7 @@ TextOffsets::
 	textpointer ChallengeHallMapName
 	textpointer PokemonDomeMapName
 	textpointer PauseMenuOptionsText
-	textpointer DebugPauseMenuOptionsText
+	textpointer DebugMenuOptionsText
 	textpointer PlayerStatusNameText
 	textpointer PlayerStatusAlbumText
 	textpointer PlayerStatusPlayTimeText

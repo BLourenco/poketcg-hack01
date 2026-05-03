@@ -325,6 +325,28 @@ PauseMenuTextList:
 	tx PauseMenuOptionsText
 	dw NULL
 
+Func_c268_Debug:
+	ld hl, DebugMenuTextList
+.loop
+	push hl
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	or h
+	jr z, .done
+	call ProcessTextFromID
+	pop hl
+	inc hl
+	inc hl
+	jr .loop
+.done
+	pop hl
+	ret
+
+DebugMenuTextList:
+	tx DebugMenuOptionsText
+	dw NULL
+
 Func_c280:
 	call BackupPlayerPosition
 	call EnableAndClearSpriteAnimations
@@ -745,8 +767,10 @@ HandlePlayerMoveMode:
 
 .not_moving
 	ldh a, [hKeysPressed]
-	and PAD_START
+	bit B_PAD_START, a
 	call nz, OpenPauseMenu
+	bit B_PAD_SELECT, a
+	call nz, OpenDebugMenu
 	ret
 
 Func_c53d:
@@ -1090,6 +1114,98 @@ FindNPCOrObject:
 	scf
 	ret
 
+OpenDebugMenu:
+	push hl
+	push bc
+	push de
+	call DebugMenu
+	call CloseAdvancedDialogueBox
+	pop de
+	pop bc
+	pop hl
+	ret
+
+DebugMenu:
+	call PauseSong
+	ld a, MUSIC_DECK_MACHINE
+	call PlaySong
+	call DisplayDebugMenu
+.loop
+	ld a, 1 << AUTO_CLOSE_TEXTBOX
+	call SetOverworldNPCFlags
+.wait_input
+	call DoFrameIfLCDEnabled
+	call HandleMenuInput
+	jr nc, .wait_input
+	ld a, e
+	;ld [wSelectedPauseMenuItem], a
+	ldh a, [hCurMenuItem]
+	cp e
+	jr nz, .exit
+	cp $5
+	jr z, .exit
+	call Func_c2a3
+	ld a, [hCurMenuItem] ; Was [wSelectedPauseMenuItem], just init to first item instead
+	ld hl, DebugMenuPointerTable
+	call JumpToFunctionInTable
+	ld hl, DisplayDebugMenu
+	call ReturnToOverworldWithCallback
+	jr .loop
+.exit
+	jp ResumeSong
+
+DisplayDebugMenu:
+	ld a, 0 ; Was [wSelectedPauseMenuItem], just init to first item instead
+	ld hl, DebugMenuParams
+	farcall InitAndPrintMenu
+	ret
+
+DebugMenuPointerTable:
+	dw DebugMenu_Toggle
+	dw DebugMenu_Give
+	dw DebugMenu_Flags
+	dw DebugMenu_Space
+	dw DebugMenu_Credits
+	dw DebugMenu_Exit
+
+DebugMenu_Toggle:
+	farcall _PauseMenu_Status
+	ret
+
+DebugMenu_Give:
+	farcall _PauseMenu_Diary
+	ret
+
+DebugMenu_Flags:
+	xor a
+	ldh [hSCX], a
+	ldh [hSCY], a
+	call Set_OBJ_8x16
+	farcall SetDefaultPalettes
+	farcall DeckSelectionMenu
+	jp Set_OBJ_8x8
+
+DebugMenu_Space:
+	xor a
+	ldh [hSCX], a
+	ldh [hSCY], a
+	call Set_OBJ_8x16
+	farcall SetDefaultPalettes
+	farcall HandlePlayersCardsScreen
+	jp Set_OBJ_8x8
+
+; TODO: After credits, game returns to glitched state
+; since it's not meant to return to the overworld.
+; Maybe also add an input to skip it
+DebugMenu_Credits:
+	farcall PlayCreditsSequence
+	or a ; not sure if I need this
+	ret
+
+DebugMenu_Exit:
+	farcall _PauseMenu_Exit
+	ret
+
 OpenPauseMenu:
 	push hl
 	push bc
@@ -1341,4 +1457,24 @@ Func_c915:
 	call Func_c3ca
 	pop de
 	pop bc
+	ret
+
+Debug_GiveAllCards:
+	ld c, NUM_CARDS
+.loop_debug_collection
+	ld l, c
+	res CARD_NOT_OWNED_F, [hl]
+	ld a, [hl]
+	add 16 ; 16 copies of every card
+	ld [hl], a
+	dec c
+	jr nz, .loop_debug_collection
+	ld c, DOUBLE_COLORLESS_ENERGY - 1
+.loop_debug_energies
+	ld l, c
+	ld a, [hl]
+	add 30 ; plus an additional 30 copies of each Basic Energy card
+	ld [hl], a
+	dec c
+	jr nz, .loop_debug_energies
 	ret
