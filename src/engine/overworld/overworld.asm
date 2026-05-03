@@ -367,7 +367,7 @@ SetOverworldNPCFlags:
 	pop hl
 	ret
 
-Func_c2a3:
+PrepareTransitionToMenuScreen:
 	push hl
 	push bc
 	push de
@@ -1144,12 +1144,12 @@ DebugMenu:
 	jr nz, .exit
 	cp $5
 	jr z, .exit
-	call Func_c2a3
+	;call PrepareTransitionToMenuScreen ; TODO: Transitioning and returning need to be added to individual menu functions since not all transition to another screen.
 	ld a, [hCurMenuItem] ; Was [wSelectedPauseMenuItem], just init to first item instead
 	ld hl, DebugMenuPointerTable
 	call JumpToFunctionInTable
 	ld hl, DisplayDebugMenu
-	call ReturnToOverworldWithCallback
+	;call ReturnToOverworldWithCallback
 	jr .loop
 .exit
 	jp ResumeSong
@@ -1169,11 +1169,11 @@ DebugMenuPointerTable:
 	dw DebugMenu_Exit
 
 DebugMenu_Toggle:
-	farcall _PauseMenu_Status
+	;farcall _PauseMenu_Status
 	ret
 
 DebugMenu_Give:
-	farcall _PauseMenu_Diary
+	farcall Debug_GiveAllCards
 	ret
 
 DebugMenu_Flags:
@@ -1236,7 +1236,7 @@ PauseMenu:
 	jr nz, .exit
 	cp $5
 	jr z, .exit
-	call Func_c2a3
+	call PrepareTransitionToMenuScreen
 	ld a, [wSelectedPauseMenuItem]
 	ld hl, PauseMenuPointerTable
 	call JumpToFunctionInTable
@@ -1317,7 +1317,7 @@ PCMenu:
 	jr nz, .exit
 	cp $3
 	jr z, .exit
-	call Func_c2a3
+	call PrepareTransitionToMenuScreen
 	ld a, [wSelectedPCMenuItem]
 	ld hl, PointerTable_c846
 	call JumpToFunctionInTable
@@ -1460,6 +1460,8 @@ Func_c915:
 	ret
 
 Debug_GiveAllCards:
+	call EnableSRAM
+	ld hl, sCardCollection
 	ld c, NUM_CARDS
 .loop_debug_collection
 	ld l, c
@@ -1477,4 +1479,5 @@ Debug_GiveAllCards:
 	ld [hl], a
 	dec c
 	jr nz, .loop_debug_energies
+	jp DisableSRAM
 	ret

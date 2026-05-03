@@ -914,7 +914,7 @@ ScriptCommand_GiveBoosterPacks:
 	xor a
 	ld [wAnotherBoosterPack], a
 	push bc
-	call Func_c2a3
+	call PrepareTransitionToMenuScreen
 	pop bc
 	push bc
 	ld a, c
@@ -938,7 +938,7 @@ ScriptCommand_GiveBoosterPacks:
 ScriptCommand_GiveOneOfEachTrainerBooster:
 	xor a
 	ld [wAnotherBoosterPack], a
-	call Func_c2a3
+	call PrepareTransitionToMenuScreen
 	ld hl, .booster_type_table
 .loop
 	ld a, [hl]
@@ -965,7 +965,7 @@ ScriptCommand_GiveOneOfEachTrainerBooster:
 ; Shows the card received screen for a given promotional card
 ; arg can either be the card, $00 for a wram card, or $ff for the 4 legendary cards
 ScriptCommand_ShowCardReceivedScreen:
-	call Func_c2a3
+	call PrepareTransitionToMenuScreen
 	ld a, c
 	and b
 	cp $ff
@@ -1349,7 +1349,7 @@ ScriptCommand_JumpIfNPCLoaded:
 ScriptCommand_ShowMedalReceivedScreen:
 	ld a, c
 	push af
-	call Func_c2a3
+	call PrepareTransitionToMenuScreen
 	pop af
 	farcall ShowMedalReceivedScreen
 	call ReturnToOverworldNoCallback
@@ -1720,7 +1720,7 @@ ScriptCommand_ShowSamRulesMultichoice:
 
 ScriptCommand_OpenDeckMachine:
 	push bc
-	call Func_c2a3
+	call PrepareTransitionToMenuScreen
 	call PauseSong
 	ld a, MUSIC_DECK_MACHINE
 	call PlaySong
