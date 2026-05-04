@@ -1177,22 +1177,24 @@ DebugMenu_Give:
 	ret
 
 DebugMenu_Flags:
-	xor a
-	ldh [hSCX], a
-	ldh [hSCY], a
-	call Set_OBJ_8x16
-	farcall SetDefaultPalettes
-	farcall DeckSelectionMenu
-	jp Set_OBJ_8x8
+	ret
+	;xor a
+	;ldh [hSCX], a
+	;ldh [hSCY], a
+	;call Set_OBJ_8x16
+	;farcall SetDefaultPalettes
+	;farcall DeckSelectionMenu
+	;jp Set_OBJ_8x8
 
 DebugMenu_Space:
-	xor a
-	ldh [hSCX], a
-	ldh [hSCY], a
-	call Set_OBJ_8x16
-	farcall SetDefaultPalettes
-	farcall HandlePlayersCardsScreen
-	jp Set_OBJ_8x8
+	ret
+	;xor a
+	;ldh [hSCX], a
+	;ldh [hSCY], a
+	;call Set_OBJ_8x16
+	;farcall SetDefaultPalettes
+	;farcall HandlePlayersCardsScreen
+	;jp Set_OBJ_8x8
 
 ; TODO: After credits, game returns to glitched state
 ; since it's not meant to return to the overworld.

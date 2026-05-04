@@ -967,12 +967,18 @@ PauseMenuOptionsText:
 	done
 
 DebugMenuOptionsText:
-	text "Toggle..."
-	line "Give..."
-	line "Flags..."
-	line "Space"
+	text "---------"
+	line "Get Cards"
+	line "---------"
+	line "---------"
 	line "Credits"
 	line "Close"
+	;text "Toggle..."
+	;line "Give..."
+	;line "Flags..."
+	;line "Space"
+	;line "Credits"
+	;line "Close"
 	done
 
 PlayerStatusNameText:

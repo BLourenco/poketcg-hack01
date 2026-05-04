@@ -64,24 +64,6 @@ _AddStarterDeck:
 	pop hl
 	dec c
 	jr nz, .loop_extra_cards
-; Giva all cards
-;	ld c, NUM_CARDS                     ; c =  total numer of cards in the game
-;.loop_debug_collection
-;	ld l, c                             ; Load c (NUM_CARDS aka the last card index) into l
-;	res CARD_NOT_OWNED_F, [hl]          ; Set bit CARD_NOT_OWNED_F (bit 7) in the byte pointed to by HL to 0. Bit 0 is the rightmost one, bit 7 is the leftmost one
-;	ld a, [hl]                          ; Load the value pointed to by hl into a
-;	add 16                              ; 16 copies of every card
-;	ld [hl], a                          ; Load the value in a into the byte pointed to by hl
-;	dec c                               ; decrement c, moving one index backwards through the list of all cards. z is set when the value in c becomes 0
-;	jr nz, .loop_debug_collection       ; if z not yet set, loop back to the top
-;	ld c, DOUBLE_COLORLESS_ENERGY - 1   ; c = total number of basic energy
-;.loop_debug_energies
-;	ld l, c                             ; Load c (DOUBLE_COLORLESS_ENERGY - 1 aka the last energy card index) into l
-;	ld a, [hl]                          ; Load the value pointed to by hl into a
-;	add 30                              ; plus an additional 30 copies of each Basic Energy card
-;	ld [hl], a                          ; Load the value in a into the byte pointed to by hl
-;	dec c                               ; decrement c, moving one index backwards through the list of all cards. z is set when the value in c becomes 0
-;	jr nz, .loop_debug_energies         ; if z not yet set, loop back to the top
 	jp DisableSRAM
 
 .StarterCardIDs
