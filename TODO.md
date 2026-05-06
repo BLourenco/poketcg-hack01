@@ -1,5 +1,19 @@
-
 # TODO List
+
+ - Verify that any code tha uses NUM_TYPES and "- 1" together still work since the Unused type has been removed and new types have been added.
+ - Some code needs to be commented/un-commented depending on how many colored types there are, this should be changed to automatically account for this
+ - Fix bug where, when applying the Poison special condition, the icon is incorrectly loaded (but is fixed when the screen refreshes).
+   - wUseVRAMBank1 flag already made, will be set when trying to load a symbol from VRAM Bank 1, and then bank switching will happen immediately before it's needed in HblankWriteByteToBGMap0 in [bg_map.asm](src/home/bg_map.asm)
+ - Confirm whether I should remove gaps in cgb_symbols.png, update LoadVRAM0DuelCardSymbolTiles and LoadVRAM1DuelCardSymbolTiles if needed.
+ - For all types, test:
+   - Booster pack types
+   - Weaknesses and Resistances
+   - Attack costs (colored, colorless, mixed colors, all colorless)
+   - Retreat costs (0, 1, 2, 3, 4, 5)
+   - Venomoth's Pokemon Power: Shift
+   - All of the above, but for the AI
+
+# Mario_Bone's TODO List
 A list of TODO comments I've put in the code so I don't forget about them and know why I've put them aside
 
  - [card_constants.asm](src/constants/card_constants.asm) - index

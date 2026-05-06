@@ -1301,14 +1301,15 @@ ShiftMenuData:
 
 ColorTileAndBGP:
 	; tile, BG
-	db $d4, $02
-	db $d0, $01
-	db $dc, $02
-	db $d8, $01
-	db $e0, $03
-	db $e4, $03
-	db $e8, $00
-	db $ec, $00
+	db ICON_TILE_GRASS,     $03
+	db ICON_TILE_FIRE,      $01
+	db ICON_TILE_WATER,     $03
+	db ICON_TILE_LIGHTNING, $02
+	db ICON_TILE_FIGHTING,  $01
+	db ICON_TILE_PSYCHIC,   $02
+	db ICON_TILE_DARKNESS,  $04
+	db ICON_TILE_METAL,     $00
+	db ICON_TILE_DRAGON,    $04
 
 ShiftListItemToColor:
 	db GRASS
@@ -1319,6 +1320,7 @@ ShiftListItemToColor:
 	db PSYCHIC
 	db DARKNESS
 	db METAL
+	db DRAGON
 
 ColorToTextSymbol:
 	tx FireSymbolText
@@ -1329,6 +1331,7 @@ ColorToTextSymbol:
 	tx PsychicSymbolText
 	tx DarknessSymbolText
 	tx MetalSymbolText
+	tx DragonSymbolText
 
 DrawSymbolOnPlayAreaCursor:
 	ld c, a

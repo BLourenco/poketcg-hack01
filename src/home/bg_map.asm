@@ -102,8 +102,8 @@ HblankWriteByteToBGMap0::
 	push af
 	ld a, [rVBK] 
 	cp $ff
-	jr nz, .skip_attributes
-	ld a, $08
+	jr nz, .skip_attributes		; TODO: I believe somewhere around here there is an issue where the PSN icon sometimes glitches when first applied
+	ld a, $08 ; %1000, left most bit is VRAM bank #, last 3 bits are palette numbers 0-7
 	ld [de], a
 .skip_attributes
 	pop af

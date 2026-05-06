@@ -4,16 +4,21 @@ This project is WIP.
 
 ## Credits
 
+- BLourenco (Me)
+	- Card icons for Darkness, Metal, and Dragon
+	- Type symbol for Metal and Dragon
+	- Card art for Darkness and Metal Energy
+
 - ElectroDeoxys
     - [Pokémon TCG Extended](https://github.com/ElectroDeoxys/Pokemon-TCG-Extended)
 	    - Support for up to 511 cards
 		- Support for 3-palette card art
 
 - Mario_Bones
-    - [PokéTCG Rainbow Engine](https://github.com/MarioBones/PokeTCG-Rainbow-Engine) adding support for more types
+    - [PokéTCG Rainbow Engine](https://github.com/MarioBones/PokeTCG-Rainbow-Engine)
+		- Adding support for more types
 	    - New deck construction screen
-	    - Type symbols for Darkness, Metal, Fairy and Dragon types
-	    - Card icons for Darkness, Metal, Fairy and Dragon types
+	    - Type symbol for Darkness
 
 - Paperfire88
 	- Help with adding the Female player character to the Extended code base.

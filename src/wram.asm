@@ -428,7 +428,7 @@ wEnergyDiscardPlayAreaLocation:: ; cbe0
 wOpponentTurnEnded:: ; cbe1
 	ds $1
 
-	ds $4 ; Down from 5
+	ds $5
 
 ; if non-zero, duel menu input is not checked
 wDebugSkipDuelMenuInput:: ; cbe7
@@ -535,7 +535,8 @@ wDuelistType:: ; cc0d
 wOpponentDeckID:: ; cc0e
 	ds $1
 
-wUnused_cc0f:: ; cc0f
+; Before calling WriteByteToBGMap0, set this flag if the symbol being written is stored in VRAM bank 1
+wUseVRAMBank1:: ; cc0f
 	ds $1
 
 ; index (0-1) of the attack or Pokemon Power being used by the player's arena card

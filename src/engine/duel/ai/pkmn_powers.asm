@@ -622,8 +622,8 @@ HandleAIShift:
 	call SwapTurn
 	or a
 	ret z ; return if Defending Pokemon has no weakness
-	and b
-	ret nz ; return if Venomoth is already Defending card's weakness type
+	cp b
+	ret z ; return if Venomoth is already Defending card's weakness type
 
 ; check whether there's a card in play with
 ; the same color as the Player's card weakness
@@ -641,8 +641,12 @@ HandleAIShift:
 	bank1call AIMakeDecision
 
 ; converts WR_* to appropriate color
-	ld a, [wAIDefendingPokemonWeakness]
 	ld b, 0
+	ld a, [wAIDefendingPokemonWeakness]
+	cp $81 ; 1000 0001
+	jr c, .loop_color ; For types above 8, ignore the 7th bit for the cal loop, then increment by 7 later
+	ld b, 7
+	res 7, a
 .loop_color
 	bit 7, a
 	jr nz, .done
@@ -677,8 +681,8 @@ HandleAIShift:
 	call GetPlayAreaCardColor
 	call TranslateColorToWR
 	pop bc
-	and b
-	jr nz, .true
+	cp b
+	jr z, .true
 	inc c
 	jr .loop_play_area
 .true

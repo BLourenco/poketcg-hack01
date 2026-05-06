@@ -223,6 +223,7 @@ ColorListText:
 	line "Psychic"
 	line "Darkness"
 	line "Metal"
+	line "Dragon"
 	done
 
 DarknessPokemonText:
@@ -255,4 +256,12 @@ MetalEnergyDescription:
 
 MetalSymbolText:
 	textfw "<METAL>"
+	done
+
+DragonPokemonText:
+	text "Dragon Pokémon"
+	done
+
+DragonSymbolText:
+	textfw "<DRAGON>"
 	done

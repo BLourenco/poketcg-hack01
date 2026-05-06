@@ -32,6 +32,7 @@ TextOffsets::
 	textpointer PsychicPokemonText
 	textpointer DarknessPokemonText
 	textpointer MetalPokemonText
+	textpointer DragonPokemonText
 	textpointer ColorlessPokemonText
 	textpointer TrainerCardText
 	textpointer EnergyCardText
@@ -76,6 +77,7 @@ TextOffsets::
 	textpointer PsychicSymbolText
 	textpointer DarknessSymbolText
 	textpointer MetalSymbolText
+	textpointer DragonSymbolText
 	textpointer BenchText
 	textpointer KnockOutText
 	textpointer DamageToSelfDueToConfusionText

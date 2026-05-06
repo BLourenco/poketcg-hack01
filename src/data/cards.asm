@@ -8149,7 +8149,7 @@ FearowCard:
 	db 0 ; AI info
 
 ClefairyCard:
-	db TYPE_PKMN_COLORLESS ; type
+	db TYPE_PKMN_PSYCHIC ; type
 	gfx ClefairyCardGfx ; gfx
 	tx ClefairyName ; name
 	db STAR ; rarity
@@ -8174,7 +8174,7 @@ ClefairyCard:
 	db ATK_ANIM_SING ; animation
 
 	; attack 2
-	energy COLORLESS, 3 ; energies
+	energy PSYCHIC, 2 ; energies
 	tx MetronomeName ; name
 	tx ClefairysMetronomeDescription ; description
 	dw NONE ; description (cont)
@@ -8188,8 +8188,8 @@ ClefairyCard:
 	db ATK_ANIM_NONE ; animation
 
 	db 1 ; retreat cost
-	db WR_FIGHTING ; weakness
-	db WR_PSYCHIC ; resistance
+	db WR_METAL ; weakness
+	db NONE ; resistance
 	tx FairyName ; category
 	db 35 ; Pokedex number
 	db 14 ; level
@@ -8199,7 +8199,7 @@ ClefairyCard:
 	db AI_INFO_ENCOURAGE_EVO | HAS_EVOLUTION ; AI info
 
 ClefableCard:
-	db TYPE_PKMN_COLORLESS ; type
+	db TYPE_PKMN_PSYCHIC ; type
 	gfx ClefableCardGfx ; gfx
 	tx ClefableName ; name
 	db STAR ; rarity
@@ -8224,7 +8224,7 @@ ClefableCard:
 	db ATK_ANIM_NONE ; animation
 
 	; attack 2
-	energy COLORLESS, 2 ; energies
+	energy PSYCHIC, 1, COLORLESS, 1 ; energies
 	tx MinimizeName ; name
 	tx ClefablesMinimizeDescription ; description
 	dw NONE ; description (cont)
@@ -8238,8 +8238,8 @@ ClefableCard:
 	db ATK_ANIM_PROTECT ; animation
 
 	db 2 ; retreat cost
-	db WR_FIGHTING ; weakness
-	db WR_PSYCHIC ; resistance
+	db WR_METAL ; weakness
+	db NONE ; resistance
 	tx FairyName ; category
 	db 36 ; Pokedex number
 	db 34 ; level
@@ -9149,7 +9149,7 @@ SnorlaxCard:
 	db 0 ; AI info
 
 DratiniCard:
-	db TYPE_PKMN_COLORLESS ; type
+	db TYPE_PKMN_DRAGON ; type
 	gfx DratiniCardGfx ; gfx
 	tx DratiniName ; name
 	db DIAMOND ; rarity
@@ -9189,7 +9189,7 @@ DratiniCard:
 
 	db 1 ; retreat cost
 	db NONE ; weakness
-	db WR_PSYCHIC ; resistance
+	db NONE ; resistance
 	tx DragonName ; category
 	db 147 ; Pokedex number
 	db 10 ; level
@@ -9199,7 +9199,7 @@ DratiniCard:
 	db AI_INFO_ENCOURAGE_EVO | HAS_EVOLUTION ; AI info
 
 DragonairCard:
-	db TYPE_PKMN_COLORLESS ; type
+	db TYPE_PKMN_DRAGON ; type
 	gfx DragonairCardGfx ; gfx
 	tx DragonairName ; name
 	db STAR ; rarity
@@ -9210,7 +9210,7 @@ DragonairCard:
 	tx DratiniName ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 3 ; energies
+	energy WATER, 1, LIGHTNING, 1 ; energies
 	tx SlamName ; name
 	tx DoubleAttackX30Description ; description
 	dw NONE ; description (cont)
@@ -9224,7 +9224,7 @@ DragonairCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy COLORLESS, 4 ; energies
+	energy WATER, 1, LIGHTNING, 1, COLORLESS, 1 ; energies
 	tx HyperBeamName ; name
 	tx Discard1EnergyFromTargetDescription ; description
 	dw NONE ; description (cont)
@@ -9239,7 +9239,7 @@ DragonairCard:
 
 	db 2 ; retreat cost
 	db NONE ; weakness
-	db WR_PSYCHIC ; resistance
+	db NONE ; resistance
 	tx DragonName ; category
 	db 148 ; Pokedex number
 	db 33 ; level
@@ -9249,7 +9249,7 @@ DragonairCard:
 	db HAS_EVOLUTION ; AI info
 
 DragoniteLv41Card:
-	db TYPE_PKMN_COLORLESS ; type
+	db TYPE_PKMN_DRAGON ; type
 	gfx DragoniteLv41CardGfx ; gfx
 	tx DragoniteName ; name
 	db STAR ; rarity
@@ -9274,7 +9274,7 @@ DragoniteLv41Card:
 	db ATK_ANIM_HEALING_WIND ; animation
 
 	; attack 2
-	energy COLORLESS, 3 ; energies
+	energy WATER, 1, LIGHTNING, 1 ; energies
 	tx SlamName ; name
 	tx DoubleAttackX30Description ; description
 	dw NONE ; description (cont)
@@ -9299,7 +9299,7 @@ DragoniteLv41Card:
 	db 0 ; AI info
 
 DragoniteLv45Card:
-	db TYPE_PKMN_COLORLESS ; type
+	db TYPE_PKMN_DRAGON ; type
 	gfx DragoniteLv45CardGfx ; gfx
 	tx DragoniteName ; name
 	db STAR ; rarity
@@ -9324,7 +9324,7 @@ DragoniteLv45Card:
 	db ATK_ANIM_GLOW_EFFECT ; animation
 
 	; attack 2
-	energy COLORLESS, 4 ; energies
+	energy WATER, 1, LIGHTNING, 1, COLORLESS, 1 ; energies
 	tx SlamName ; name
 	tx DoubleAttackX40Description ; description
 	dw NONE ; description (cont)

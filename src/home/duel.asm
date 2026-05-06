@@ -1863,8 +1863,8 @@ ApplyDamageModifiers_DamageToTarget::
 	call SwapTurn
 	call GetArenaCardWeakness
 	call SwapTurn
-	and b
-	jr z, .not_weak
+	cp b
+	jr nz, .not_weak
 	sla e
 	rl d
 	ld hl, wDamageEffectiveness
@@ -1873,8 +1873,8 @@ ApplyDamageModifiers_DamageToTarget::
 	call SwapTurn
 	call GetArenaCardResistance
 	call SwapTurn
-	and b
-	jr z, .check_pluspower_and_defender ; jump if not resistant
+	cp b
+	jr nz, .check_pluspower_and_defender ; jump if not resistant
 	ld hl, -30
 	add hl, de
 	ld e, l
@@ -1895,13 +1895,23 @@ ApplyDamageModifiers_DamageToTarget::
 	jp SwapTurn
 
 ; convert a color to its equivalent WR_* (weakness/resistance) value
+; additional bitwise operation has been added to account for more than
+; 8 coloured types
 TranslateColorToWR::
 	push hl
-	cp COLORLESS ; TODO - types beyond $07 will break the bitwise operations used for W/R values so a more robust system will need to be introduced
-	jr nz, .got_color
-	ld a, 0
+	push bc
+	ld b, $0
+	cp 8 ; First 8 types: Fire, Grass, Lightning, Water, Fighting, Psychic, Darkness, Metal
+	jr c, .got_color
+	cp NUM_COLORED_TYPES ; Next 8 types: Dragon (that's it for my game)
+	jr c, .valid_color
+	ld a, $FF
+	pop bc
 	pop hl
 	ret
+.valid_color
+	ld b, $80 ; 1000 0000
+	sub 7
 .got_color
 	add LOW(InvertedPowersOf2)
 	ld l, a
@@ -1909,6 +1919,8 @@ TranslateColorToWR::
 	adc $0
 	ld h, a
 	ld a, [hl]
+	or b
+	pop bc
 	pop hl
 	ret
 
@@ -1934,16 +1946,16 @@ ApplyDamageModifiers_DamageToSelf::
 	call TranslateColorToWR
 	ld b, a
 	call GetArenaCardWeakness
-	and b
-	jr z, .not_weak
+	cp b
+	jr nz, .not_weak
 	sla e
 	rl d
 	ld hl, wDamageEffectiveness
 	set WEAKNESS, [hl]
 .not_weak
 	call GetArenaCardResistance
-	and b
-	jr z, .not_resistant
+	cp b
+	jr nz, .not_resistant
 	ld hl, -30
 	add hl, de
 	ld e, l

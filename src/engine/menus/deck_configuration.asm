@@ -1000,33 +1000,35 @@ DrawCardTypeIconsCont:
 
 CardTypeIcons:
 ; icon tile, x coord, y coord
-	db ICON_TILE_GRASS,      0, 0
-	db ICON_TILE_FIRE,       3, 0
-	db ICON_TILE_WATER,      6, 0
-	db ICON_TILE_LIGHTNING,  9, 0
+	db ICON_TILE_GRASS,       0, 0
+	db ICON_TILE_FIRE,        3, 0
+	db ICON_TILE_WATER,       6, 0
+	db ICON_TILE_LIGHTNING,   9, 0
 	db ICON_TILE_FIGHTING,   12, 0
 	db ICON_TILE_PSYCHIC,    15, 0
-	db ICON_TILE_DARKNESS,   0, 3
-	db ICON_TILE_METAL,		 3, 3
-	db ICON_TILE_COLORLESS,  6, 3
-	db ICON_TILE_TRAINER,    9, 3
-	db ICON_TILE_ENERGY,     12, 3
+	db ICON_TILE_DARKNESS,    0, 3
+	db ICON_TILE_METAL,       3, 3
+	db ICON_TILE_DRAGON,      6, 3
+	db ICON_TILE_COLORLESS,   9, 3
+	db ICON_TILE_TRAINER,    12, 3
+	db ICON_TILE_ENERGY,     15, 3
 	db $00
 
 CollectionCardTypeIcons:
-	; icon tile, x coord, y coord
-		db ICON_TILE_GRASS,      0, 1
-		db ICON_TILE_FIRE,       3, 1
-		db ICON_TILE_WATER,      6, 1
-		db ICON_TILE_LIGHTNING,  9, 1
-		db ICON_TILE_FIGHTING,   12, 1
-		db ICON_TILE_PSYCHIC,    15, 1
-		db ICON_TILE_DARKNESS,   0, 3
-		db ICON_TILE_METAL,		 3, 3
-		db ICON_TILE_COLORLESS,  6, 3
-		db ICON_TILE_TRAINER,    9, 3
-		db ICON_TILE_ENERGY,     12, 3
-		db $00
+; icon tile, x coord, y coord
+	db ICON_TILE_GRASS,       0, 1
+	db ICON_TILE_FIRE,        3, 1
+	db ICON_TILE_WATER,       6, 1
+	db ICON_TILE_LIGHTNING,   9, 1
+	db ICON_TILE_FIGHTING,   12, 1
+	db ICON_TILE_PSYCHIC,    15, 1
+	db ICON_TILE_DARKNESS,    0, 3
+	db ICON_TILE_METAL,       3, 3
+	db ICON_TILE_DRAGON,      6, 3
+	db ICON_TILE_COLORLESS,   9, 3
+	db ICON_TILE_TRAINER,    12, 3
+	db ICON_TILE_ENERGY,     15, 3
+	db $00
 
 DeckBuildMenuData:
 	; x, y, text id
@@ -1063,13 +1065,13 @@ PrintDeckIcon:
 	push hl
 	lb bc, 2, 2
 	lb hl, 1, 2
-	ld a, $f8 ; deck icon
+	ld a, $00 ; deck icon
 	call FillRectangle
 	lb bc, 2, 2
 	lb hl, 0, 0
 	ld a, $02
 	call BankswitchVRAM1
-	call FillRectangle
+	call FillVRAM1Rectangle
 	call BankswitchVRAM0
 	pop bc
 	pop hl
@@ -1574,6 +1576,7 @@ CardTypeFilters:
 	db FILTER_PSYCHIC
 	db FILTER_DARKNESS
 	db FILTER_METAL
+	db FILTER_DRAGON
 	db FILTER_COLORLESS
 	db FILTER_TRAINER
 	db FILTER_ENERGY
@@ -1782,6 +1785,7 @@ InitCardSelectionParams:
 	ld [wCheckMenuCursorBlinkCounter], a
 	ret
 
+; TODO: Wrapping on the end of top row malfunctions if the bottom row has less filters
 HandleCardSelectionInput:
 	xor a ; FALSE
 	ld [wMenuInputSFX], a
@@ -3171,19 +3175,20 @@ GetCardTypeIconPalette:
 
 .CardTypeIconPalettes
 ; icon tile, BG pal
-	db ICON_TILE_FIRE,            $2
+	db ICON_TILE_FIRE,            $1
 	db ICON_TILE_GRASS,           $3
 	db ICON_TILE_LIGHTNING,       $2
 	db ICON_TILE_WATER,           $3
-	db ICON_TILE_FIGHTING,        $4
-	db ICON_TILE_PSYCHIC,         $4
-	db ICON_TILE_DARKNESS,        $0
+	db ICON_TILE_FIGHTING,        $1
+	db ICON_TILE_PSYCHIC,         $2
+	db ICON_TILE_DARKNESS,        $4
 	db ICON_TILE_COLORLESS,       $0
 	db ICON_TILE_METAL,		  	  $0
+	db ICON_TILE_DRAGON,	  	  $4
 	db ICON_TILE_ENERGY,          $3
 	db ICON_TILE_BASIC_POKEMON,   $3
 	db ICON_TILE_STAGE_1_POKEMON, $3
-	db ICON_TILE_STAGE_2_POKEMON, $2
+	db ICON_TILE_STAGE_2_POKEMON, $1
 	db ICON_TILE_TRAINER,         $3
 	db $00, $ff
 

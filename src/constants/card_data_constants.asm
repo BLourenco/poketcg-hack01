@@ -81,29 +81,30 @@ DEF PKMN_CARD_DATA_LENGTH EQU _RS
 
 ; generic type (color) constants
 	const_def
-	const FIRE        ; $00
-	const GRASS       ; $01
-	const LIGHTNING   ; $02
-	const WATER       ; $03
-	const FIGHTING    ; $04
-	const PSYCHIC     ; $05
-	const DARKNESS	  ; $06
-	const METAL		  ; $07
-DEF NUM_COLORED_TYPES EQU const_value
-	const COLORLESS   ; $08
-	const UNUSED ; $09
-DEF NUM_TYPES EQU const_value ; 10
+	const FIRE                         ; $00
+	const GRASS                        ; $01
+	const LIGHTNING                    ; $02
+	const WATER                        ; $03
+	const FIGHTING                     ; $04
+	const PSYCHIC                      ; $05
+	const DARKNESS	                   ; $06
+	const METAL		                   ; $07
+	const DRAGON	                   ; $08
+DEF NUM_COLORED_TYPES EQU const_value  ; $09
+	const COLORLESS                    ; $09
+DEF NUM_TYPES EQU const_value          ; $0a
 
 ; generic type (color) flag constants
-DEF FIRE_F      EQU $1 << FIRE      ; $01
-DEF GRASS_F     EQU $1 << GRASS     ; $02
-DEF LIGHTNING_F EQU $1 << LIGHTNING ; $04
-DEF WATER_F     EQU $1 << WATER     ; $08
-DEF FIGHTING_F  EQU $1 << FIGHTING  ; $10
-DEF PSYCHIC_F   EQU $1 << PSYCHIC   ; $20
-DEF DARKNESS_F	EQU $1 << DARKNESS	; $40
-DEF METAL_F		EQU $1 << METAL		; $80
-DEF COLORLESS_F EQU $1 << COLORLESS ; $100?
+DEF FIRE_F      EQU $01 ; 0000 0001
+DEF GRASS_F     EQU $02 ; 0000 0010
+DEF LIGHTNING_F EQU $04 ; 0000 0100
+DEF WATER_F     EQU $08 ; 0000 1000
+DEF FIGHTING_F  EQU $10 ; 0001 0000
+DEF PSYCHIC_F   EQU $20 ; 0010 0000
+DEF DARKNESS_F	EQU $40 ; 0100 0000
+DEF METAL_F		EQU $80 ; 1000 0000
+DEF DRAGON_F	EQU $82 ; 1000 0001
+DEF COLORLESS_F EQU $84 ; 1000 0010
 
 ; CARD_DATA_TYPE constants
 DEF TYPE_PKMN_FIRE      EQU FIRE 	   ; $00
@@ -114,8 +115,9 @@ DEF TYPE_PKMN_FIGHTING  EQU FIGHTING   ; $04
 DEF TYPE_PKMN_PSYCHIC   EQU PSYCHIC    ; $05
 DEF TYPE_PKMN_DARKNESS	EQU DARKNESS   ; $06
 DEF TYPE_PKMN_METAL		EQU METAL 	   ; $07
-DEF TYPE_PKMN_COLORLESS EQU COLORLESS  ; $08
-	const_skip 6
+DEF TYPE_PKMN_DRAGON	EQU DRAGON 	   ; $08
+DEF TYPE_PKMN_COLORLESS EQU COLORLESS  ; $09
+	const_skip 6                       ; $0a, $0b, $0c, $0d, $0e, $0f
 DEF TYPE_ENERGY EQU const_value		   ; $10
 	const TYPE_ENERGY_FIRE             ; $10
 	const TYPE_ENERGY_GRASS            ; $11
@@ -125,11 +127,11 @@ DEF TYPE_ENERGY EQU const_value		   ; $10
 	const TYPE_ENERGY_PSYCHIC          ; $15
 	const TYPE_ENERGY_DARKNESS		   ; $16
 	const TYPE_ENERGY_METAL			   ; $17
-	const TYPE_ENERGY_DOUBLE_COLORLESS ; $18
-	const_skip 7
+	const TYPE_ENERGY_DRAGON		   ; $18
+	const TYPE_ENERGY_DOUBLE_COLORLESS ; $19
+	const_skip 6                       ; $1a, $1b, $1c, $1d, $1e, $1f
 	const TYPE_TRAINER                 ; $20
-	const TYPE_TRAINER_UNUSED          ; $21
-DEF NUM_CARD_TYPES EQU const_value - 15
+DEF NUM_CARD_TYPES EQU const_value - 12 ; Subtract the skipped consts
 
 DEF TYPE_PKMN      EQU %1111
 DEF TYPE_ENERGY_F  EQU 4
@@ -172,14 +174,18 @@ DEF STAGE2 EQU $02
 DEF STAGE2_WITHOUT_STAGE1 EQU $03
 
 ; CARD_DATA_WEAKNESS and CARD_DATA_RESISTANCE constants
-DEF WR_FIRE      EQU $80
-DEF WR_GRASS     EQU $40
-DEF WR_LIGHTNING EQU $20
-DEF WR_WATER     EQU $10
-DEF WR_FIGHTING  EQU $08
-DEF WR_PSYCHIC   EQU $04
-DEF WR_DARKNESS	 EQU $02
-DEF WR_METAL	 EQU $01
+; Types beyond Metal add the reverse powers of 2 onto $80
+; This allows the weakness/resistance logic to remain more or less the same
+; Do NOT use $ff as a value as this is used to check Colorless values
+DEF WR_FIRE      EQU $80 ; 1000 0000
+DEF WR_GRASS     EQU $40 ; 0100 0000
+DEF WR_LIGHTNING EQU $20 ; 0010 0000
+DEF WR_WATER     EQU $10 ; 0001 0000
+DEF WR_FIGHTING  EQU $08 ; 0000 1000
+DEF WR_PSYCHIC   EQU $04 ; 0000 0100
+DEF WR_DARKNESS	 EQU $02 ; 0000 0010
+DEF WR_METAL	 EQU $01 ; 0000 0001
+DEF WR_DRAGON	 EQU $C0 ; 1100 0000
 
 ; CARD_DATA_ATTACK*_CATEGORY constants
 DEF DAMAGE_NORMAL EQU $00

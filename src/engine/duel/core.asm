@@ -1274,13 +1274,13 @@ CheckIfEnoughEnergiesForGivenAttack:
 	jr nz, .next_energy_type_pair
 
 	; if total number of coloured types is odd, uncomment this
-	;ld a, [de] ; one more iteration for [odd type]
-	;swap a
-	;call CheckIfEnoughEnergiesOfType
-	;jr c, .not_usable_or_not_enough_energies
+	ld a, [de] ; one more iteration for [odd type]
+	swap a
+	call CheckIfEnoughEnergiesOfType
+	jr c, .not_usable_or_not_enough_energies
 
 	ld a, [de] ; colorless energy
-	swap a ; remove this line if the total number of coloured types is odd
+	;swap a ; remove this line if the total number of coloured types is odd
 	and $f
 	ld b, a
 	ld a, [wAttachedEnergiesAccum]
@@ -3828,30 +3828,30 @@ SetDefaultConsolePalettes:
 	ret
 
 CGBDefaultPalettes:
-; BGP0 and OBP0
+; BGP0 and OBP0 - Greyscale
 	rgb 28, 28, 24
 	rgb 21, 21, 16
 	rgb 10, 10, 8
 	rgb 0, 0, 0
-; BGP1
+; BGP1 - Orange & Red (Window border, Fighting, Fire, Stage 2)
 	rgb 28, 28, 24
 	rgb 26, 10, 0
 	rgb 28, 0, 0
 	rgb 0, 0, 0
-; BGP2
+; BGP2 - Yellow & Purple (Lighting, Psychic)
 	rgb 28, 28, 24
 	rgb 30, 29, 0
-	rgb 30, 3, 0
+	rgb 22, 0, 22
 	rgb 0, 0, 0
-; BGP3
+; BGP3 - Green & Blue, (Grass, Water, Trainer, Energy, Basic, Stage 1)
 	rgb 28, 28, 24
 	rgb 0, 18, 0
 	rgb 12, 11, 20
 	rgb 0, 0, 0
-; BGP4
+; BGP4 - Teal & Gold (Darkness & Dragon)
 	rgb 28, 28, 24
-	rgb 22, 0, 22
-	rgb 27, 7, 3
+	rgb 4, 16, 17
+	rgb 23, 19, 4
 	rgb 0, 0, 0
 
 JPWriteByteToBGMap0:
@@ -4070,6 +4070,12 @@ PrintEnergiesOfColor:
 PrintCardPageWeaknessesOrResistances:
 	push bc
 	push de
+	ld e, 0
+	cp $81 ; 1000 0001
+	jr c, .skip_ahead ; For types above 8, ignore the 7th bit for the calc loop, then increment the type by 7 later
+	ld e, 7
+	res 7, a
+.skip_ahead
 	ld d, a
 	xor a ; FIRE
 .loop
@@ -5120,12 +5126,13 @@ PrintPlayAreaCardHeader:
 .not_defender
 	ret
 
+; These are the stacked card icons during duels when viewing the bench.
 FaceDownCardTileNumbers:
-; starting tile number, cgb palette (grey, yellow/red, green/blue, pink/orange)
+; starting tile number in VRAM bank 0, cgb palette (grey, yellow/red, green/blue, pink/orange)
 	db $d0, $3 ; basic
 	db $d4, $3 ; stage 1
-	db $d8, $2 ; stage 2
-	db $dc, $2 ; stage 2 special
+	db $d8, $1 ; stage 2
+	db $dc, $1 ; stage 2 special
 
 ; given a card's status in a, print the Poison symbol at bc if it's poisoned
 CheckPrintPoisoned:
@@ -5191,7 +5198,7 @@ PrintPlayAreaCardAttachedEnergies:
 	jr nz, .empty_loop
 	pop hl
 	ld de, wAttachedEnergies
-	lb bc, SYM_FIRE, NUM_TYPES - 1
+	lb bc, SYM_FIRE, NUM_TYPES
 .next_color
 	ld a, [de] ; energy count of current color
 	inc de
@@ -7048,7 +7055,6 @@ InitVariablesToBeginDuel:
 	ld [wDuelTurns], a
 	ld [wUnused_cce7], a
 	ld a, $ff
-	ld [wUnused_cc0f], a
 	ld [wPlayerAttackingCardIndex], a
 	ld [wPlayerAttackingAttackIndex], a
 	call EnableSRAM

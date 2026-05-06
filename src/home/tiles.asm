@@ -295,7 +295,7 @@ LoadCardOrDuelMenuBorderTiles::
 	ld hl, DuelOtherGraphics + $15 tiles
 	ld de, v0Tiles1 + $50 tiles
 	ld b, $08
-	jr CopyFontsOrDuelGraphicsTiles
+	jp CopyFontsOrDuelGraphicsTiles
 
 ; loads the graphics of a card type header, used to display a picture of a card after drawing it
 ; or placing it in the arena. register e determines which header (TRAINER, ENERGY, PoKéMoN)
@@ -313,7 +313,7 @@ LoadVRAM1DuelCardSymbolTiles::
 	call BankswitchVRAM1
 	ld hl, DuelCgbSymbolGraphics - $4000
 	ld de, v1Tiles1 + $40 tiles
-	ld b, $38
+	ld b, $3C
 	jr CopyFontsOrDuelGraphicsTiles
 
 ; loads into VRAM 0 the symbols that are displayed near the names of a list of cards in the hand or discard pile
@@ -321,7 +321,7 @@ LoadVRAM0DuelCardSymbolTiles::
 	call BankswitchVRAM0
 	ld hl, DuelCgbSymbolGraphics - $4000
 	ld de, v0Tiles1 + $40 tiles
-	ld b, $38
+	ld b, $3C
 	jr CopyFontsOrDuelGraphicsTiles
 
 ; loads the symbols for Stage 1 Pkmn card, Stage 2 Pkmn card, and Trainer card.
@@ -364,8 +364,9 @@ LoadDeckAndDiscardPileIcons::
 ; load the Deck icon ONLY (for deck configuration)
 LoadDeckIcon::
 	ld hl, DuelCgbSymbolGraphics + $68 tiles - $4000
-	ld de, v0Tiles1 + $78 tiles
+	ld de, v1Tiles2
 	ld b, $4
+	call BankswitchVRAM1
 	jr CopyFontsOrDuelGraphicsTiles
 
 ; load the tiles for the [O] and [X] symbols used to display the results of a coin toss
