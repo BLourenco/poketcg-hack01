@@ -3219,23 +3219,54 @@ CopyNBytesFromHLToDE_Long:
 ; handles the screen showing all the player's cards
 HandlePlayersCardsScreen:
 	call WriteCardListsTerminatorBytes
-	call PrintPlayersCardsHeaderInfo
-	xor a
-	ld [wCardListVisibleOffset], a
+
+	xor a ; sets a to 0 to initialize the following
+
+	; initialize selected filter, filter cursor position, and filter scroll offset
+	ld [wCardTypeFilterCursorPos], a
+	ld [wCurCardTypeFilterScrollOffset], a
+	ld [wPendingCardTypeFilterScrollOffset], a
 	ld [wCurCardTypeFilter], a
+	ld [wPendingCardTypeFilter], a
+
+	; initialize the card list cursor and scroll offset
+	ld [wCardListCursorPos], a
+	ld [wTempCardListCursorPos], a
+	ld [wCardListVisibleOffset], a
+
+	; Draw filter window and card list
+	call PrintPlayersCardsHeaderInfo
 	call PrintFilteredCardSelectionList
 	call EnableLCD
 	xor a
 	ld hl, DeckConfigFilterCursorParams
 	call InitCursorParams
 .wait_input
+	; check for change in filter scroll offset
+    ld a, [wCurCardTypeFilterScrollOffset]
+	ld b, a
+	ld a, [wPendingCardTypeFilterScrollOffset]
+	cp b
+	jr z, .check_filter_change
+    ; offset change detected, redraw icons and update filtered card list
+    ld [wCurCardTypeFilterScrollOffset], a
+	ld b, a
+	ld a, [wCardTypeFilterCursorPos]
+	add b	
+	ld [wPendingCardTypeFilter], a
+	call DrawFilterScrollArrows
+	call DrawCardTypeIcons
+	jr .check_filter_change
+
+.check_filter_change
 	call DoFrame
+	; check for filter change
 	ld a, [wCurCardTypeFilter]
 	ld b, a
 	ld a, [wPendingCardTypeFilter]
 	cp b
 	jr z, .check_d_down
-
+	; filter changed, need to refresh the filtered card list
 	ld [wCurCardTypeFilter], a
 	ld hl, wCardListVisibleOffset
 	ld [hl], $00
@@ -3359,8 +3390,8 @@ CollectionCardListCursorParams:
 	db SYM_SPACE ; invisible cursor tile
 	dw NULL ; wCardListHandlerFunction
 
-; a = which card type filter
 PrintFilteredCardSelectionList:
+	ld a, [wCurCardTypeFilter]
 	push af
 	ld hl, CardTypeFilters
 	ld b, $00
@@ -3368,6 +3399,7 @@ PrintFilteredCardSelectionList:
 	add hl, bc
 	ld a, [hl]
 	push af
+
 	ld a, ALL_DECKS
 	call CreateCardCollectionListWithDeckCards
 	pop af
@@ -3585,7 +3617,7 @@ AppendOwnedCardCountNumber:
 	pop af
 	ret
 
-; print header info (card count and player name)
+; print header info ("<player>'s cards", card count, filter icons and scroll arrows)
 PrintPlayersCardsHeaderInfo:
 	call Set_OBJ_8x8
 	call PrepareMenuGraphics
@@ -3595,6 +3627,7 @@ PrintPlayersCardsHeaderInfo:
 	call FillBGMapLineWithA
 	call PrintTotalNumberOfCardsInCollection
 	call PrintPlayersCardsText
+	call DrawFilterScrollArrows
 	jp DrawCardTypeIcons
 
 ; prints "<PLAYER>'s cards"

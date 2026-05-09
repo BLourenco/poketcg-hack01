@@ -19,6 +19,7 @@ This project is WIP.
     - [PokéTCG Rainbow Engine](https://github.com/MarioBones/PokeTCG-Rainbow-Engine)
 		- Adding support for more types
 	    - 8x8 Type symbol for Darkness
+		- Added card icon next to total count of cards in the "Cards" screen
 
 - Paperfire88
 	- Help with adding the Female player character to the Extended code base.
