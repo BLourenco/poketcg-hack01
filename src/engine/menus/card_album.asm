@@ -698,7 +698,7 @@ CardAlbum:
 	call .GetNumCardEntries
 	xor a
 	ld hl, .BoosterPackCardsMenuParams
-	call InitCardSelectionParams
+	call InitCursorParams
 	ld a, [wNumEntriesInCurFilter]
 	ld hl, wNumVisibleCardListEntries
 	cp [hl]
@@ -754,7 +754,7 @@ CardAlbum:
 	call PrintCardSetListEntries
 	call EnableLCD
 	ld hl, .BoosterPackCardsMenuParams
-	call InitCardSelectionParams
+	call InitCursorParams
 	ld a, [wTempCardListNumCursorPositions]
 	ld [wCardListNumCursorPositions], a
 	ld a, [wTempCardListCursorPos]

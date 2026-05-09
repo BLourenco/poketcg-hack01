@@ -25,7 +25,7 @@ HandleDeckMissingCardsList:
 	ld [wCardListVisibleOffset], a
 .loop
 	ld hl, .DeckConfirmationCardSelectionParams
-	call InitCardSelectionParams
+	call InitCursorParams
 	ld a, [wNumUniqueCards]
 	ld [wNumCardListEntries], a
 	cp $05
@@ -65,7 +65,6 @@ HandleDeckMissingCardsList:
 	ld a, $01
 	call PlaySFXConfirmOrCancel
 	ld a, [wCardListCursorPos]
-	ld [wced7], a
 
 	; set wUniqueDeckCardList as current card list
 	; and show card page screen
@@ -172,7 +171,7 @@ HandleDeckSaveMachineMenu:
 	xor a
 .wait_input
 	ld hl, DeckMachineSelectionParams
-	call InitCardSelectionParams
+	call InitCursorParams
 	call DrawListScrollArrows
 	call PrintNumSavedDecks
 	ldtx hl, PleaseSelectDeckText
@@ -804,7 +803,7 @@ SaveDeckInDeckSaveMachine:
 	call PrintNumSavedDecks
 	ld a, [wTempDeckMachineCursorPos]
 	ld hl, DeckMachineSelectionParams
-	call InitCardSelectionParams
+	call InitCursorParams
 	call DrawListCursor_Visible
 	call GetPointerToDeckName
 	call EnableSRAM

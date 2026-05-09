@@ -437,13 +437,13 @@ ENDM
 	txsymbol "METAL"            ; $08
 	txsymbol "DRAGON"           ; $09
 	txsymbol "COLORLESS"        ; $0a ($07)
-	txsymbol "FAIRY"            ; $0b
-	txsymbol "RAINBOW"          ; $0c
-	txsymbol "Lv"               ; $0d ($11)
-	txsymbol "No"               ; $0e ($13)
-	txsymbol "CURSOR_U"         ; $0f ($0c)
-	txsymbol "CURSOR_R"         ; $10 ($0f)
-	txsymbol "CURSOR_D"         ; $11 ($2f)
+	txsymbol "RAINBOW"          ; $0b
+	txsymbol "Lv"               ; $0c ($11)
+	txsymbol "No"               ; $0d ($13)
+	txsymbol "CURSOR_U"         ; $0e ($0c)
+	txsymbol "CURSOR_R"         ; $0f ($0f)
+	txsymbol "CURSOR_D"         ; $10 ($2f)
+	txsymbol "CURSOR_L"         ; $11
 	txsymbol "BOX_TOP_L"        ; $12 ($18)
 	txsymbol "BOX_TOP_R"        ; $13 ($19)
 	txsymbol "BOX_BTM_L"        ; $14 ($1a)

@@ -579,7 +579,7 @@ wDuelTheme:: ; cc1a
 	ds $1
 
 ; holds the energies attached to a given pokemon card. 1 byte for each of the
-; 8 energy types (includes the unused one that shares byte with the colorless energy)
+; 10 energy types
 wAttachedEnergies:: ; cc1b
 	ds NUM_TYPES
 
@@ -678,8 +678,10 @@ wStatusConditionQueue:: ; ccce
 wIsDamageToSelf:: ; cce6
 	ds $1
 
-; set to 0, never used
-wUnused_cce7:: ; cce7
+; There are now more filters than can fit on screen in the deck config menu or
+; card catalogue menu, so now the filter icons scroll. This offset tracks
+; where along we are in the list of visible filters
+wCurCardTypeFilterScrollOffset:: ; cce7
 	ds $1
 
 wDuelFinishParam:: ; cce8
@@ -1060,8 +1062,8 @@ wAIRetreatFlags:: ; cdda
 wAITriedAttack:: ; cddb
 	ds $1
 
-; set to 0, never used
-wUnused_cddc:: ; cddc
+; tracks pending changes to the filter scroll offset
+wPendingCardTypeFilterScrollOffset:: ; cddc
 	ds $1
 
 ; used to temporarily backup wPlayAreaAIScore values.
@@ -1419,11 +1421,10 @@ wCardListVisibleOffset:: ; cea1
 wCheckMenuCursorBlinkCounter:: ; cea3
 	ds $1
 
-; used to temporarily store wCurCardTypeFilter
-; to check whether a new filter is to be applied
-wTempCardTypeFilter:: ; cea4
-
-wCardListCursorPos:: ; cea4
+; Tracks pending change to the current filter.
+; Previously shared the same address as wCardListCursorPos,
+; but they no longer mean the same thing
+wPendingCardTypeFilter:: ; cea4
 
 wNamingScreenCursorY:: ; cea4
 	ds $1
@@ -1542,18 +1543,19 @@ wced2:: ; ced2
 wCurCardTypeFilter:: ; ced3
 	ds $1
 
-; temporarily stores wCardListNumCursorPositions value
+; temporarily stores wCardListCursorPos when leaving the card list
 wTempCardListCursorPos:: ; ced4
 	ds $1
 
 wTempFilteredCardListNumCursorPositions:: ; ced5
 	ds $1
 
-wced6:: ; ced6
+wTempDeckConfigMenuCursorPos:: ; ced6
 	ds $1
 
-; maybe unused, is written to but never read
-wced7:: ; ced7
+; The cursor position for filter selection, list item selection, or menu selection in the Card Config menu (depending on the current context)
+; Previously shared the same address as wPendingCardTypeFilter
+wCardListCursorPos:: ; ced7
 	ds $1
 
 wCardListVisibleOffsetBackup:: ; ced8
@@ -3007,5 +3009,8 @@ wAudioCmd::
 
 wAudioArg::
 	ds $2
+
+wCardTypeFilterCursorPos::
+	ds $1
 
 INCLUDE "sram.asm"

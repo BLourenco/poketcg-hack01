@@ -347,44 +347,78 @@ HandleDeckBuildScreen:
 	call WriteCardListsTerminatorBytes
 	call CountNumberOfCardsForEachCardType
 .skip_count
-	call DrawCardTypeIconsAndPrintCardCounts
+	xor a ; sets a to 0 to initialize the following
 
-	xor a
+	; initialize selected filter, filter cursor position, and filter scroll offset
+	ld [wCardTypeFilterCursorPos], a
+	ld [wCurCardTypeFilterScrollOffset], a
+	ld [wPendingCardTypeFilterScrollOffset], a
+	ld [wCurCardTypeFilter], a
+	ld [wPendingCardTypeFilter], a
+
+	; initialize the card list cursor and scroll offset
+	ld [wCardListCursorPos], a
+	ld [wTempCardListCursorPos], a
 	ld [wCardListVisibleOffset], a
-	ld [wCurCardTypeFilter], a ; FILTER_GRASS
+
+	; Draw filter window and card list
+	call DrawFilterAndCardCountWindow
 	call PrintFilteredCardList
 
 .skip_draw
-	ld hl, FiltersCardSelectionParams
-	call InitCardSelectionParams
+	ld hl, DeckConfigFilterCursorParams
+	call InitCursorParams
 .wait_input
 	call DoFrame
 	ldh a, [hDPadHeld]
 	and PAD_START
 	jr z, .no_start_btn_1
+    ; start pressed
 	ld a, $01
 	call PlaySFXConfirmOrCancel
 	call ConfirmDeckConfiguration
-	ld a, [wCurCardTypeFilter]
-	ld [wTempCardTypeFilter], a
 	jr .wait_input
 
 .no_start_btn_1
+    ; check for change in filter scroll offset
+    ld a, [wCurCardTypeFilterScrollOffset]
+	ld b, a
+	ld a, [wPendingCardTypeFilterScrollOffset]
+	cp b
+	jr z, .check_filter_change
+    ; offset change detected, redraw icons and update filtered card list
+    ld [wCurCardTypeFilterScrollOffset], a
+	ld b, a
+	ld a, [wCardTypeFilterCursorPos]
+	add b	
+	ld [wPendingCardTypeFilter], a
+	call DrawVisibleFilterIconsAndCardCounts
+	jr .check_filter_change
+	
+.check_filter_change
+	; check for filter change
 	ld a, [wCurCardTypeFilter]
 	ld b, a
-	ld a, [wTempCardTypeFilter]
+	ld a, [wPendingCardTypeFilter]
 	cp b
-	jr z, .skip_refresh
-	; need to refresh the filtered card list
+	jr z, .check_down_btn
+	; filter changed, need to refresh the filtered card list
 	ld [wCurCardTypeFilter], a
 	ld hl, wCardListVisibleOffset
 	ld [hl], 0
 	call PrintFilteredCardList
-	ld a, NUM_FILTERS
+	ld a, NUM_VISIBLE_FILTERS
 	ld [wCardListNumCursorPositions], a
 
-.skip_refresh
-	call HandleCardSelectionInput
+.check_down_btn
+	ldh a, [hDPadHeld]
+	and PAD_DOWN
+	jr z, .no_down_btn
+	call ConfirmSelectionAndReturnCarry
+	jr .jump_to_list
+
+.no_down_btn
+	call HandleFilterSelectionInput
 	jr nc, .wait_input
 	ldh a, [hffb3]
 	cp $ff ; operation cancelled?
@@ -397,8 +431,8 @@ HandleDeckBuildScreen:
 	jr z, .wait_input
 	xor a
 .wait_list_input
-	ld hl, FilteredCardListSelectionParams
-	call InitCardSelectionParams
+	ld hl, DeckConfigCardListCursorParams
+	call InitCursorParams
 	ld a, [wNumEntriesInCurFilter]
 	ld [wNumCardListEntries], a
 	ld hl, wNumVisibleCardListEntries
@@ -423,9 +457,10 @@ HandleDeckBuildScreen:
 	ldh a, [hDPadHeld]
 	and PAD_START
 	jr z, .no_start_btn_2
-	ld a, $01
-	call PlaySFXConfirmOrCancel
 
+	; start pressed
+	ld a, $01 ; set which sfx to play
+	call PlaySFXConfirmOrCancel
 	; temporarily store current cursor position
 	; to retrieve it later
 	ld a, [wCardListCursorPos]
@@ -457,34 +492,31 @@ HandleDeckBuildScreen:
 	inc hl
 	ld [hl], d
 	call OpenCardPageFromCardList
-	call DrawCardTypeIconsAndPrintCardCounts
 
-	ld hl, FiltersCardSelectionParams
-	call InitCardSelectionParams
-	ld a, [wCurCardTypeFilter]
-	ld [wTempCardTypeFilter], a
+	; returned from card page
+	call DrawFilterAndCardCountWindow
+	ld hl, DeckConfigFilterCursorParams
+	call InitCursorParams
 	call DrawHorizontalListCursor_Visible
 	call PrintDeckBuildingCardList
-	ld hl, FilteredCardListSelectionParams
-	call InitCardSelectionParams
+	ld hl, DeckConfigCardListCursorParams
+	call InitCursorParams
 	ld a, [wTempCardListNumCursorPositions]
 	ld [wCardListNumCursorPositions], a
 	ld a, [wTempCardListCursorPos]
 	ld [wCardListCursorPos], a
 	jr .loop_input
 
-.selection_made
+.selection_made ; A or B pressed in card list
 	call DrawListCursor_Invisible
 	ld a, [wCardListCursorPos]
 	ld [wTempCardListCursorPos], a
 	ldh a, [hffb3]
 	cp $ff
 	jr nz, .open_card_page
-	; cancelled
-	ld hl, FiltersCardSelectionParams
-	call InitCardSelectionParams
-	ld a, [wCurCardTypeFilter]
-	ld [wTempCardTypeFilter], a
+	; return to filter selection
+	ld hl, DeckConfigFilterCursorParams
+	call InitCursorParams
 	jp .wait_input
 
 OpenDeckConfigurationMenu:
@@ -521,14 +553,11 @@ HandleDeckConfigurationMenu:
 	call DoFrame
 	call YourOrOppPlayAreaScreen_HandleInput
 	jr nc, .do_frame
-	ld [wced6], a
+	ld [wTempDeckConfigMenuCursorPos], a
 	cp $ff
 	jr nz, .asm_94b5
 .draw_icons
-	call DrawCardTypeIconsAndPrintCardCounts
-	ld a, [wTempCardListCursorPos]
-	ld [wCardListCursorPos], a
-	ld a, [wCurCardTypeFilter]
+	call DrawFilterAndCardCountWindow
 	call PrintFilteredCardList
 	jp HandleDeckBuildScreen.skip_draw
 
@@ -560,15 +589,14 @@ ConfirmDeckConfiguration:
 	ld a, [hl]
 	ld hl, wCardListVisibleOffset
 	ld [hl], a
-	call DrawCardTypeIconsAndPrintCardCounts
-	ld hl, FiltersCardSelectionParams
-	call InitCardSelectionParams
+	call DrawFilterAndCardCountWindow
+	ld hl, DeckConfigFilterCursorParams
+	call InitCursorParams
 	ld a, [wCurCardTypeFilter]
-	ld [wTempCardTypeFilter], a
+	ld [wPendingCardTypeFilter], a
 	call DrawHorizontalListCursor_Visible
-	ld a, [wCurCardTypeFilter]
 	call PrintFilteredCardList
-	ld a, [wced6]
+	ld a, [wTempDeckConfigMenuCursorPos]
 	ld [wCardListCursorPos], a
 	ret
 
@@ -621,9 +649,9 @@ SaveDeckConfiguration:
 	call DrawWideTextBox_WaitForInput
 
 .go_back
-	call DrawCardTypeIconsAndPrintCardCounts
+	call DrawFilterAndCardCountWindow
 	call PrintDeckBuildingCardList
-	ld a, [wced6]
+	ld a, [wTempDeckConfigMenuCursorPos]
 	ld [wCardListCursorPos], a
 	ret
 
@@ -641,14 +669,14 @@ DismantleDeck:
 	ldtx hl, ThereIsOnly1DeckSoCannotBeDismantledText
 	call DrawWideTextBox_WaitForInput
 	call EmptyScreen
-	ld hl, FiltersCardSelectionParams
-	call InitCardSelectionParams
+	ld hl, DeckConfigFilterCursorParams
+	call InitCursorParams
 	ld a, [wCurCardTypeFilter]
-	ld [wTempCardTypeFilter], a
+	ld [wPendingCardTypeFilter], a
 	call DrawHorizontalListCursor_Visible
 	call PrintDeckBuildingCardList
 	call EnableLCD
-	ld a, [wced6]
+	ld a, [wTempDeckConfigMenuCursorPos]
 	ld [wCardListCursorPos], a
 	ret
 
@@ -828,17 +856,17 @@ CheckIfThereAreAnyBasicCardsInDeck:
 	or a
 	ret
 
-FiltersCardSelectionParams:
-	db 0 ; x pos
-	db 0 ; y pos
-	db 3 ; y spacing
-	db 3 ; x spacing
-	db NUM_FILTERS ; num entries
+DeckConfigFilterCursorParams:
+	db 1 ; x pos
+	db 1 ; y pos
+	db 0 ; y spacing
+	db 2 ; x spacing
+	db NUM_VISIBLE_FILTERS ; num entries
 	db SYM_CURSOR_D ; visible cursor tile
 	db SYM_SPACE ; invisible cursor tile
 	dw NULL ; wCardListHandlerFunction
 
-FilteredCardListSelectionParams:
+DeckConfigCardListCursorParams:
 	db 0 ; x pos
 	db 7 ; y pos
 	db 2 ; y spacing
@@ -856,23 +884,72 @@ DeckConfigurationMenu_TransitionTable:
 	cursor_transition $48, $30, $00, $01, $01, $05, $03
 	cursor_transition $80, $30, $00, $02, $02, $03, $04
 
-; draws each card type icon in a line
-; the respective card counts underneath each icon
-; and prints"X/60" in the upper-right corner,
-; where X is the total card count
-DrawCardTypeIconsAndPrintCardCounts:
+; Draws each card type icon in a line with
+; the respective card counts underneath each icon,
+; and prints"XX/60" in the upper-right corner,
+; where X is the total card count.
+; The filter cursor is handled in HandleFilterSelectionInput.
+DrawFilterAndCardCountWindow:
+	; initialization
 	call Set_OBJ_8x8
 	call PrepareMenuGraphics
-	lb bc, 0, 6
+	; draw divider between filters and card list
+	lb bc, 0, 5 ; starting coords
 	ld a, SYM_BOX_TOP
-	call FillBGMapLineWithA
+	call FillBGMapLineWithA ; draws horizontally across the screen
+	; draw window contents
+	call DrawVisibleFilterIconsAndCardCounts
+	lb de, 15, 0 ; coords
+	call PrintTotalCardCount
+	lb de, 17, 0 ; coords
+	call PrintSlashSixty
+	; done
+	jp EnableLCD
+
+; draws each card type icon in a line
+; the respective card counts underneath each icon
+; all based off of wCurCardTypeFilterScrollOffset
+DrawVisibleFilterIconsAndCardCounts:
+	call DrawFilterScrollArrows
 	call DrawCardTypeIcons
 	call PrintCardTypeCounts
-	lb de, 18, 5
-	call PrintTotalCardCount
-	lb de, 18, 3
-	call PrintDeckIcon
-	jp EnableLCD
+	ret
+
+DrawFilterScrollArrows:
+	call DrawLeftFilterScrollArrow
+	call DrawRightFilterScrollArrow
+	ret
+
+DrawLeftFilterScrollArrow:
+	ld a, [wCurCardTypeFilterScrollOffset]
+	or a
+	jr z, .hide_left_arrow
+	; Offset is greater than 0, we've scrolled to the right
+	ld a, SYM_CURSOR_L
+	jr .update_left_arrow
+.hide_left_arrow
+	ld a, SYM_SPACE
+.update_left_arrow
+	lb bc, 0, 3 ; coords
+	call WriteByteToBGMap0
+	ret
+
+DrawRightFilterScrollArrow:
+	ld a, [wCurCardTypeFilterScrollOffset]
+	ld b, a
+	ld a, MAX_FILTER_SCROLL_OFFSET
+	cp b
+	jr z, .hide_right_arrow
+	jr c, .hide_right_arrow
+	; Offset is less than the max scroll, we've not reached the end
+	ld a, SYM_CURSOR_R
+	jr .update_right_arrow
+.hide_right_arrow
+	ld a, SYM_SPACE
+.update_right_arrow
+	lb bc, 19, 3 ; coords
+	call WriteByteToBGMap0
+	ret
 
 ; fills one line at coordinate bc in BG Map
 ; with the byte in register a
@@ -914,28 +991,61 @@ FillDEWithA:
 	pop hl
 	ret
 
-; draws all the card type icons
-; in a line specified by CollectionCardTypeIcons
-; used for the CARDS menu to tidy the display
-DrawCollectionCardTypeIcons:
-	ld hl, CollectionCardTypeIcons
-	jr DrawCardTypeIconsCont
-; draws all the card type icons
-; in a line specified by CardTypeIcons
+; Draws 9 card type icons in a line at positions specified by FilterIconPositions.
+; Icons are drawn in order specified by FilterIconOrder, starting at wCurCardTypeFilterScrollOffset
+; and ending after MAX_VISIBLE_FILTERS icons are drawn.
 DrawCardTypeIcons:
-	ld hl, CardTypeIcons
-	; fallthrough
-DrawCardTypeIconsCont:
+
+	; all filter icons, in order
+	ld hl, FilterIconOrder
+
+	; load scroll offset
+	ld a, [wCurCardTypeFilterScrollOffset]
+	ld c, a
+	ld b, 0
+	add hl, bc
+
+	; coords for each visible filter
+	ld de, FilterIconPositions
 .loop
-	ld a, [hli]           ; Load byte pointed to by hl into a, then increment hl
-	or a                  ; Check for list terminator ($00)
-	ret z ; done          ; End of list, return
-	ld d, [hl] ; x coord  ; Load x-coord into d
-	inc hl                ; Move to next index
-	ld e, [hl] ; y coord  ; Load y-coord into e
-	inc hl                ; Move to next index
-	call .DrawIcon        ; Draw icon at x,y position loaded into d,e
-	jr .loop              ; loop
+	; check if we're at the end of the visible filter positions
+	ld a, [de]
+	cp $ff
+	ret z
+
+	; load current icon into a, then increment hl to next icon (Also check if we're at end of filter list. We shouldn't be if everything works as intended)
+	ld a, [hli]
+	or a
+	ret z
+
+	ld b, a ; store icon in b for later
+
+	push hl ; temporarily store hl so we use h and l to get coords
+
+	; x coord
+	ld a, [de]
+	inc de
+	ld h, a
+
+	; y coord
+	ld a, [de]
+	inc de
+	ld l, a
+	
+	push de ; temporarily store de so we can use that for the coords needed for .DrawIcon
+
+	; move coords to de
+	ld d, h
+	ld e, l
+
+	; put icon back into a
+	ld a, b
+
+	call .DrawIcon ; Draw icon loaded in a at x,y position loaded into d,e
+	pop de ; re-load de
+	pop hl ; re-load hl
+	jr .loop
+
 
 ; input:
 ; a = ICON_TILE_XXXX
@@ -956,78 +1066,33 @@ DrawCardTypeIconsCont:
 	pop hl
 	ret
 
-;; The positions of the filter icons at the top of the deck config and card catalogue screens
-;; The filters at each position will shift as you scroll horizontally through them
-;FilterIconPositions:
-;	db  1, 2
-;	db  3, 2
-;	db  5, 2
-;	db  7, 2
-;	db  9, 2
-;	db 11, 2
-;	db 13, 2
-;	db 15, 2
-;	db 17, 2
-;	db $00
-;
-;FilterIconOrder:
-;	db ICON_TILE_GRASS,
-;	db ICON_TILE_FIRE,
-;	db ICON_TILE_WATER,
-;	db ICON_TILE_LIGHTNING,
-;	db ICON_TILE_FIGHTING,
-;	db ICON_TILE_PSYCHIC,
-;	db ICON_TILE_DARKNESS,
-;	;db ICON_TILE_METAL,
-;	;db ICON_TILE_DRAGON,
-;	db ICON_TILE_COLORLESS,
-;	db ICON_TILE_TRAINER,
-;	db ICON_TILE_ENERGY,
-;	db $00
-;
-;CardTypeIcons:
-;; icon tile, x coord, y coord
-;	db ICON_TILE_GRASS,      0, 2
-;	db ICON_TILE_FIRE,       2, 2
-;	db ICON_TILE_WATER,      4, 2
-;	db ICON_TILE_LIGHTNING,  6, 2
-;	db ICON_TILE_FIGHTING,   8, 2
-;	db ICON_TILE_PSYCHIC,   10, 2
-;	db ICON_TILE_DARKNESS,  12, 2
-;	db ICON_TILE_COLORLESS, 14, 2
-;	db ICON_TILE_TRAINER,   16, 2
-;	db ICON_TILE_ENERGY,    18, 2
+; The positions of the filter icons at the top of the deck config and card catalogue screens
+; The filters at each position will shift as you scroll horizontally through them
+FilterIconPositions:
+	db  1, 2
+	db  3, 2
+	db  5, 2
+	db  7, 2
+	db  9, 2
+	db 11, 2
+	db 13, 2
+	db 15, 2
+	db 17, 2
+	db $ff
 
-CardTypeIcons:
-; icon tile, x coord, y coord
-	db ICON_TILE_GRASS,       0, 0
-	db ICON_TILE_FIRE,        3, 0
-	db ICON_TILE_WATER,       6, 0
-	db ICON_TILE_LIGHTNING,   9, 0
-	db ICON_TILE_FIGHTING,   12, 0
-	db ICON_TILE_PSYCHIC,    15, 0
-	db ICON_TILE_DARKNESS,    0, 3
-	db ICON_TILE_METAL,       3, 3
-	db ICON_TILE_DRAGON,      6, 3
-	db ICON_TILE_COLORLESS,   9, 3
-	db ICON_TILE_TRAINER,    12, 3
-	db ICON_TILE_ENERGY,     15, 3
-	db $00
-
-CollectionCardTypeIcons:
-; icon tile, x coord, y coord
-	db ICON_TILE_GRASS,       0, 1
-	db ICON_TILE_FIRE,        3, 1
-	db ICON_TILE_WATER,       6, 1
-	db ICON_TILE_LIGHTNING,   9, 1
-	db ICON_TILE_FIGHTING,   12, 1
-	db ICON_TILE_PSYCHIC,    15, 1
-	db ICON_TILE_DARKNESS,    0, 3
-	db ICON_TILE_METAL,       3, 3
-	db ICON_TILE_DRAGON,      6, 3
-	db ICON_TILE_COLORLESS,   9, 3
-	db ICON_TILE_TRAINER,    12, 3
-	db ICON_TILE_ENERGY,     15, 3
+FilterIconOrder:
+	db ICON_TILE_GRASS,
+	db ICON_TILE_FIRE,
+	db ICON_TILE_WATER,
+	db ICON_TILE_LIGHTNING,
+	db ICON_TILE_FIGHTING,
+	db ICON_TILE_PSYCHIC,
+	db ICON_TILE_DARKNESS,
+	db ICON_TILE_METAL,
+	db ICON_TILE_DRAGON,
+	db ICON_TILE_COLORLESS,
+	db ICON_TILE_TRAINER,
+	db ICON_TILE_ENERGY,
 	db $00
 
 DeckBuildMenuData:
@@ -1059,23 +1124,6 @@ PrintSlashSixty:
 	call InitTextPrinting
 	ld hl, wDefaultText
 	jp ProcessText
-
-PrintDeckIcon:
-	push bc
-	push hl
-	lb bc, 2, 2
-	lb hl, 1, 2
-	ld a, $00 ; deck icon
-	call FillRectangle
-	lb bc, 2, 2
-	lb hl, 0, 0
-	ld a, $02
-	call BankswitchVRAM1
-	call FillVRAM1Rectangle
-	call BankswitchVRAM0
-	pop bc
-	pop hl
-	ret
 
 ; creates two separate lists given the card type in register a
 ; if a card matches the card type given, then it's added to wFilteredCardList
@@ -1484,50 +1532,35 @@ CountNumberOfCardsOfType:
 ; this is done by processing text in a single line
 ; and concatenating all digits
 PrintCardTypeCounts:
-	ld bc, $0
-.loop
+	ld c, $0
 	ld hl, wDefaultText
+.loop
 	push hl
+	; adds the filter scroll offset and the current loop iteration to get current filter
+	ld a, [wCurCardTypeFilterScrollOffset]
+	add c
+	ld e, a
+	ld d, $00
+	; get count for current filter
 	ld hl, wCardFilterCounts
-	add hl, bc
+	add hl, de
 	ld a, [hl]
 	pop hl
-	push bc
-	call ConvertToNumericalDigits ; converts value a to symbols and places in hl - ends with an increment of hl so you can put TX_END in
-	ld a, c
-	ld b, NUM_FILTERS
-	srl b
-	cp b
-	jr c, .top_row
-	;jr z, .top_row
-	ld e, 5
-	;inc b ; only for odd numbers of filters, otherwise comment out
-	sub b
-	ld b, a
-	add a, a
-	add b
-	jr .continue 
-.top_row
-	ld e, 2
-	add a, a
-	add c
-.continue
-	ld [hl], TX_END
-	ld d, a
-	call InitTextPrinting
-	ld hl, wDefaultText
-	call ProcessText
-	pop bc
+	call ConvertToNumericalDigits
 	inc c
-	ld a, NUM_FILTERS - 1
+	ld a, NUM_VISIBLE_FILTERS
 	cp c
 	jr nz, .loop
-	ret
+	ld [hl], TX_END
+	lb de, 1, 4
+	call InitTextPrinting
+	ld hl, wDefaultText
+	jp ProcessText
 
-; prints the list of cards, applying the filter from register a
+; prints the list of cards, applying the filter from wCurCardTypeFilter
 ; the counts of each card displayed is taken from wCurDeck
-; a = card type filter
 PrintFilteredCardList:
+	ld a, [wCurCardTypeFilter]
 	push af
 	ld hl, CardTypeFilters
 	ld b, $00
@@ -1623,6 +1656,7 @@ PrintDeckBuildingCardList:
 	ld d, [hl]
 	ld b, 19 ; x coord
 	ld c, e
+	dec c
 	ld a, [wCardListVisibleOffset]
 	or a
 	jr z, .no_cursor
@@ -1761,16 +1795,16 @@ AddCardIDToVisibleList:
 	pop af
 	ret
 
-; copies data from hl to:
-; wCardListCursorXPos
-; wCardListCursorYPos
-; wCardListYSpacing
-; wCardListXSpacing
-; wCardListNumCursorPositions
-; wVisibleCursorTile
-; wInvisibleCursorTile
-; wCardListHandlerFunction
-InitCardSelectionParams:
+; Copies data from hl to:
+; wCardListCursorXPos,
+; wCardListCursorYPos,
+; wCardListYSpacing,
+; wCardListXSpacing,
+; wCardListNumCursorPositions,
+; wVisibleCursorTile,
+; wInvisibleCursorTile,
+; wCardListHandlerFunction.
+InitCursorParams:
 	ld [wCardListCursorPos], a
 	ldh [hffb3], a
 	ld de, wCardListCursorXPos
@@ -1785,86 +1819,104 @@ InitCardSelectionParams:
 	ld [wCheckMenuCursorBlinkCounter], a
 	ret
 
-; TODO: Wrapping on the end of top row malfunctions if the bottom row has less filters
-HandleCardSelectionInput:
+; handles filter cursor positioning
+HandleFilterSelectionInput:
 	xor a ; FALSE
 	ld [wMenuInputSFX], a
 	ldh a, [hDPadHeld]
 	or a
 	jr z, .handle_ab_btns
-	; code has been made more complex here to allow for wrapping:
-	; press left at left edge of row to go to the end of that row
-	; press right at right edgs of row to go to the end of that row
-	; if on the top row, up or down will take you to bottom row
-	; if on the bottom row, up or down will take you to top row
+
+	; handle d-pad
 	ld b, a
-	ld a, [wCardListNumCursorPositions]
-	sra a
+	ld a, NUM_VISIBLE_FILTERS
 	ld c, a
-	ld a, [wCardListCursorPos]
+	ld a, [wCardTypeFilterCursorPos]
+
+	; check left
 	bit B_PAD_LEFT, b
 	jr z, .check_d_right
-	cp c
-	jr z, .bottom_underflow
-	dec a
-	bit 7, a
-	jr z, .got_cursor_pos
-.top_underflow
-	; top row underflow - set to end of top row
-	ld a, [wCardListNumCursorPositions]
-	sra a
-	dec a
-	jr .got_cursor_pos
-.bottom_underflow
-	; bottom row underflow - set to max cursor pos
-	ld a, [wCardListNumCursorPositions]
-	dec a
-	dec a ; only keep for odd number of filters
-	jr .got_cursor_pos
-.check_d_right
-	bit B_PAD_RIGHT, b
-	jr z, .check_d_down
-	inc a
-	cp NUM_FILTERS - 1
-	jr z, .bottom_overflow
-	cp c
-	jr nz, .got_cursor_pos
-	; top row overflow - set to pos 0
+
+	; left pressed
+	or a
+	jr nz, .move_filter_cursor_left
+
+	; cursor at left edge
+	ld hl, wPendingCardTypeFilterScrollOffset
+	ld a, [hl]
+	or a
+	jr z, .wrap_to_end
+
+	; Still room to scroll, so scroll left
+	dec [hl]
+	
+	; place cursor at first visible position
 	xor a
 	jr .got_cursor_pos
-.bottom_overflow
-	; bottom row overflow - set to start of bottom row
-	ld a, c
+
+.move_filter_cursor_left
+	dec a
 	jr .got_cursor_pos
-.check_d_down
-	bit B_PAD_DOWN, b
-	jr z, .check_d_up
-	add c
-	cp NUM_FILTERS
+	
+.check_d_right
+	bit B_PAD_RIGHT, b
+	jr z, .handle_ab_btns
+
+	; right pressed
+	inc a
+	cp c
 	jr c, .got_cursor_pos
-	sub c
-	sub c
+
+	; cursor at right edge
+	ld hl, wPendingCardTypeFilterScrollOffset
+	ld a, [hl]
+	cp MAX_FILTER_SCROLL_OFFSET
+	jr nc, .wrap_to_start
+
+	; Still room to scroll, so scroll right
+	inc [hl]
+
+	; keep cursor at final visible position
+	ld a, NUM_VISIBLE_FILTERS - 1
 	jr .got_cursor_pos
-.check_d_up
-	bit B_PAD_UP, b
-	jr z, .got_cursor_pos
-	sub c
-	bit 7, a
-	jr z, .got_cursor_pos
-	add c
-	add c
+
+.wrap_to_end
+	; Update pending scroll offset to the end
+	ld hl, wPendingCardTypeFilterScrollOffset
+	ld a, MAX_FILTER_SCROLL_OFFSET
+	ld [hl], a
+
+	; place cursor at final visible position
+	ld a, NUM_VISIBLE_FILTERS - 1
+	jr .got_cursor_pos
+
+.wrap_to_start
+	; Update pending scroll offset to the start
+	ld hl, wPendingCardTypeFilterScrollOffset
+	xor a
+	ld [hl], a
+
+	; place cursor at first visible position
+	xor a
+	jr .got_cursor_pos
+
 .got_cursor_pos
 	push af
 	ld a, SFX_CURSOR
 	ld [wMenuInputSFX], a
-	call DrawHorizontalListCursor_Invisible
+	call DrawHorizontalListCursor_Invisible ; Clears the cursor printed at the current filter before moving to a new position
 	pop af
-	ld [wCardListCursorPos], a
+	; get new pending filter from new cursor pos and pending scroll offset
+	ld [wCardTypeFilterCursorPos], a
+	ld b, a
+	ld a, [wPendingCardTypeFilterScrollOffset]
+	add b
+	ld [wPendingCardTypeFilter], a
 	xor a
 	ld [wCheckMenuCursorBlinkCounter], a
 
 .handle_ab_btns
-	ld a, [wCardListCursorPos]
+	ld a, [wCardTypeFilterCursorPos]
 	ldh [hffb3], a
 	ldh a, [hKeysPressed]
 	and PAD_A | PAD_B
@@ -1883,7 +1935,7 @@ ConfirmSelectionAndReturnCarry:
 	call DrawHorizontalListCursor_Visible
 	ld a, $01
 	call PlaySFXConfirmOrCancel
-	ld a, [wCardListCursorPos]
+	ld a, [wCardTypeFilterCursorPos]
 	ld e, a
 	ldh a, [hffb3]
 	scf
@@ -1903,81 +1955,34 @@ HandleCardSelectionCursorBlink:
 	bit 4, [hl]
 	jr z, DrawHorizontalListCursor
 
-; the invisible cursor cannot simply be set to SYM_SPACE anymore as the
-; cursor is on top of the filter icons. Instead more complex calculations
-; must be done to ensure the correct top-left icon tile is loaded underneath
 DrawHorizontalListCursor_Invisible:
-	ld a, [wCurCardTypeFilter]
-	ld hl, CardTypeFilters
-	ld b, $00
-	ld c, a
-	; the filters are laid out differently than the order they are declared
-	; so we must find where in the filter list the selected filter is
-	add hl, bc
-	ld a, [hl]
-	cp FILTER_TRAINER ; special handling for Trainer and Energy filters because their icons are ordered differently - we set these directly
-	jr c, .find_tile
-	cp FILTER_ENERGY
-	jr z, .energy_tile
-	ld a, ICON_TILE_TRAINER ; Trainer icon is BEFORE the Fire icon
-	jr .set_tile
-.energy_tile
-	ld a, ICON_TILE_ENERGY ; Energy filter has a higher value than the others so we can't nicely iterate to it through the list
-	jr .set_tile
-.find_tile
-	; for the other filters we multiply a by 4 to find how far offest from
-	; the first icon (fire) we should be, and then add that to ICON_TILE_FIRE
-	add a, a
-	add a, a
-	ld c, ICON_TILE_FIRE
-	add c
-.set_tile
-	; once we know which tile to use we can finally set it as the cursor tile
-	ld [wInvisibleCursorTile], a
+	ld a, [wInvisibleCursorTile]
 ;	fallthrough
 
-; like DrawListCursor but for
-; lists with entries laid horizontally
-; splits the list into a second row
-; at the half-way point (wCardListNumCursorPositions / 2)
+; like DrawListCursor but only
+; for lists with one line, and each entry
+; being laid horizontally
 ; a = tile to write
 DrawHorizontalListCursor:
 	ld e, a
-	ld hl, wCardListCursorYPos
-	ld a, [hl]
-	ld b, a
-	ld a, [wCardListNumCursorPositions]
-	sra a
-	ld c, a
-	ld a, [wCardListCursorPos]
-	cp c
-	jr c, .horizontal_pos
-	ld a, [wCardListYSpacing]
-	ld b, a
-.horizontal_pos
 	ld a, [wCardListXSpacing]
 	ld l, a
-	ld a, [wCardListNumCursorPositions]
-	sra a
-	ld c, a
-	ld a, [wCardListCursorPos]
-	cp c
-	jr c, .top_row
-	sub c
-.top_row
+	ld a, [wCardTypeFilterCursorPos]
 	ld h, a
 	call HtimesL
 	ld a, l
 	ld hl, wCardListCursorXPos
 	add [hl]
-	ld c, b ; y coord
 	ld b, a ; x coord
+	ld hl, wCardListCursorYPos
+	ld a, [hl]
+	ld c, a ; y coord
 	ld a, e
 	call WriteByteToBGMap0
 	or a
 	ret
 
-DrawHorizontalListCursor_Visible: ; TODO - set cursor to BG PAL 0
+DrawHorizontalListCursor_Visible:
 	ld a, [wVisibleCursorTile]
 	jr DrawHorizontalListCursor
 
@@ -2295,7 +2300,7 @@ AddCardToDeckAndUpdateCount:
 	ret c ; failed to add card
 	push de
 	call PrintCardTypeCounts
-	lb de, 18, 5
+	lb de, 15, 0
 	call PrintTotalCardCount
 	pop de
 	call GetCountOfCardInCurDeck
@@ -2486,7 +2491,7 @@ RemoveCardFromDeckAndUpdateCount:
 	ret nc
 	push de
 	call PrintCardTypeCounts
-	lb de, 18, 5
+	lb de, 15, 0
 	call PrintTotalCardCount
 	pop de
 	call GetCountOfCardInCurDeck
@@ -2570,8 +2575,8 @@ HandleDeckConfirmationMenu:
 	xor a
 	ld [wCardListVisibleOffset], a
 .init_params
-	ld hl, .CardSelectionParams
-	call InitCardSelectionParams
+	ld hl, .DeckConfirmListCursorParams
+	call InitCursorParams
 	ld a, [wNumUniqueCards]
 	ld [wNumCardListEntries], a
 	cp NUM_DECK_CONFIRMATION_VISIBLE_CARDS
@@ -2605,7 +2610,6 @@ HandleDeckConfirmationMenu:
 	ld a, $01
 	call PlaySFXConfirmOrCancel
 	ld a, [wCardListCursorPos]
-	ld [wced7], a
 
 	; set wUniqueDeckCardList as current card list
 	; and show card page screen
@@ -2623,7 +2627,7 @@ HandleDeckConfirmationMenu:
 	ret z ; operation cancelled
 	jr .selected_card
 
-.CardSelectionParams
+.DeckConfirmListCursorParams
 	db 0 ; x pos
 	db 5 ; y pos
 	db 2 ; y spacing
@@ -3222,16 +3226,16 @@ HandlePlayersCardsScreen:
 	call PrintFilteredCardSelectionList
 	call EnableLCD
 	xor a
-	ld hl, CollectionFiltersCardSelectionParams
-	call InitCardSelectionParams
+	ld hl, DeckConfigFilterCursorParams
+	call InitCursorParams
 .wait_input
 	call DoFrame
 	ld a, [wCurCardTypeFilter]
 	ld b, a
-	ld a, [wTempCardTypeFilter]
+	ld a, [wPendingCardTypeFilter]
 	cp b
-	jr z, .skip_refresh
-	; need to refresh the filtered card list
+	jr z, .check_d_down
+
 	ld [wCurCardTypeFilter], a
 	ld hl, wCardListVisibleOffset
 	ld [hl], $00
@@ -3243,11 +3247,17 @@ HandlePlayersCardsScreen:
 	ld hl, hffb0
 	ld [hl], $00
 
-	ld a, NUM_FILTERS
+	ld a, NUM_VISIBLE_FILTERS
 	ld [wCardListNumCursorPositions], a
+.check_d_down
+	ldh a, [hDPadHeld]
+	and PAD_DOWN
+	jr z, .no_d_down
+	call ConfirmSelectionAndReturnCarry
+	jr .jump_to_list
 
-.skip_refresh
-	call HandleCardSelectionInput
+.no_d_down
+	call HandleFilterSelectionInput
 	jr nc, .wait_input
 	ldh a, [hffb3]
 	cp $ff ; operation cancelled
@@ -3260,8 +3270,8 @@ HandlePlayersCardsScreen:
 	jr z, .wait_input
 
 	xor a
-	ld hl, CollectionCardListSelectionParams
-	call InitCardSelectionParams
+	ld hl, CollectionCardListCursorParams
+	call InitCursorParams
 	ld a, [wNumEntriesInCurFilter]
 	ld [wNumCardListEntries], a
 	ld hl, wNumVisibleCardListEntries
@@ -3305,17 +3315,16 @@ HandlePlayersCardsScreen:
 	inc hl
 	ld [hl], d
 	call OpenCardPageFromCardList
-	call PrintPlayersCardsHeaderInfo
 
-	ld hl, CollectionFiltersCardSelectionParams
-	call InitCardSelectionParams
-	ld a, [wCurCardTypeFilter]
-	ld [wTempCardTypeFilter], a
+	; returned from card page
+	call PrintPlayersCardsHeaderInfo
+	ld hl, DeckConfigFilterCursorParams
+	call InitCursorParams
 	call DrawHorizontalListCursor_Visible
 	call PrintCardSelectionList
 	call EnableLCD
-	ld hl, CollectionCardListSelectionParams
-	call InitCardSelectionParams
+	ld hl, CollectionCardListCursorParams
+	call InitCursorParams
 	ld a, [wTempCardListNumCursorPositions]
 	ld [wCardListNumCursorPositions], a
 	ld a, [wTempCardListCursorPos]
@@ -3329,10 +3338,10 @@ HandlePlayersCardsScreen:
 	ldh a, [hffb3]
 	cp $ff
 	jr nz, .open_card_page
-	ld hl, CollectionFiltersCardSelectionParams
-	call InitCardSelectionParams
+	ld hl, DeckConfigFilterCursorParams
+	call InitCursorParams
 	ld a, [wCurCardTypeFilter]
-	ld [wTempCardTypeFilter], a
+	ld [wPendingCardTypeFilter], a
 	ld hl, hffb0
 	ld [hl], $01
 	call PrintPlayersCardsText
@@ -3340,22 +3349,12 @@ HandlePlayersCardsScreen:
 	ld [hl], $00
 	jp .wait_input
 
-CollectionFiltersCardSelectionParams:
-	db 0 ; x pos
-	db 1 ; y pos
-	db 3 ; y spacing
-	db 3 ; x spacing
-	db NUM_FILTERS ; num entries
-	db SYM_CURSOR_D ; visible cursor tile
-	db SYM_SPACE ; invisible cursor tile
-	dw NULL ; wCardListHandlerFunction
-
-CollectionCardListSelectionParams:
+CollectionCardListCursorParams:
 	db 1 ; x pos
-	db 6 ; y pos
+	db 5 ; y pos
 	db 2 ; y spacing
 	db 0 ; x spacing
-	db 6 ; num entries
+	db 7 ; num entries
 	db SYM_CURSOR_R ; visible cursor tile
 	db SYM_SPACE ; invisible cursor tile
 	dw NULL ; wCardListHandlerFunction
@@ -3375,9 +3374,8 @@ PrintFilteredCardSelectionList:
 	call CreateFilteredCardList
 
 	ld a, NUM_DECK_CONFIRMATION_VISIBLE_CARDS
-	dec a ; should be one less card than the confirmation screen but doesn't justify a new constant - TODO - if the confirmation screen is reworked into something else, rename the variable to NUM_DECK_COLLECTION_VISIBLE_CARDS and use it here
 	ld [wNumVisibleCardListEntries], a
-	lb de, 2, 6
+	lb de, 2, 5
 	ld hl, wCardListCoords
 	ld [hl], e
 	inc hl
@@ -3557,6 +3555,7 @@ PrintCardSelectionList:
 	ld b, 19 ; x coord
 	ld c, e
 	dec c
+	dec c
 	call WriteByteToBGMap0
 	pop bc
 	ret
@@ -3591,12 +3590,12 @@ PrintPlayersCardsHeaderInfo:
 	call Set_OBJ_8x8
 	call PrepareMenuGraphics
 .skip_empty_screen
-	lb bc, 0, 5
+	lb bc, 0, 4
 	ld a, SYM_BOX_TOP
 	call FillBGMapLineWithA
 	call PrintTotalNumberOfCardsInCollection
 	call PrintPlayersCardsText
-	jp DrawCollectionCardTypeIcons
+	jp DrawCardTypeIcons
 
 ; prints "<PLAYER>'s cards"
 PrintPlayersCardsText:

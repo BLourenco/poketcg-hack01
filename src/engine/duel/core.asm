@@ -7053,7 +7053,6 @@ InitVariablesToBeginDuel:
 	xor a
 	ld [wDuelFinished], a
 	ld [wDuelTurns], a
-	ld [wUnused_cce7], a
 	ld a, $ff
 	ld [wPlayerAttackingCardIndex], a
 	ld [wPlayerAttackingAttackIndex], a

@@ -64,6 +64,25 @@ _AddStarterDeck:
 	pop hl
 	dec c
 	jr nz, .loop_extra_cards
+; Giva all cards
+	ld c, NUM_CARDS
+.loop_debug_collection
+	ld l, c
+	res CARD_NOT_OWNED_F, [hl]
+	ld a, [hl]
+	add 16 ; 16 copies of every card
+	ld [hl], a
+	dec c
+	jr nz, .loop_debug_collection
+	ld c, DOUBLE_COLORLESS_ENERGY - 1
+.loop_debug_energies
+	ld l, c
+	ld a, [hl]
+	add 30 ; plus an additional 30 copies of each Basic Energy card
+	ld [hl], a
+	dec c
+	jr nz, .loop_debug_energies
+	ret
 	jp DisableSRAM
 
 .StarterCardIDs
