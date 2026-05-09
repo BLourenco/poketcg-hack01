@@ -1553,7 +1553,7 @@ wTempFilteredCardListNumCursorPositions:: ; ced5
 wTempDeckConfigMenuCursorPos:: ; ced6
 	ds $1
 
-; The cursor position for filter selection, list item selection, or menu selection in the Card Config menu (depending on the current context)
+; The cursor position for card list selection or menu selection in the Card Config menu (depending on the current context)
 ; Previously shared the same address as wPendingCardTypeFilter
 wCardListCursorPos:: ; ced7
 	ds $1

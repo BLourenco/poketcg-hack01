@@ -1805,7 +1805,7 @@ AddCardIDToVisibleList:
 ; wInvisibleCursorTile,
 ; wCardListHandlerFunction.
 InitCursorParams:
-	ld [wCardListCursorPos], a
+	ld [wCardListCursorPos], a ; TODO: Does this need to be updated now that there's a separate wCardTypeFilterCursorPos?
 	ldh [hffb3], a
 	ld de, wCardListCursorXPos
 	ld b, $9
