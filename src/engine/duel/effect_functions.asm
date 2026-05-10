@@ -1156,9 +1156,9 @@ HandleColorChangeScreen: ; TODO - This does not work properly with new types and
 	ret
 
 .menu_params
-	db 1, 1 ; cursor x, cursor y
-	db 2 ; y displacement between items
-	db MAX_PLAY_AREA_POKEMON ; number of items
+	db 1, 2 ; cursor x, cursor y
+	db 1 ; y displacement between items
+	db NUM_COLORED_TYPES ; number of items
 	db SYM_CURSOR_R ; cursor tile number
 	db SYM_SPACE ; tile behind cursor
 	dw NULL ; function pointer if non-0
@@ -1222,46 +1222,44 @@ HandleColorChangeScreen: ; TODO - This does not work properly with new types and
 	call DrawWideTextBox
 
 ; print list of color names on all list items
-	lb de, 4, 1
+	lb de, 4, 2
+	; for some reason `call SetNoLineSeparation` doesn't work, but its code does
+	ld a, SINGLE_SPACED
+	ld [wLineSeparation], a
+
 	ldtx hl, ColorListText
 	call InitTextPrinting_ProcessTextFromID
+
+	; for some reason `call SetOneLineSeparation` doesn't work, but its code does
+	ld a, DOUBLE_SPACED
+	ld [wLineSeparation], a
+
+; print type symbols
+	ld hl, ColorToTextSymbolOrdered
+	ld b, NUM_COLORED_TYPES
+	ld e, 2 ; y coord
+
+.loop
+	push bc
+	push hl
+
+	ld d, 2 ; x coord
+	call InitTextPrinting
+	call ProcessTextFromPointerToID
+
+	pop hl
+	inc hl
+	inc hl
+
+	inc e
+	pop bc
+	dec b
+	jr nz, .loop
 
 ; print input hl to text box
 	lb de, 1, 14
 	pop hl
 	call InitTextPrinting_ProcessTextFromID
-
-; draw and apply palette to color icons
-	ld hl, ColorTileAndBGP
-	lb de, 2, 0
-	ld c, NUM_COLORED_TYPES
-.loop_colors
-	ld a, [hli]
-	push de
-	push bc
-	push hl
-	lb hl, 1, 2
-	lb bc, 2, 2
-	call FillRectangle
-	pop hl
-	push hl
-	call BankswitchVRAM1
-	ld a, [hl]
-	lb hl, 0, 0
-	lb bc, 2, 2
-	call FillRectangle
-	call BankswitchVRAM0
-
-.skip_vram1
-	pop hl
-	pop bc
-	pop de
-	inc hl
-	inc e
-	inc e
-	dec c
-	jr nz, .loop_colors
-	ret
 
 ; loads wTxRam2 and wTxRam2_b:
 ; [wTxRam2]   <- wLoadedCard1Name
@@ -1327,6 +1325,17 @@ ColorToTextSymbol:
 	tx GrassSymbolText
 	tx LightningSymbolText
 	tx WaterSymbolText
+	tx FightingSymbolText
+	tx PsychicSymbolText
+	tx DarknessSymbolText
+	tx MetalSymbolText
+	tx DragonSymbolText
+
+ColorToTextSymbolOrdered:
+	tx GrassSymbolText
+	tx FireSymbolText
+	tx WaterSymbolText
+	tx LightningSymbolText
 	tx FightingSymbolText
 	tx PsychicSymbolText
 	tx DarknessSymbolText
