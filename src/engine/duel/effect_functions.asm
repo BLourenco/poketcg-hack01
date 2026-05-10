@@ -1223,16 +1223,10 @@ HandleColorChangeScreen: ; TODO - This does not work properly with new types and
 
 ; print list of color names on all list items
 	lb de, 4, 2
-	; for some reason `call SetNoLineSeparation` doesn't work, but its code does
-	ld a, SINGLE_SPACED
-	ld [wLineSeparation], a
-
+	bank1call SetNoLineSeparation
 	ldtx hl, ColorListText
 	call InitTextPrinting_ProcessTextFromID
-
-	; for some reason `call SetOneLineSeparation` doesn't work, but its code does
-	ld a, DOUBLE_SPACED
-	ld [wLineSeparation], a
+	bank1call SetOneLineSeparation
 
 ; print type symbols
 	ld hl, ColorToTextSymbolOrdered

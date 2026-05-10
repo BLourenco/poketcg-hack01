@@ -1,13 +1,10 @@
 # TODO List
 
  - Verify that any code tha uses NUM_TYPES and "- 1" together still work since the Unused type has been removed and new types have been added.
- - Some code needs to be commented/un-commented depending on how many colored types there are, this should be changed to automatically account for this
  - Fix bug where, when applying the Poison special condition, the icon is incorrectly loaded (but is fixed when the screen refreshes).
    - wUseVRAMBank1 flag already made, will be set when trying to load a symbol from VRAM Bank 1, and then bank switching will happen immediately before it's needed in HblankWriteByteToBGMap0 in [bg_map.asm](src/home/bg_map.asm)
+   - Is there a way to set the tiles on which the status symbols appear to always be set to VRAM bank 1?
  - Confirm whether I should remove gaps in cgb_symbols.png, update LoadVRAM0DuelCardSymbolTiles and LoadVRAM1DuelCardSymbolTiles if needed.
- - Venomoth's Shift:
-   - Rework UI
-   - Test AI
  - For all types, test:
    - Booster pack types
    - Weaknesses and Resistances
@@ -24,17 +21,11 @@ A list of TODO comments I've put in the code so I don't forget about them and kn
  - [bg_map.asm](src/home/bg_map.asm) - When VRAM1 is loaded, WriteByteToBGMap0 function will write the bytes with BGP0 applied - investigate whether there are any scenarios where a coloured tile is incorrectly being printed in B&W
 	 - Also consider possibility of loading parts of the duel UI in colour
  - [mason_laboratory.asm](src/scripts/mason_laboratory.asm) - there is an NPC who gives you a  bunch of free Energy cards if you have less than 10 spare Energy cards outside of your decks. I don't think this accounts for new Energy types properly, so should be investigated.
-  - [deck_configuration.asm](src/engine/menus/deck_configuration.asm)
-    - the NUM_DECK_CONFIRMATION_VISIBLE_CARDS const can be renamed and have its value changed if the confirmation screen is reworked into something else as planned.
-    - the filter cursor currently loads in with the same BG Palette as the icon tile that is selected. Ideally it should be set to BG0 (will require more work than you'd think to ensure the filter icon doesn't turn grey so not a huge priority atm)
   - [wram.asm](src/wram.asm) - Pretty sure most/all of the comments with registers are incorrect after things have been moved around and expanded
-  - [duel.asm](src/home/duel.asm) - Types from index $07 onwards will break the bitwise operations used to easily find Weakness and Resistnace. A quick workaround has been added for Colorless type as it's the only type with a high-enough index atm but a more robust system will be required when Fairy and Dragon are introduced.
-  - [effect_functions.asm](src/engine/duel/effect_functions.asm) - Colour changing option for Shift and Conversion does not work properly with the new types and VRAM changes - proper type icons are not loaded and the new types exceed the bounds of the list
 
 # Pre-existing TODOs
 These TODOs were already in the codebase
 
- - [charmaps.asm](src/constants/charmaps.asm) - change symbol syntax
  - [menu_constants.asm](src/constants/menu_constants.asm) - hardcoded values
  - [deck_selection.asm](src/engine/menus/deck_selection.asm) - something to do with the modify deck function?
  - [intro_sequence_commands.asm](src/engine/sequences/intro_sequence_commands.asm) - potentially rename function
