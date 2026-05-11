@@ -11,6 +11,9 @@
    - Attack costs (colored, colorless, mixed colors, all colorless)
    - Retreat costs (0, 1, 2, 3, 4, 5)
    - All of the above, but for the AI
+ - In the deck machine, going into and then out of a card page of a missing card glitches the card type icon.
+ - Evolving into a Stage 2 (Venusaur) caused a gliched tile under the card icon.
+
 
 # Mario_Bone's TODO List
 A list of TODO comments I've put in the code so I don't forget about them and know why I've put them aside
