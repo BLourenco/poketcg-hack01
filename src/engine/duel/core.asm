@@ -4785,6 +4785,7 @@ SetupPlayAreaScreen:
 	ret z
 	call ZeroObjectPositionsAndToggleOAMCopy
 	call EmptyScreen
+	call SetDefaultConsolePalettes
 	call LoadDuelCardSymbolTiles
 	jp LoadDuelCheckPokemonScreenTiles
 
