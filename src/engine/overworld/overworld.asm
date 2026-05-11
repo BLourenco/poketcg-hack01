@@ -1161,20 +1161,20 @@ DisplayDebugMenu:
 	ret
 
 DebugMenuPointerTable:
-	dw DebugMenu_Toggle
-	dw DebugMenu_Give
+	dw DebugMenu_Cards
+	dw DebugMenu_Medals
 	dw DebugMenu_Flags
 	dw DebugMenu_Space
 	dw DebugMenu_Credits
 	dw DebugMenu_Exit
 
-DebugMenu_Toggle:
-	;farcall _PauseMenu_Status
-	ret
+DebugMenu_Cards:
+	call Debug_GiveAllCards
+	farcall _PauseMenu_Exit
 
-DebugMenu_Give:
-	farcall Debug_GiveAllCards
-	ret
+DebugMenu_Medals:
+	call Debug_GiveAllMedals
+	farcall _PauseMenu_Exit
 
 DebugMenu_Flags:
 	ret
@@ -1482,4 +1482,15 @@ Debug_GiveAllCards:
 	dec c
 	jr nz, .loop_debug_energies
 	jp DisableSRAM
+	ret
+
+Debug_GiveAllMedals:
+	max_event_value EVENT_BEAT_NIKKI
+	max_event_value EVENT_BEAT_RICK
+	max_event_value EVENT_BEAT_KEN
+	max_event_value EVENT_BEAT_AMY
+	max_event_value EVENT_BEAT_ISAAC
+	max_event_value EVENT_BEAT_MURRAY
+	max_event_value EVENT_BEAT_GENE
+	max_event_value EVENT_BEAT_MITCH
 	ret

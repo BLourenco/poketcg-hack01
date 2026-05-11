@@ -967,8 +967,8 @@ PauseMenuOptionsText:
 	done
 
 DebugMenuOptionsText:
-	text "---------"
-	line "Get Cards"
+	text "Cards"
+	line "Medals"
 	line "---------"
 	line "---------"
 	line "Credits"
