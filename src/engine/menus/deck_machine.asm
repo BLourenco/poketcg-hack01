@@ -61,7 +61,7 @@ HandleDeckMissingCardsList:
 	and PAD_START
 	jr z, .loop_input
 
-.open_card_pge
+.open_card_page
 	ld a, $01
 	call PlaySFXConfirmOrCancel
 	ld a, [wCardListCursorPos]
@@ -80,7 +80,7 @@ HandleDeckMissingCardsList:
 	ldh a, [hffb3]
 	cp $ff
 	ret z
-	jr .open_card_pge
+	jr .open_card_page
 
 .DeckConfirmationCardSelectionParams
 	db 0 ; x pos
@@ -118,6 +118,7 @@ HandleDeckMissingCardsList:
 
 .ClearScreenAndPrintDeckTitle
 	call EmptyScreenAndLoadFontDuelAndHandCardsIcons
+	call LoadVRAM0DuelCardSymbolTiles
 	call .PrintDeckIndexAndName
 	jp EnableLCD
 
