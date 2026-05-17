@@ -1,9 +1,6 @@
 # TODO List
 
  - Verify that any code tha uses NUM_TYPES and "- 1" together still work since the Unused type has been removed and new types have been added.
- - Fix bug where, when applying the Poison special condition, the icon is incorrectly loaded (but is fixed when the screen refreshes).
-   - wUseVRAMBank1 flag already made, will be set when trying to load a symbol from VRAM Bank 1, and then bank switching will happen immediately before it's needed in HblankWriteByteToBGMap0 in [bg_map.asm](src/home/bg_map.asm)
-   - Is there a way to set the tiles on which the status symbols appear to always be set to VRAM bank 1?
  - Confirm whether I should remove gaps in cgb_symbols.png, update LoadVRAM0DuelCardSymbolTiles and LoadVRAM1DuelCardSymbolTiles if needed.
  - For all types, test:
    - Booster pack types

@@ -48,10 +48,74 @@ WriteDataBlockToBGMap0::
 	add hl, bc ; point to next structure
 	ret
 
+; writes a to [v*BGMap0 + TILEMAP_WIDTH * c + b]
+WriteVRAM1ByteToBGMap0::
+	push af
+	ld a, [wLCDC]
+	rla
+	jr c, .lcd_on
+	pop af
+	push hl
+	push de
+	push bc
+	push af
+	call BCCoordToBGMap0Address
+	pop af
+
+	; if we're in VRAM Bank 1, then we need to not only
+	; write the tile to BG Map 0 but also write to the
+	; attributes in BG Map 1 to say the tile is in Bank 1
+	push af
+	call WaitForVBlank ; Without this, the following write can fail if the LCD controller is in Mode 3
+	call BankswitchVRAM1
+	ld a, $08 ; sets the attributes of the tile to read from VRAM 1 with palette BG0 - TODO - see whether there's tiles that SHOULDN'T have this palette, but I'm pretty sure it's only drawing icons so it should be ok. Consider adding palettes to icons, might look nice
+	ld [de], a	
+	call BankswitchVRAM0
+	pop af
+
+	ld [de], a
+	pop bc
+	pop de
+	pop hl
+	ret
+.lcd_on
+	pop af
+;	fallthrough
+
+; writes a to [v*BGMap0 + TILEMAP_WIDTH * c + b] during hblank
+HblankWriteVRAM1ByteToBGMap0::
+	push hl
+	push de
+	push bc
+	ld hl, wTempByte
+	push hl
+	ld [hl], a
+	call BCCoordToBGMap0Address
+	pop hl
+
+	; if we're in VRAM Bank 1, then we need to not only
+	; write the tile to BG Map 0 but also write to the
+	; attributes in BG Map 1 to say the tile is in Bank 1
+	push af
+	call WaitForVBlank ; Without this, the following write can fail if the LCD controller is in Mode 3
+	call BankswitchVRAM1
+	ld a, $08 ; %1000, left most bit is VRAM bank #, last 3 bits are palette numbers 0-7
+	ld [de], a	
+	call BankswitchVRAM0
+	pop af
+
+	ld b, 1
+	call HblankCopyDataHLtoDE
+	pop bc
+	pop de
+	pop hl
+	ret
+
+
 ; extended version of function to make it more efficient
 ; to write tiles from VRAM Bank 1 to the BG Map
-WriteVRAM1ByteToBGMap0::
-	call BankswitchVRAM1
+;WriteVRAM1ByteToBGMap0::
+;	call BankswitchVRAM1
 ; writes a to [v*BGMap0 + TILEMAP_WIDTH * c + b]
 WriteByteToBGMap0::
 	push af
@@ -65,18 +129,6 @@ WriteByteToBGMap0::
 	push af
 	call BCCoordToBGMap0Address
 	pop af
-	; if we're in VRAM Bank 1, then we need to not only
-	; write the tile to BG Map 0 but also write to the
-	; attributes in BG Map 1 to say the tile is in Bank 1
-	push af
-	ld a, [rVBK] 
-	cp $ff
-	jr nz, .skip_attributes
-	ld a, $08 ; sets the attributes of the tile to read from VRAM 1 with palette BG0 - TODO - see whether there's tiles that SHOULDN'T have this palette, but I'm pretty sure it's only drawing icons so it should be ok. Consider adding palettes to icons, might look nice
-	ld [de], a
-.skip_attributes
-	pop af
-	call BankswitchVRAM0
 	ld [de], a
 	pop bc
 	pop de
@@ -96,18 +148,6 @@ HblankWriteByteToBGMap0::
 	ld [hl], a
 	call BCCoordToBGMap0Address
 	pop hl
-	; if we're in VRAM Bank 1, then we need to not only
-	; write the tile to BG Map 0 but also write to the
-	; attributes in BG Map 1 to say the tile is in Bank 1
-	push af
-	ld a, [rVBK] 
-	cp $ff
-	jr nz, .skip_attributes		; TODO: I believe somewhere around here there is an issue where the PSN icon sometimes glitches when first applied
-	ld a, $08 ; %1000, left most bit is VRAM bank #, last 3 bits are palette numbers 0-7
-	ld [de], a
-.skip_attributes
-	pop af
-	call BankswitchVRAM0
 	ld b, 1
 	call HblankCopyDataHLtoDE
 	pop bc

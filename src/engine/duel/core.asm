@@ -5141,7 +5141,10 @@ CheckPrintPoisoned:
 	jr z, .print
 .poison
 	ld a, SYM_POISONED
-	call BankswitchVRAM1
+	call WriteVRAM1ByteToBGMap0
+	pop af
+	ret
+
 .print
 	call WriteByteToBGMap0
 	pop af
@@ -5168,7 +5171,12 @@ CheckPrintCnfSlpPrz:
 	ld a, [hl]
 	cp SYM_SPACE
 	jr z, .write_byte
-	call BankswitchVRAM1 ; SYM_SPACE is in VRAM 0 but status symbols are in VRAM 1 - changes bank if necessary
+	call WriteVRAM1ByteToBGMap0 ; SYM_SPACE is in VRAM 0 but status symbols are in VRAM 1 - changes bank if necessary
+	pop de
+	pop hl
+	pop af
+	ret
+
 .write_byte
 	call WriteByteToBGMap0
 	pop de
