@@ -8,8 +8,10 @@
    - Attack costs (colored, colorless, mixed colors, all colorless)
    - Retreat costs (0, 1, 2, 3, 4, 5)
    - All of the above, but for the AI
- - In the deck machine, going into and then out of a card page of a missing card glitches the card type icon.
  - Evolving into a Stage 2 (Venusaur) caused a gliched tile under the card icon.
+   - This may have been fixed when I fixed the Poisoned symbol, I'll keep an eye on it.
+ - Re-order the types in the code to be consistent with the order displayed in the game.
+   - Modern order is: Grass, Fire, Water, Lightning, Psychic, Fighting, Darkness, Metal, Dragon, Colorless
 
 
 # Mario_Bone's TODO List
