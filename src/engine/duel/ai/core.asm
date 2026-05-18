@@ -527,12 +527,12 @@ ConvertColorToEnergyCardID:
 	ret
 
 .card_id
-	dw FIRE_ENERGY
 	dw GRASS_ENERGY
-	dw LIGHTNING_ENERGY
+	dw FIRE_ENERGY
 	dw WATER_ENERGY
-	dw FIGHTING_ENERGY
+	dw LIGHTNING_ENERGY
 	dw PSYCHIC_ENERGY
+	dw FIGHTING_ENERGY
 	dw DARKNESS_ENERGY
 	dw METAL_ENERGY
 	dw DOUBLE_COLORLESS_ENERGY ; Dragon
@@ -1499,35 +1499,35 @@ CheckEnergyFlagsNeededInList:
 	jp z, .no_carry
 	call GetCardIDFromDeckIndex
 
-; fire
-	cp16 FIRE_ENERGY
-	jr nz, .grass
-	ld a, FIRE_F
-	jr .check_energy
-.grass
+; grass
 	cp16 GRASS_ENERGY
-	jr nz, .lightning
+	jr nz, .fire
 	ld a, GRASS_F
 	jr .check_energy
-.lightning
-	cp16 LIGHTNING_ENERGY
+.fire
+	cp16 FIRE_ENERGY
 	jr nz, .water
-	ld a, LIGHTNING_F
+	ld a, FIRE_F
 	jr .check_energy
 .water
 	cp16 WATER_ENERGY
-	jr nz, .fighting
+	jr nz, .lightning
 	ld a, WATER_F
 	jr .check_energy
-.fighting
-	cp16 FIGHTING_ENERGY
+.lightning
+	cp16 LIGHTNING_ENERGY
 	jr nz, .psychic
-	ld a, FIGHTING_F
+	ld a, LIGHTNING_F
 	jr .check_energy
 .psychic
 	cp16 PSYCHIC_ENERGY
-	jr nz, .darkness
+	jr nz, .fighting
 	ld a, PSYCHIC_F
+	jr .check_energy
+.fighting
+	cp16 FIGHTING_ENERGY
+	jr nz, .darkness
+	ld a, FIGHTING_F
 	jr .check_energy
 .darkness
 	cp16 DARKNESS_ENERGY
@@ -1588,45 +1588,45 @@ GetAttacksEnergyCostBits:
 	ld a, [hli]
 	ld b, a
 
-; fire
+; grass
 	and $f0
-	jr z, .grass
-	ld c, FIRE_F
-.grass
+	jr z, .fire
+	ld c, GRASS_F
+.fire
 	ld a, b
 	and $0f
-	jr z, .lightning
-	ld a, GRASS_F
-	or c
-	ld c, a
-.lightning
-	ld a, [hli]
-	ld b, a
-	and $f0
 	jr z, .water
-	ld a, LIGHTNING_F
+	ld a, FIRE_F
 	or c
 	ld c, a
 .water
-	ld a, b
-	and $0f
-	jr z, .fighting
-	ld a, WATER_F
-	or c
-	ld c, a
-.fighting
 	ld a, [hli]
 	ld b, a
 	and $f0
+	jr z, .lightning
+	ld a, WATER_F
+	or c
+	ld c, a
+.lightning
+	ld a, b
+	and $0f
 	jr z, .psychic
-	ld a, FIGHTING_F
+	ld a, LIGHTNING_F
 	or c
 	ld c, a
 .psychic
+	ld a, [hli]
+	ld b, a
+	and $f0
+	jr z, .fighting
+	ld a, PSYCHIC_F
+	or c
+	ld c, a
+.fighting
 	ld a, b
 	and $0f
 	jr z, .darkness
-	ld a, PSYCHIC_F
+	ld a, FIGHTING_F
 	or c
 	ld c, a
 .darkness

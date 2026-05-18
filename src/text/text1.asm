@@ -102,12 +102,12 @@ LightningPokemonText:
 	text "Lightning Pokémon"
 	done
 
-FightingPokemonText:
-	text "Fighting Pokémon"
-	done
-
 PsychicPokemonText:
 	text "Psychic Pokémon"
+	done
+
+FightingPokemonText:
+	text "Fighting Pokémon"
 	done
 
 ColorlessPokemonText:
@@ -286,12 +286,12 @@ LightningSymbolText:
 	textfw "<LIGHTNING>"
 	done
 
-FightingSymbolText:
-	textfw "<FIGHTING>"
-	done
-
 PsychicSymbolText:
 	textfw "<PSYCHIC>"
+	done
+
+FightingSymbolText:
+	textfw "<FIGHTING>"
 	done
 
 BenchText:

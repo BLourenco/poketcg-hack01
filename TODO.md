@@ -10,8 +10,7 @@
    - All of the above, but for the AI
  - Evolving into a Stage 2 (Venusaur) caused a gliched tile under the card icon.
    - This may have been fixed when I fixed the Poisoned symbol, I'll keep an eye on it.
- - Re-order the types in the code to be consistent with the order displayed in the game.
-   - Modern order is: Grass, Fire, Water, Lightning, Psychic, Fighting, Darkness, Metal, Dragon, Colorless
+ - Re-order the Deck Machines in the lab to match the modern type order. ([menu_constants.asm](src/constants/menu_constants.asm))
 
 
 # Mario_Bone's TODO List

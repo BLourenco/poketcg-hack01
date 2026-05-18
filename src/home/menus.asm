@@ -656,12 +656,12 @@ DrawCardSymbol::
 
 CardSymbolTable::
 ; starting tile number, cgb palette (grey, orange/red, yellow/purple, green/blue, teal/gold)
-	db ICON_TILE_FIRE,              $01 ;  0
-	db ICON_TILE_GRASS,             $03 ;  1
-	db ICON_TILE_LIGHTNING,         $02 ;  2
-	db ICON_TILE_WATER,             $03 ;  3
-	db ICON_TILE_FIGHTING,          $01 ;  4
-	db ICON_TILE_PSYCHIC,           $02 ;  5
+	db ICON_TILE_GRASS,             $03 ;  0
+	db ICON_TILE_FIRE,              $01 ;  1
+	db ICON_TILE_WATER,             $03 ;  2
+	db ICON_TILE_LIGHTNING,         $02 ;  3
+	db ICON_TILE_PSYCHIC,           $02 ;  4
+	db ICON_TILE_FIGHTING,          $01 ;  5
 	db ICON_TILE_DARKNESS,          $04 ;  6
 	db ICON_TILE_METAL,             $00 ;  7
 	db ICON_TILE_DRAGON,            $04 ;  8

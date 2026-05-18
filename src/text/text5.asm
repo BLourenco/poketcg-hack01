@@ -499,9 +499,10 @@ EnergyCardsBookName:
 	done
 
 EnergyCardsBookText:
-	text "There are 6 Basic Energy cards:"
+	text "There are 8 Basic Energy cards:"
 	line "Grass, Fire, Water, Lightning,"
-	line "Fighting and Psychic!"
+	line "Fighting, Psychic, Darkness,"
+	line "and Metal!"
 	line "There is also the Double Colorless"
 	line "Energy card."
 	line "You may include as many Energy "

@@ -427,12 +427,12 @@ ENDM
 ; TX_SYMBOL
 	const_def
 	txsymbol "SPACE"            ; $00
-	txsymbol "FIRE"             ; $01
-	txsymbol "GRASS"            ; $02
-	txsymbol "LIGHTNING"        ; $03
-	txsymbol "WATER"            ; $04
-	txsymbol "FIGHTING"         ; $05
-	txsymbol "PSYCHIC"          ; $06
+	txsymbol "GRASS"            ; $01
+	txsymbol "FIRE"             ; $02
+	txsymbol "WATER"            ; $03
+	txsymbol "LIGHTNING"        ; $04
+	txsymbol "PSYCHIC"          ; $05
+	txsymbol "FIGHTING"         ; $06
 	txsymbol "DARKNESS"         ; $07
 	txsymbol "METAL"            ; $08
 	txsymbol "DRAGON"           ; $09

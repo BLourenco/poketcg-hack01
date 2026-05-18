@@ -5,8 +5,8 @@ CardPointers::
 	dab FireEnergyCard
 	dab WaterEnergyCard
 	dab LightningEnergyCard
-	dab FightingEnergyCard
 	dab PsychicEnergyCard
+	dab FightingEnergyCard
 	dab DarknessEnergyCard
 	dab MetalEnergyCard
 	dab DoubleColorlessEnergyCard

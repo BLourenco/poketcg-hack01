@@ -9392,17 +9392,6 @@ LightningEnergyCard:
 	tx LightningEnergyDescription ; description
 	dw NONE ; description (cont)
 
-FightingEnergyCard:
-	db TYPE_ENERGY_FIGHTING ; type
-	gfx FightingEnergyCardGfx ; gfx
-	tx FightingEnergyName ; name
-	db CIRCLE ; rarity
-	db ENERGY | NONE ; sets
-	dw FIGHTING_ENERGY
-	dw FightingEnergyEffectCommands ; effect commands
-	tx FightingEnergyDescription ; description
-	dw NONE ; description (cont)
-
 PsychicEnergyCard:
 	db TYPE_ENERGY_PSYCHIC ; type
 	gfx PsychicEnergyCardGfx ; gfx
@@ -9412,6 +9401,17 @@ PsychicEnergyCard:
 	dw PSYCHIC_ENERGY
 	dw PsychicEnergyEffectCommands ; effect commands
 	tx PsychicEnergyDescription ; description
+	dw NONE ; description (cont)
+
+FightingEnergyCard:
+	db TYPE_ENERGY_FIGHTING ; type
+	gfx FightingEnergyCardGfx ; gfx
+	tx FightingEnergyName ; name
+	db CIRCLE ; rarity
+	db ENERGY | NONE ; sets
+	dw FIGHTING_ENERGY
+	dw FightingEnergyEffectCommands ; effect commands
+	tx FightingEnergyDescription ; description
 	dw NONE ; description (cont)
 
 DarknessEnergyCard:

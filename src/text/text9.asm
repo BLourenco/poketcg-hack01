@@ -1210,20 +1210,20 @@ LightningEnergyDescription:
 	text "Provides 1 <LIGHTNING> Energy."
 	done
 
-FightingEnergyName:
-	text "Fighting Energy"
-	done
-
-FightingEnergyDescription:
-	text "Provides 1 <FIGHTING> Energy."
-	done
-
 PsychicEnergyName:
 	text "Psychic Energy"
 	done
 
 PsychicEnergyDescription:
 	text "Provides 1 <PSYCHIC> Energy."
+	done
+
+FightingEnergyName:
+	text "Fighting Energy"
+	done
+
+FightingEnergyDescription:
+	text "Provides 1 <FIGHTING> Energy."
 	done
 
 DoubleColorlessEnergyName:

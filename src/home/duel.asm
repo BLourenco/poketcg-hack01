@@ -1901,7 +1901,7 @@ TranslateColorToWR::
 	push hl
 	push bc
 	ld b, $0
-	cp 8 ; First 8 types: Fire, Grass, Lightning, Water, Fighting, Psychic, Darkness, Metal
+	cp 8 ; First 8 types: Grass, Fire, Water, Lightning, Psychic, Fighting, Darkness, Metal
 	jr c, .got_color
 	cp NUM_COLORED_TYPES ; Next 8 types: Dragon (that's it for my game)
 	jr c, .valid_color

@@ -28,8 +28,8 @@ TextOffsets::
 	textpointer FirePokemonText
 	textpointer WaterPokemonText
 	textpointer LightningPokemonText
-	textpointer FightingPokemonText
 	textpointer PsychicPokemonText
+	textpointer FightingPokemonText
 	textpointer DarknessPokemonText
 	textpointer MetalPokemonText
 	textpointer DragonPokemonText
@@ -73,8 +73,8 @@ TextOffsets::
 	textpointer FireSymbolText
 	textpointer WaterSymbolText
 	textpointer LightningSymbolText
-	textpointer FightingSymbolText
 	textpointer PsychicSymbolText
+	textpointer FightingSymbolText
 	textpointer DarknessSymbolText
 	textpointer MetalSymbolText
 	textpointer DragonSymbolText
@@ -1967,10 +1967,10 @@ TextOffsets::
 	textpointer WaterEnergyDescription
 	textpointer LightningEnergyName
 	textpointer LightningEnergyDescription
-	textpointer FightingEnergyName
-	textpointer FightingEnergyDescription
 	textpointer PsychicEnergyName
 	textpointer PsychicEnergyDescription
+	textpointer FightingEnergyName
+	textpointer FightingEnergyDescription
 	textpointer DarknessEnergyName
 	textpointer DarknessEnergyDescription
 	textpointer MetalEnergyName

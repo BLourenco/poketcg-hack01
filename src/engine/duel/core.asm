@@ -4077,7 +4077,7 @@ PrintCardPageWeaknessesOrResistances:
 	res 7, a
 .skip_ahead
 	ld d, a
-	xor a ; FIRE
+	xor a ; GRASS
 .loop
 	; each WR_* constant is a different bit. rotate the value to find out
 	; which bits are set and therefore which WR_* values are active.
@@ -5206,7 +5206,7 @@ PrintPlayAreaCardAttachedEnergies:
 	jr nz, .empty_loop
 	pop hl
 	ld de, wAttachedEnergies
-	lb bc, SYM_FIRE, NUM_TYPES
+	lb bc, SYM_GRASS, NUM_TYPES
 .next_color
 	ld a, [de] ; energy count of current color
 	inc de

@@ -373,14 +373,14 @@ GenerateLightningEnergy:
 	ld de, LIGHTNING_ENERGY
 	jr AddBoosterEnergyToDrawnEnergies
 
-; generates a fighting energy card
-GenerateFightingEnergy:
-	ld de, FIGHTING_ENERGY
-	jr AddBoosterEnergyToDrawnEnergies
-
 ; generates a psychic energy card
 GeneratePsychicEnergy:
 	ld de, PSYCHIC_ENERGY
+	jr AddBoosterEnergyToDrawnEnergies
+
+; generates a fighting energy card
+GenerateFightingEnergy:
+	ld de, FIGHTING_ENERGY
 	jr AddBoosterEnergyToDrawnEnergies
 
 ; generates a booster with 10 random energies
@@ -626,8 +626,8 @@ BoosterDataJumptable:
 	dw BoosterPack_EvolutionGrass
 	dw BoosterPack_EvolutionNeutralFireEnergy
 	dw BoosterPack_EvolutionWater
-	dw BoosterPack_EvolutionFighting
 	dw BoosterPack_EvolutionPsychic
+	dw BoosterPack_EvolutionFighting
 	dw BoosterPack_EvolutionTrainer
 	dw BoosterPack_MysteryNeutral
 	dw BoosterPack_MysteryGrassColorless
@@ -641,8 +641,8 @@ BoosterDataJumptable:
 	dw BoosterPack_LaboratoryPsychic
 	dw BoosterPack_LaboratoryTrainer
 	dw BoosterPack_EnergyLightningFire
-	dw BoosterPack_EnergyWaterFighting
 	dw BoosterPack_EnergyGrassPsychic
+	dw BoosterPack_EnergyWaterFighting
 	dw BoosterPack_RandomEnergies
 	assert_table_length NUM_BOOSTERS
 

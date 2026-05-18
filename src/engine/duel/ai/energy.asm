@@ -714,51 +714,51 @@ GetEnergyCardForDiscardOrEnergyBoostAttack:
 	cphl EXEGGUTOR
 	jr z, .charizard_or_exeggutor
 	ld hl, wLoadedCard2Atk2EnergyCost
-	jr .fire
+	jr .grass
 .first_attack
 	ld hl, wLoadedCard2Atk1EnergyCost
 
 ; check which energy color the attack requires,
 ; and load in e the card ID of corresponding energy card,
 ; then return carry flag set.
-.fire
+.grass
 	ld a, [hli]
 	ld b, a
 	and $f0
-	jr z, .grass
-	ld de, FIRE_ENERGY
-	jr .set_carry
-.grass
-	ld a, b
-	and $0f
-	jr z, .lightning
+	jr z, .fire
 	ld de, GRASS_ENERGY
 	jr .set_carry
-.lightning
-	ld a, [hli]
-	ld b, a
-	and $f0
-	jr z, .water
-	ld de, LIGHTNING_ENERGY
-	jr .set_carry
-.water
+.fire
 	ld a, b
 	and $0f
-	jr z, .fighting
-	ld de, WATER_ENERGY
+	jr z, .water
+	ld de, FIRE_ENERGY
 	jr .set_carry
-.fighting
+.water
 	ld a, [hli]
 	ld b, a
 	and $f0
+	jr z, .lightning
+	ld de, WATER_ENERGY
+	jr .set_carry
+.lightning
+	ld a, b
+	and $0f
 	jr z, .psychic
-	ld de, FIGHTING_ENERGY
+	ld de, LIGHTNING_ENERGY
 	jr .set_carry
 .psychic
+	ld a, [hli]
+	ld b, a
+	and $f0
+	jr z, .fighting
+	ld de, PSYCHIC_ENERGY
+	jr .set_carry
+.fighting
 	ld a, b
 	and $0f
 	jr z, .darkness
-	ld de, PSYCHIC_ENERGY
+	ld de, FIGHTING_ENERGY
 	jr .set_carry
 .darkness
 	ld a, [hli]

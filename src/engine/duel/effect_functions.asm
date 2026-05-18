@@ -1229,7 +1229,7 @@ HandleColorChangeScreen: ; TODO - This does not work properly with new types and
 	bank1call SetOneLineSeparation
 
 ; print type symbols
-	ld hl, ColorToTextSymbolOrdered
+	ld hl, ColorToTextSymbol
 	ld b, NUM_COLORED_TYPES
 	ld e, 2 ; y coord
 
@@ -1297,8 +1297,8 @@ ColorTileAndBGP:
 	db ICON_TILE_FIRE,      $01
 	db ICON_TILE_WATER,     $03
 	db ICON_TILE_LIGHTNING, $02
-	db ICON_TILE_FIGHTING,  $01
 	db ICON_TILE_PSYCHIC,   $02
+	db ICON_TILE_FIGHTING,  $01
 	db ICON_TILE_DARKNESS,  $04
 	db ICON_TILE_METAL,     $00
 	db ICON_TILE_DRAGON,    $04
@@ -1308,30 +1308,19 @@ ShiftListItemToColor:
 	db FIRE
 	db WATER
 	db LIGHTNING
-	db FIGHTING
 	db PSYCHIC
+	db FIGHTING
 	db DARKNESS
 	db METAL
 	db DRAGON
 
 ColorToTextSymbol:
-	tx FireSymbolText
-	tx GrassSymbolText
-	tx LightningSymbolText
-	tx WaterSymbolText
-	tx FightingSymbolText
-	tx PsychicSymbolText
-	tx DarknessSymbolText
-	tx MetalSymbolText
-	tx DragonSymbolText
-
-ColorToTextSymbolOrdered:
 	tx GrassSymbolText
 	tx FireSymbolText
 	tx WaterSymbolText
 	tx LightningSymbolText
-	tx FightingSymbolText
 	tx PsychicSymbolText
+	tx FightingSymbolText
 	tx DarknessSymbolText
 	tx MetalSymbolText
 	tx DragonSymbolText

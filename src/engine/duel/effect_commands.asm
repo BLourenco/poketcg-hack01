@@ -1409,10 +1409,10 @@ MetalEnergyEffectCommands:
 DarknessEnergyEffectCommands:
 	db  $00
 
-PsychicEnergyEffectCommands:
+FightingEnergyEffectCommands:
 	db  $00
 
-FightingEnergyEffectCommands:
+PsychicEnergyEffectCommands:
 	db  $00
 
 LightningEnergyEffectCommands:

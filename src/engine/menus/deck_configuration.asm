@@ -1085,8 +1085,8 @@ FilterIconOrder:
 	db ICON_TILE_FIRE,
 	db ICON_TILE_WATER,
 	db ICON_TILE_LIGHTNING,
-	db ICON_TILE_FIGHTING,
 	db ICON_TILE_PSYCHIC,
+	db ICON_TILE_FIGHTING,
 	db ICON_TILE_DARKNESS,
 	db ICON_TILE_METAL,
 	db ICON_TILE_DRAGON,
@@ -1605,8 +1605,8 @@ CardTypeFilters:
 	db FILTER_FIRE
 	db FILTER_WATER
 	db FILTER_LIGHTNING
-	db FILTER_FIGHTING
 	db FILTER_PSYCHIC
+	db FILTER_FIGHTING
 	db FILTER_DARKNESS
 	db FILTER_METAL
 	db FILTER_DRAGON
@@ -3129,7 +3129,7 @@ PrintConfirmationCardList:
 	add b
 	add b
 	add b ; *4
-	add ICON_TILE_FIRE
+	add ICON_TILE_GRASS
 	jr .got_tile
 
 .trainer_card
@@ -3179,12 +3179,12 @@ GetCardTypeIconPalette:
 
 .CardTypeIconPalettes
 ; icon tile, BG pal
-	db ICON_TILE_FIRE,            $1
 	db ICON_TILE_GRASS,           $3
-	db ICON_TILE_LIGHTNING,       $2
+	db ICON_TILE_FIRE,            $1
 	db ICON_TILE_WATER,           $3
-	db ICON_TILE_FIGHTING,        $1
+	db ICON_TILE_LIGHTNING,       $2
 	db ICON_TILE_PSYCHIC,         $2
+	db ICON_TILE_FIGHTING,        $1
 	db ICON_TILE_DARKNESS,        $4
 	db ICON_TILE_COLORLESS,       $0
 	db ICON_TILE_METAL,		  	  $0
