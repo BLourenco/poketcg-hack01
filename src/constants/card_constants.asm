@@ -3,8 +3,8 @@
 	const FIRE_ENERGY                 ; $02
 	const WATER_ENERGY                ; $03
 	const LIGHTNING_ENERGY            ; $04
-	const PSYCHIC_ENERGY              ; $05
-	const FIGHTING_ENERGY             ; $06
+	const FIGHTING_ENERGY             ; $05
+	const PSYCHIC_ENERGY              ; $06
 	const DARKNESS_ENERGY             ; $07
 	const METAL_ENERGY                ; $08
 	const DOUBLE_COLORLESS_ENERGY     ; $09
