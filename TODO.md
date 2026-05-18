@@ -17,8 +17,6 @@
 # Mario_Bone's TODO List
 A list of TODO comments I've put in the code so I don't forget about them and know why I've put them aside
 
- - [card_constants.asm](src/constants/card_constants.asm) - index
-   comments need to be updated to account for newly added cards
  - [card_constants.asm](src/engine/duel/core.asm) - bug where Basic Pokemon have a different tile graphic loading on one of the card info pages than the base game. In my opinion I think it actually works better, but leaving it here so I don't forget about the differing behaviour in case I want to change it
  - [bg_map.asm](src/home/bg_map.asm) - When VRAM1 is loaded, WriteByteToBGMap0 function will write the bytes with BGP0 applied - investigate whether there are any scenarios where a coloured tile is incorrectly being printed in B&W
 	 - Also consider possibility of loading parts of the duel UI in colour
